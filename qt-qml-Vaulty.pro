@@ -2,10 +2,7 @@ TEMPLATE = app
 
 QT += qml quick
 
-SOURCES += main.cpp \
-    secureitem.cpp \
-    vault.cpp \
-    store.cpp
+SOURCES += *.cpp
 
 RESOURCES += qml.qrc
 
@@ -15,7 +12,4 @@ QML_IMPORT_PATH =
 # Default rules for deployment.
 include(deployment.pri)
 
-HEADERS += \
-    secureitem.h \
-    vault.h \
-    store.h
+HEADERS += *.h
