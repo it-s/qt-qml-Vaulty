@@ -27,3 +27,4 @@
 *.out
 *.app
 /.project
+/qt-qml-Vaulty.pro.user*
