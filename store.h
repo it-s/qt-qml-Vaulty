@@ -1,8 +1,9 @@
 #ifndef STORE_H
 #define STORE_H
 
+#include <QObject>
 
-class Store
+class Store : public QAbstractListModel
 {
 public:
     Store();
