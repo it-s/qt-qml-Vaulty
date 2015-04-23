@@ -2,5 +2,11 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>MainForm.ui.qml</file>
+        <file>VaultList.qml</file>
+        <file>Store.qml</file>
+        <file>Common/Page.qml</file>
+        <file>VaultList/ListItem.qml</file>
+        <file>Store/ListItem.qml</file>
+        <file>VaultList/EditView.qml</file>
     </qresource>
 </RCC>

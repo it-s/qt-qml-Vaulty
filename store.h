@@ -1,13 +1,109 @@
 #ifndef STORE_H
 #define STORE_H
 
+#include <QString>
+#include <QFile>
+#include <QList>
+#include <QHash>
+#include <QByteArray>
+
 #include <QObject>
+#include <QAbstractListModel>
+
+enum ItemType {
+    Email,
+    Website,
+    Web_Service,
+    Web_Other,
+    Bank_Card,
+    Credit_Card,
+    Value_Card,
+    Other_Card,
+    Bank_Account,
+    Cash_Account,
+    Other_Account,
+    Pass_Code,
+    Lock_Code,
+    Other_Code
+};
+
+enum ItemStyle {
+    White,
+    Black,
+    Red,
+    Yellow,
+    Orange,
+    Green,
+    Emerald,
+    Aqua,
+    Blue,
+    Purple
+};
+
+struct StoreItem {
+    int ID;
+    ItemType
+            type;
+    ItemStyle
+            style;
+    QString
+        title,
+        login,
+        number,
+        password,
+        pin,
+        relate,
+        description;
+    operator QVariant() const
+    {
+        return QVariant::fromValue(*this);
+    }
+};
+Q_DECLARE_METATYPE(StoreItem);
 
 class Store : public QAbstractListModel
 {
+    Q_OBJECT
 public:
-    Store();
+    enum Roles {
+        ID = Qt::UserRole + 1,
+        TypeRole,
+        StyleRole,
+        TitleRole,
+        LoginRole,
+        NumberRole,
+        PasswordRole,
+        PinRole,
+        RelateRole,
+        DescriptionRole
+    };
+
+    Store(QObject *parent = 0);
     ~Store();
+
+    int rowCount(const QModelIndex &parent = QModelIndex()) const;
+    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
+    QHash<int, QByteArray> roleNames() const {return mDataRoles;}
+    bool setData(const QModelIndex & index, const QVariant & value, int role = Qt::EditRole);
+
+public slots:
+    void open(const QString storeName);
+    void close();
+
+    void add(const QVariantMap& v);
+    void remove(const int id);
+
+private:
+    bool isOpen;
+    QFile mStore;
+    QList<StoreItem> mData;
+    QHash<int, QByteArray> mDataRoles;
+
+    bool storeExists(const QString fileName);
+    void createNew(const QString fileName);
+    QByteArray encode(QString raw);
+    QString decode(QByteArray data);
+
 };
 
 #endif // STORE_H

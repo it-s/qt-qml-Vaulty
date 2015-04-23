@@ -1,21 +1,24 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include <QJsonDocument>
+#include <QQmlContext>
 
-#include "datamanager.h"
+#include "vaults.h"
+#include "store.h"
 
 int main(int argc, char *argv[])
 {
-    QString json = "{'test':true}";
-    QJsonDocument conf = QJsonDocument::fromJson(json.toUtf8());
-    QJsonObject obj = conf.object();
-    QString file = "data.json";
-    DataManager::saveJSON(file, obj);
+    QGuiApplication app(argc, argv);
+    app.setOrganizationName("Likalo.com");
+    app.setOrganizationDomain("Likalo.com");
+    app.setApplicationName("Vaulty");
 
-//    QGuiApplication app(argc, argv);
+    Vaults vaults;
+    Store store;
 
-//    QQmlApplicationEngine engine;
-//    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
+    QQmlApplicationEngine engine;
+    engine.rootContext()->setContextProperty("vaults", &vaults);
+    engine.rootContext()->setContextProperty("store", &store);
+    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
-//    return app.exec();
+    return app.exec();
 }
