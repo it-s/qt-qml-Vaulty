@@ -10,6 +10,8 @@ Page {
     width: 320
     height: 480
 
+    onHidden: store.close()
+
     ColumnLayout {
         spacing: 0
         anchors.fill: parent
@@ -20,9 +22,14 @@ Page {
             RowLayout {
                 anchors.fill: parent
                 ToolButton {
+                    text: "<"
+                    tooltip: "Return to vault selector"
+                    onClicked: app.goBack()
+                }
+                ToolButton {
                     text: "Add"
-                    tooltip: "Add new vault"
-//                    onClicked:
+                    tooltip: "Add new item"
+                    onClicked: editView.open()
                 }
             }
         }
@@ -37,8 +44,12 @@ Page {
                 anchors.leftMargin: 16
                 anchors.fill: parent
                 delegate: ListItem {}
-                model: vaults
+                model: store
             }
         }
+    }
+
+    EditView{
+        id: editView
     }
 }

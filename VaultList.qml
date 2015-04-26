@@ -22,7 +22,7 @@ Page {
                 ToolButton {
                     text: "Add"
                     tooltip: "Add new vault"
-//                    onClicked:
+                    onClicked: editView.open()
                 }
             }
         }
@@ -40,5 +40,9 @@ Page {
                 model: vaults
             }
         }
+    }
+
+    EditView {
+        id: editView
     }
 }

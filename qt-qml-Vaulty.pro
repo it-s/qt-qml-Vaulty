@@ -13,3 +13,5 @@ QML_IMPORT_PATH =
 include(deployment.pri)
 
 HEADERS += *.h
+
+DISTFILES += \

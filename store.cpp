@@ -19,6 +19,7 @@ Store::Store(QObject *parent) :
     mDataRoles[PinRole] = "pin",
     mDataRoles[RelateRole] = "relate",
     mDataRoles[DescriptionRole] = "description";
+    mStoreChanged = false;
     isOpen = false;
 }
 
@@ -115,13 +116,16 @@ bool Store::setData(const QModelIndex &index, const QVariant &value, int role)
             }
         }
     }
-    if (result) emit dataChanged(index, index);
+    if (result){
+        mStoreChanged = true;
+        emit dataChanged(index, index);
+    }
     return result;
 }
 
 void Store::open(const QString storeName)
 {
-    if (!isOpen) close();
+    if (isOpen) close();
     QSettings settings;
     mStore.setFileName(QFileInfo(settings.fileName()).absolutePath() + "/" + storeName);
     if (mStore.exists()){
@@ -149,35 +153,42 @@ void Store::open(const QString storeName)
         }
         endInsertRows();
     }
+    mStoreChanged = false;
     isOpen = true;
 }
 
 void Store::close()
 {
     if (!isOpen) return;
-    QJsonArray data;
-    for (int i=0; i < mData.count(); i++){
-        QJsonObject item;
-        StoreItem storeItem = mData.at(i);
-        item.insert("ID", QJsonValue(storeItem.ID));
-        item.insert("type", QJsonValue(storeItem.type));
-        item.insert("style", QJsonValue(storeItem.style));
-        item.insert("title", QJsonValue(storeItem.title));
-        item.insert("login", QJsonValue(storeItem.login));
-        item.insert("number", QJsonValue(storeItem.number));
-        item.insert("password", QJsonValue(storeItem.password));
-        item.insert("pin", QJsonValue(storeItem.pin));
-        item.insert("relate", QJsonValue(storeItem.relate));
-        item.insert("description", QJsonValue(storeItem.description));
-        data.append(item);
-    }
-    QJsonDocument json = QJsonDocument(data);
+    if (mStoreChanged) {
+        QJsonArray data;
+        for (int i=0; i < mData.count(); i++){
+            QJsonObject item;
+            StoreItem storeItem = mData.at(i);
+            item.insert("ID", QJsonValue(storeItem.ID));
+            item.insert("type", QJsonValue(storeItem.type));
+            item.insert("style", QJsonValue(storeItem.style));
+            item.insert("title", QJsonValue(storeItem.title));
+            item.insert("login", QJsonValue(storeItem.login));
+            item.insert("number", QJsonValue(storeItem.number));
+            item.insert("password", QJsonValue(storeItem.password));
+            item.insert("pin", QJsonValue(storeItem.pin));
+            item.insert("relate", QJsonValue(storeItem.relate));
+            item.insert("description", QJsonValue(storeItem.description));
+            data.append(item);
+        }
+        QJsonDocument json = QJsonDocument(data);
 
-    if ( mStore.open(QIODevice::WriteOnly) )
-    {
-        mStore.write(json.toJson());
-        mStore.close();
+        if ( mStore.open(QIODevice::WriteOnly) )
+        {
+            mStore.write(json.toJson());
+            mStore.close();
+        }
     }
+    beginRemoveRows(QModelIndex(), 0, mData.count());
+        mData.clear();
+    endRemoveRows();
+    mStoreChanged = false;
     isOpen = false;
 }
 
@@ -198,6 +209,7 @@ void Store::add(const QVariantMap &v)
     storeItem.relate = v.value("relate").toString();
     storeItem.description = v.value("description").toString();
     mData.append(storeItem);
+    mStoreChanged = true;
     endInsertRows();
 }
 

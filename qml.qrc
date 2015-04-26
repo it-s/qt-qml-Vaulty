@@ -8,5 +8,7 @@
         <file>VaultList/ListItem.qml</file>
         <file>Store/ListItem.qml</file>
         <file>VaultList/EditView.qml</file>
+        <file>Store/EditView.qml</file>
+        <file>Common/OverView.qml</file>
     </qresource>
 </RCC>

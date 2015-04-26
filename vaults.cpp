@@ -118,7 +118,7 @@ void Vaults::add(const QVariantMap &v)
     vault.ID = mData.count();
     vault.name = v.value("name").toString();
     vault.description = v.value("description").toString();
-    vault.file = "store" + mData.count();
+    vault.file = "store" + QString("%1").arg(mData.count(), 3, 10, QChar('0'));
     mData.append(vault);
     endInsertRows();
 }
@@ -128,6 +128,8 @@ void Vaults::remove(const int id)
     qDebug("Remove row");
     beginRemoveRows(QModelIndex(),id, id);
     mData.removeAt(id);
+    //TODO make sure store is also deleted
+//    bool QFile::remove(const QString &fileName);
     endRemoveRows();
 }
 

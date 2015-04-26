@@ -98,6 +98,7 @@ private:
     QFile mStore;
     QList<StoreItem> mData;
     QHash<int, QByteArray> mDataRoles;
+    bool mStoreChanged;
 
     bool storeExists(const QString fileName);
     void createNew(const QString fileName);
