@@ -10,5 +10,6 @@
         <file>VaultList/EditView.qml</file>
         <file>Store/EditView.qml</file>
         <file>Common/OverView.qml</file>
+        <file>Store/ItemTypes.qml</file>
     </qresource>
 </RCC>

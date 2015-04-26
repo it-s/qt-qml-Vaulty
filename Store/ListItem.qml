@@ -1,9 +1,9 @@
 import QtQuick 2.4
 
-Rectangle {
-    width: 100
-    height: 62
-    signal clicked
+MouseArea {
+    width: parent.width
+    height: 64
+
     Column {
         anchors.bottomMargin: 16
         anchors.topMargin: 16
@@ -13,10 +13,6 @@ Rectangle {
             text: title
             font.bold: true
         }
-    }
-    MouseArea {
-        anchors.fill: parent
-        onClicked: parent.clicked()
     }
 }
 

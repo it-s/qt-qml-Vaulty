@@ -43,7 +43,32 @@ Page {
                 anchors.rightMargin: 16
                 anchors.leftMargin: 16
                 anchors.fill: parent
-                delegate: ListItem {}
+                delegate: ListItem {
+//                    onClicked: app.openStore(file);
+                    onPressAndHold: editView.edit({
+                                                      type: 0,
+                                                      style: 0,
+                                                      title: title,
+                                                      login: login,
+                                                      number: number,
+                                                      password: password,
+                                                      pin: pin,
+                                                      relate: relate,
+                                                      description: description,
+                                                   callback: callback
+                                                  });
+                    function callback(data){
+//                        type: 0,
+//                        style: 0,
+                        title = data.title;
+                        login = data.login || "";
+                        number = data.number || "";
+                        password = data.password || "";
+                        pin = data.pin || "";
+                        relate = data.relate || "";
+                        description = data.description || "";
+                    }
+                }
                 model: store
             }
         }

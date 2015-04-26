@@ -10,42 +10,10 @@
 #include <QObject>
 #include <QAbstractListModel>
 
-enum ItemType {
-    Email,
-    Website,
-    Web_Service,
-    Web_Other,
-    Bank_Card,
-    Credit_Card,
-    Value_Card,
-    Other_Card,
-    Bank_Account,
-    Cash_Account,
-    Other_Account,
-    Pass_Code,
-    Lock_Code,
-    Other_Code
-};
-
-enum ItemStyle {
-    White,
-    Black,
-    Red,
-    Yellow,
-    Orange,
-    Green,
-    Emerald,
-    Aqua,
-    Blue,
-    Purple
-};
-
 struct StoreItem {
-    int ID;
-    ItemType
-            type;
-    ItemStyle
-            style;
+    int ID,
+        type,
+        style;
     QString
         title,
         login,

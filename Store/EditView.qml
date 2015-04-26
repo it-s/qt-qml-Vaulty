@@ -7,6 +7,8 @@ import "../Common"
 OverView {
     id: editView
 
+    onStateChanged: itemTitle.focus = true
+
     function clear(){
 //        type: 0,
 //        style: 0,
@@ -19,22 +21,41 @@ OverView {
         itemDescription.text = "";
     }
 
-    function save(){
+    function edit(item){
+        //Edit code here
+        _editing = item;
         if (_editing !== null){
+//            type: 0,
+//            style: 0,
+            itemTitle.text = item.title;
+            itemLogin.text = item.login;
+            itemNumber.text = item.number;
+            itemPass.text = item.password;
+            itemPin.text = item.pin;
+            itemRelate.text = item.relate;
+            itemDescription.text = item.description;
+        }
+        open();
+    }
 
+    function save(){
+        var data = {
+            type: 0,
+            style: 0,
+            title: itemTitle.text,
+            login: itemLogin.text,
+            number: itemNumber.text,
+            password: itemPass.text,
+            pin: itemPin.text,
+            relate: itemRelate.text,
+            description: itemDescription.text
+         };
+
+        if (_editing !== null){
+            _editing.callback(data);
         }else{
             if (itemTitle.text != "")
-            store.add({
-                          type: 0,
-                          style: 0,
-                          title: itemTitle.text,
-                          login: itemLogin.text,
-                          number: itemNumber.text,
-                          password: itemPass.text,
-                          pin: itemPin.text,
-                          relate: itemRelate.text,
-                          description: itemDescription.text
-                      });
+                vaults.add(data);
         }
         close();
     }

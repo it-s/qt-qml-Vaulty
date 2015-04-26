@@ -87,31 +87,40 @@ bool Store::setData(const QModelIndex &index, const QVariant &value, int role)
             StoreItem &storeItem = mData[row];
             switch(role) {
             case TypeRole:
-                storeItem.type = (ItemType)value.toInt();
+                storeItem.type = value.toInt();
+                result = true;
                 break;
             case StyleRole:
-                storeItem.style = (ItemStyle)value.toInt();
+                storeItem.style = value.toInt();
+                result = true;
                 break;
             case TitleRole:
                 storeItem.title = value.toString();
+                result = true;
                 break;
             case LoginRole:
                 storeItem.login = value.toString();
+                result = true;
                 break;
             case NumberRole:
                 storeItem.number = value.toString();
+                result = true;
                 break;
             case PasswordRole:
                 storeItem.password = value.toString();
+                result = true;
                 break;
             case PinRole:
                 storeItem.pin = value.toString();
+                result = true;
                 break;
             case RelateRole:
                 storeItem.relate = value.toString();
+                result = true;
                 break;
             case DescriptionRole:
                 storeItem.description = value.toString();
+                result = true;
                 break;
             }
         }
@@ -140,8 +149,8 @@ void Store::open(const QString storeName)
             QJsonObject item = data.at(i).toObject();
             StoreItem storeItem;
             storeItem.ID = item.value("ID").toInt();
-            storeItem.type = (ItemType)item.value("type").toInt();
-            storeItem.style = (ItemStyle)item.value("style").toInt();
+            storeItem.type = item.value("type").toInt();
+            storeItem.style = item.value("style").toInt();
             storeItem.title = item.value("title").toString();
             storeItem.login = item.value("login").toString();
             storeItem.number = item.value("number").toString();
@@ -199,8 +208,8 @@ void Store::add(const QVariantMap &v)
     StoreItem storeItem;
     beginInsertRows(QModelIndex(), mData.count(), mData.count());
     storeItem.ID = mData.count();
-    storeItem.type = (ItemType)v.value("type").toInt();
-    storeItem.style = (ItemStyle)v.value("style").toInt();
+    storeItem.type = v.value("type").toInt();
+    storeItem.style = v.value("style").toInt();
     storeItem.title = v.value("title").toString();
     storeItem.login = v.value("login").toString();
     storeItem.number = v.value("number").toString();

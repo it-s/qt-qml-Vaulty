@@ -33,10 +33,19 @@ Page {
 
             ListView {
                 id: vaultsList
-                anchors.rightMargin: 16
-                anchors.leftMargin: 16
                 anchors.fill: parent
-                delegate: ListItem {}
+                delegate: ListItem {
+                    onClicked: app.openStore(file);
+                    onPressAndHold: editView.edit({
+                                                      name: name,
+                                                      description: description,
+                                                   callback: callback
+                                                  });
+                    function callback(data){
+                        name = data.name;
+                        description = data.description;
+                    }
+                }
                 model: vaults
             }
         }
