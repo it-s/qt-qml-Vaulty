@@ -29,7 +29,8 @@ public:
     enum Roles {
         ID = Qt::UserRole + 1,
         NameRole,
-        DescriptionRole
+        DescriptionRole,
+        FileNameRole
     };
 
     explicit Vaults(QObject *parent = 0);

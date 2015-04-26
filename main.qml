@@ -15,6 +15,53 @@ ApplicationWindow {
                 "Store":        Qt.resolvedUrl("/Store.qml"),
     }
 
+    property bool firstRun: true
+
+    //---------------------------
+    //Application global functions
+    //---------------------------
+
+    function isFirstRun(){
+        return firstRun;
+    }
+
+    /**
+     * Go To Previous Page
+     */
+    function goBack(){
+        if (stack.depth > 1) stack.pop()
+    }
+
+    /**
+     * Go To specific
+     * @param page: Page Component
+     */
+    function goToPage(page){
+        stack.push(pages[page])
+    }
+
+    function openStore(file){
+        store.open(file);
+        goToPage("Store");
+    }
+
+    /*
+    -
+    - Application settings
+    -
+    */
+
+    Settings {
+        property alias firstRun: app.firstRun
+    }
+
+    Component.onCompleted: {
+    }
+
+    Component.onDestruction: {
+        firstRun = false;
+    }
+
     StackView {
         id: stack
         anchors.fill: parent

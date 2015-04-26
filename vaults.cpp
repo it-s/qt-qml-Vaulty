@@ -8,6 +8,7 @@ Vaults::Vaults(QObject *parent) :
     mDataRoles[ID] = "ID";
     mDataRoles[NameRole] = "name";
     mDataRoles[DescriptionRole] = "description";
+    mDataRoles[FileNameRole] = "file";
 
     QSettings mSettings;
     int size = mSettings.beginReadArray("vaults");
@@ -58,11 +59,17 @@ QVariant Vaults::data(const QModelIndex &index, int role) const
         if (row >= 0 && row < mData.size()) {
             const Vault &vault = mData[row];
             switch(role) {
+            case ID:
+                result = vault.ID;
+                break;
             case NameRole:
                 result = vault.name;
                 break;
             case DescriptionRole:
                 result = vault.description;
+                break;
+            case FileNameRole:
+                result = vault.file;
                 break;
             }
         }
