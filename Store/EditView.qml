@@ -40,7 +40,7 @@ OverView {
 
     function save(){
         var data = {
-            type: 0,
+            type: itemType.value,
             style: 0,
             title: itemTitle.text,
             login: itemLogin.text,
@@ -70,16 +70,21 @@ OverView {
 //    mDataRoles[RelateRole] = "relate",
 //    mDataRoles[DescriptionRole] = "description";
 
-//    Label {
-//        text: qsTr("Service Type:")
-//        anchors.left: parent.left
-//    }
+    Label {
+        text: qsTr("Service Type:")
+        anchors.left: parent.left
+    }
 
-//    ComboBox {
-//        id: itemType
-//        anchors.right: parent.right
-//        anchors.left: parent.left
-//    }
+    ComboBox {
+        id: itemType
+        property int value: 0
+        anchors.right: parent.right
+        anchors.left: parent.left
+        model: ItemTypes{
+            id: itemTypeModel
+        }
+        onAccepted: value = itemTypeModel.get(currentIndex).value
+    }
 
     TextField {
         id: itemTitle

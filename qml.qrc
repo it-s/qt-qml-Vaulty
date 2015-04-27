@@ -11,5 +11,6 @@
         <file>Store/EditView.qml</file>
         <file>Common/OverView.qml</file>
         <file>Store/ItemTypes.qml</file>
+        <file>Store/ItemStyles.qml</file>
     </qresource>
 </RCC>

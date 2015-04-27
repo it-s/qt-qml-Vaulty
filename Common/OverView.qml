@@ -52,6 +52,7 @@ Item
         }
     }
 
+
     Rectangle
     {
         id: pageView
@@ -71,16 +72,17 @@ Item
             anchors.left: parent.left
             anchors.right: parent.right
 
-            Column
-            {
-                id: pageBody
-                spacing: 10
-                anchors.left: parent.left
-                anchors.right: parent.right
+                Column
+                {
+                    id: pageBody
+                    spacing: 10
+                    anchors.left: parent.left
+                    anchors.right: parent.right
 
+                    //Overlay body
 
+                }
 
-            }
             Rectangle
             {
                 height: 1
@@ -106,6 +108,7 @@ Item
             }
         }
     }
+
     states: [
         State {
             name: "OPEN"
