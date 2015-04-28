@@ -11,8 +11,8 @@ ApplicationWindow {
     visible: true
 
     property var pages: {
-                "VaultList":    Qt.resolvedUrl("/VaultList.qml"),
-                "Store":        Qt.resolvedUrl("/Store.qml"),
+                "Vault":    Qt.resolvedUrl("/Vault.qml"),
+                "Store":    Qt.resolvedUrl("/Store.qml"),
     }
 
     property bool firstRun: true
@@ -66,18 +66,18 @@ ApplicationWindow {
         id: stack
         anchors.fill: parent
         // Implements back key navigation
-        focus: true
+//        focus: true
 
-        Keys.onReleased: {
-            if (event.key === Qt.Key_Back || event.key === Qt.Key_Backspace) {
-                event.accepted = currentItem.back();
-            }
-            if (event.key === Qt.Key_Menu || event.key === Qt.Key_Meta ) {
-                event.accepted = currentItem.menu();
-            }
-        }
+//        Keys.onReleased: {
+//            if (event.key === Qt.Key_Back || event.key === Qt.Key_Backspace) {
+//                event.accepted = currentItem.back();
+//            }
+//            if (event.key === Qt.Key_Menu || event.key === Qt.Key_Meta ) {
+//                event.accepted = currentItem.menu();
+//            }
+//        }
 
-        initialItem: app.pages["VaultList"]
+        initialItem: app.pages["Vault"]
 
         delegate: StackViewDelegate {
 

@@ -4,7 +4,7 @@ import QtQuick.Controls 1.2
 import Qt.labs.settings 1.0
 
 import "Common"
-import "VaultList"
+import "Vault"
 
 Page {
     width: 320

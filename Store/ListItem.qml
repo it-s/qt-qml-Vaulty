@@ -13,6 +13,11 @@ MouseArea {
             text: title
             font.bold: true
         }
+        Text {
+            text: number
+            font.bold: true
+            visible: number != ""
+        }
     }
 }
 

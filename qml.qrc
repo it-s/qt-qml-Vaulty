@@ -1,13 +1,12 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>MainForm.ui.qml</file>
-        <file>VaultList.qml</file>
+        <file>Vault.qml</file>
         <file>Store.qml</file>
         <file>Common/Page.qml</file>
-        <file>VaultList/ListItem.qml</file>
+        <file>Vault/ListItem.qml</file>
         <file>Store/ListItem.qml</file>
-        <file>VaultList/EditView.qml</file>
+        <file>Vault/EditView.qml</file>
         <file>Store/EditView.qml</file>
         <file>Common/OverView.qml</file>
         <file>Store/ItemTypes.qml</file>

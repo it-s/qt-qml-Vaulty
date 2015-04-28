@@ -10,8 +10,8 @@ OverView {
     onStateChanged: itemTitle.focus = true
 
     function clear(){
-//        type: 0,
-//        style: 0,
+        itemType.currentIndex = 0;
+        itemStyle.currentIndex = 0;
         itemTitle.text = "";
         itemLogin.text = "";
         itemNumber.text = "";
@@ -25,8 +25,8 @@ OverView {
         //Edit code here
         _editing = item;
         if (_editing !== null){
-//            type: 0,
-//            style: 0,
+            itemType.currentIndex = itemTypeModel.index(item.type);
+            itemStyle.currentIndex = itemStyleModel.index(item.style);
             itemTitle.text = item.title;
             itemLogin.text = item.login;
             itemNumber.text = item.number;
@@ -40,8 +40,8 @@ OverView {
 
     function save(){
         var data = {
-            type: itemType.value,
-            style: 0,
+            type: itemTypeModel.value(itemType.currentIndex),
+            style: itemStyleModel.value(itemStyle.currentIndex),
             title: itemTitle.text,
             login: itemLogin.text,
             number: itemNumber.text,
@@ -60,16 +60,6 @@ OverView {
         close();
     }
 
-//    mDataRoles[TypeRole] = "type",
-//    mDataRoles[StyleRole] = "style",
-//    mDataRoles[TitleRole] = "title",
-//    mDataRoles[LoginRole] = "login",
-//    mDataRoles[NumberRole] = "number",
-//    mDataRoles[PasswordRole] = "password",
-//    mDataRoles[PinRole] = "pin",
-//    mDataRoles[RelateRole] = "relate",
-//    mDataRoles[DescriptionRole] = "description";
-
     Label {
         text: qsTr("Service Type:")
         anchors.left: parent.left
@@ -83,7 +73,6 @@ OverView {
         model: ItemTypes{
             id: itemTypeModel
         }
-        onAccepted: value = itemTypeModel.get(currentIndex).value
     }
 
     TextField {
@@ -132,6 +121,21 @@ OverView {
         anchors.right: parent.right
         placeholderText: qsTr("Service URL (if any)")
         inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText
+    }
+
+    Label {
+        text: qsTr("Style:")
+        anchors.left: parent.left
+    }
+
+    ComboBox {
+        id: itemStyle
+        property int value: 0
+        anchors.right: parent.right
+        anchors.left: parent.left
+        model: ItemStyles {
+            id: itemStyleModel
+        }
     }
 
     Label {

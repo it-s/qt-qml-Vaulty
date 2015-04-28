@@ -46,8 +46,8 @@ Page {
                 delegate: ListItem {
 //                    onClicked: app.openStore(file);
                     onPressAndHold: editView.edit({
-                                                      type: 0,
-                                                      style: 0,
+                                                      type: type,
+                                                      style: style,
                                                       title: title,
                                                       login: login,
                                                       number: number,
@@ -58,8 +58,8 @@ Page {
                                                    callback: callback
                                                   });
                     function callback(data){
-//                        type: 0,
-//                        style: 0,
+                        type = data.type || 0;
+                        style = data.style || 0;
                         title = data.title;
                         login = data.login || "";
                         number = data.number || "";
@@ -69,9 +69,27 @@ Page {
                         description = data.description || "";
                     }
                 }
+                section.property: "type"
+                section.criteria: ViewSection.FullString
+                section.delegate:  Rectangle {
+                    width: parent.width
+                    height: childrenRect.height
+                    color: "lightsteelblue"
+                    Text {
+                        text: itemTypeModel.name(section)
+                        font.bold: true
+                        font.pixelSize: 20
+                    }
+                }
                 model: store
             }
         }
+    }
+    ItemTypes{
+        id: itemTypeModel
+    }
+    ItemStyles{
+        id: itemStyleModel
     }
 
     EditView{
