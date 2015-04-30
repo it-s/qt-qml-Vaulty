@@ -1,5 +1,6 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QSortFilterProxyModel>
 #include <QQmlContext>
 
 #include "vaults.h"
@@ -14,6 +15,11 @@ int main(int argc, char *argv[])
 
     Vaults vaults;
     Store store;
+
+//    QSortFilterProxyModel proxyStore;
+//    proxyStore.setSourceModel(&store);
+//    proxyStore.setFilterRole(store.TypeRole);
+//    proxyStore.setFilterCaseSensitivity(Qt::CaseInsensitive);
 
     QQmlApplicationEngine engine;
     engine.rootContext()->setContextProperty("vaults", &vaults);

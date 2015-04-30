@@ -25,7 +25,7 @@ ListModel{
     }
     ListElement {
         value: 1001
-        text: "Digital Service"
+        text: "Digital Services"
     }
     ListElement {
         value: 1101

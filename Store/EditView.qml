@@ -55,7 +55,7 @@ OverView {
             _editing.callback(data);
         }else{
             if (itemTitle.text != "")
-                vaults.add(data);
+                store.add(data);
         }
         close();
     }

@@ -1,4 +1,3 @@
-
 #include <QSettings>
 #include <QFileInfo>
 #include <QJsonDocument>
@@ -132,6 +131,26 @@ bool Store::setData(const QModelIndex &index, const QVariant &value, int role)
     return result;
 }
 
+bool Store::insertRow(int row, const QModelIndex &parent)
+{
+    if (!isOpen) return false;
+    bool result = false;
+    beginInsertRows(parent, row, row);
+
+    endInsertRows();
+    return result;
+}
+
+bool Store::removeRow(int row, const QModelIndex &parent)
+{
+    if (!isOpen) return false;
+    bool result = false;
+    beginRemoveRows(parent,row,row);
+
+    endRemoveRows();
+    return result;
+}
+
 void Store::open(const QString storeName)
 {
     if (isOpen) close();
@@ -230,4 +249,3 @@ void Store::remove(const int id)
     mData.removeAt(id);
     endRemoveRows();
 }
-
