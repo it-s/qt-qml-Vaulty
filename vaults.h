@@ -35,6 +35,8 @@ public:
 
     explicit Vaults(QObject *parent = 0);
     ~Vaults();
+
+protected:
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
     QHash<int, QByteArray> roleNames() const {return mDataRoles;}

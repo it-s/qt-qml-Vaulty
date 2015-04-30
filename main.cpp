@@ -1,6 +1,5 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include <QSortFilterProxyModel>
 #include <QQmlContext>
 
 #include "vaults.h"

@@ -49,9 +49,11 @@ public:
     Store(QObject *parent = 0);
     ~Store();
 
+protected:
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
     QHash<int, QByteArray> roleNames() const {return mDataRoles;}
+
     bool setData(const QModelIndex & index, const QVariant & value, int role = Qt::EditRole);
     bool insertRow(int row, const QModelIndex & parent = QModelIndex());
     bool removeRow(int row, const QModelIndex & parent = QModelIndex());
