@@ -3,7 +3,7 @@
 #include <QQmlContext>
 
 #include "vaults.h"
-#include "store.h"
+#include "storefilterproxymodel.h"
 
 int main(int argc, char *argv[])
 {
@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
     app.setApplicationName("Vaulty");
 
     Vaults vaults;
-    Store store;
+    StoreFilterProxyModel store;
 
 //    QSortFilterProxyModel proxyStore;
 //    proxyStore.setSourceModel(&store);

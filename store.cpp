@@ -146,7 +146,7 @@ bool Store::removeRow(int row, const QModelIndex &parent)
     if (!isOpen) return false;
     bool result = false;
     beginRemoveRows(parent,row,row);
-
+    mData.removeAt(row);
     endRemoveRows();
     return result;
 }
