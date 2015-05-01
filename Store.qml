@@ -84,6 +84,10 @@ Page {
                         font.bold: true
                         font.pixelSize: 20
                     }
+                    MouseArea{
+                        anchors.fill: parent
+                        onClicked: store.setFilterType(section)
+                    }
                 }
                 model: store
             }

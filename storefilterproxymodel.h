@@ -15,6 +15,7 @@ public:
     ~StoreFilterProxyModel();
 
 public slots:
+    void setFilterType();
     void setFilterType(int type);
     int filterType();
 

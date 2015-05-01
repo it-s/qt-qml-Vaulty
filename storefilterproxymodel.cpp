@@ -16,9 +16,15 @@ StoreFilterProxyModel::~StoreFilterProxyModel()
     store.close();
 }
 
+void StoreFilterProxyModel::setFilterType()
+{
+    setFilterType(-1);
+}
+
 void StoreFilterProxyModel::setFilterType(int type)
 {
     mType = type;
+    invalidate();
 }
 
 int StoreFilterProxyModel::filterType()
@@ -35,6 +41,7 @@ void StoreFilterProxyModel::open(const QString storeName)
 void StoreFilterProxyModel::close()
 {
     store.close();
+    mType = -1;
     invalidate();
 }
 
@@ -56,6 +63,6 @@ bool StoreFilterProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &s
     int type = sourceModel()->data(index, Store::TypeRole).toInt();
     QString title = sourceModel()->data(index, Store::TitleRole).toString();
 
-    return (mType<0||type==mType)&&(title.contains(filterRegExp())); //
+    return (mType<0||type==mType)&&(title.contains(filterRegExp()));
 }
 
