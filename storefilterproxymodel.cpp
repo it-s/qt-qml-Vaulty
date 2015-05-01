@@ -7,6 +7,7 @@ StoreFilterProxyModel::StoreFilterProxyModel(QObject *parent)
     setSourceModel(&store);
     setSortRole(Store::TypeRole);
     setFilterCaseSensitivity(Qt::CaseInsensitive);
+    sort(0);
 }
 
 StoreFilterProxyModel::~StoreFilterProxyModel()
@@ -27,21 +28,25 @@ int StoreFilterProxyModel::filterType()
 void StoreFilterProxyModel::open(const QString storeName)
 {
     store.open(storeName);
+    invalidate();
 }
 
 void StoreFilterProxyModel::close()
 {
     store.close();
+    invalidate();
 }
 
 void StoreFilterProxyModel::add(const QVariantMap &v)
 {
     store.add(v);
+    invalidate();
 }
 
 void StoreFilterProxyModel::remove(const int id)
 {
     store.remove(id);
+    invalidate();
 }
 
 bool StoreFilterProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const
@@ -50,6 +55,6 @@ bool StoreFilterProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &s
     int type = sourceModel()->data(sourceParent, Store::TypeRole).toInt();
     QString title = sourceModel()->data(sourceParent, Store::TitleRole).toString();
 
-    return (mType<0||type==mType)&&(title.contains(filterRegExp()));
+    return (title.contains(filterRegExp())); //(mType<0||type==mType)&&
 }
 

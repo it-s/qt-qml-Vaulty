@@ -31,6 +31,10 @@ Page {
                     tooltip: "Add new item"
                     onClicked: editView.open()
                 }
+                TextField {
+                    placeholderText: "Filter"
+                    onTextChanged: store.setFilterRegExp("^"+text)
+                }
             }
         }
         Item {
