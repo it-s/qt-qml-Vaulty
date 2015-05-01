@@ -1,3 +1,4 @@
+#include <QDebug>
 #include "storefilterproxymodel.h"
 
 StoreFilterProxyModel::StoreFilterProxyModel(QObject *parent)
@@ -51,10 +52,10 @@ void StoreFilterProxyModel::remove(const int id)
 
 bool StoreFilterProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const
 {
-    Q_UNUSED(sourceRow);
-    int type = sourceModel()->data(sourceParent, Store::TypeRole).toInt();
-    QString title = sourceModel()->data(sourceParent, Store::TitleRole).toString();
+    QModelIndex index = sourceModel()->index(sourceRow, 0, sourceParent);
+    int type = sourceModel()->data(index, Store::TypeRole).toInt();
+    QString title = sourceModel()->data(index, Store::TitleRole).toString();
 
-    return (title.contains(filterRegExp())); //(mType<0||type==mType)&&
+    return (mType<0||type==mType)&&(title.contains(filterRegExp())); //
 }
 
