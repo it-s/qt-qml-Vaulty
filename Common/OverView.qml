@@ -14,6 +14,9 @@ Item
     default property alias _contentChildren: pageBody.data
     property var _editing: null
 
+    property string saveButtonText: "Save"
+    property string closeButtonText: "Cancel"
+
     function open(){
         //Open code here
         state = "OPEN"
@@ -110,14 +113,16 @@ Item
                     anchors.left: parent.left
                     anchors.right: parent.right
                     Button{
-                        text: "Cancel"
+                        text: overView.closeButtonText
                         Layout.alignment: Qt.AlignRight
                         onClicked: overView.close();
+                        visible: overView.closeButtonText != ""
                     }
                     Button{
-                        text: "Save"
+                        text: overView.saveButtonText
                         Layout.alignment: Qt.AlignRight
                         onClicked: overView.save();
+                        visible: overView.saveButtonText != ""
                     }
                 }
             }

@@ -4,6 +4,21 @@ MouseArea {
     width: parent.width
     height: 64
 
+    function toJSON(callback){
+        return {
+            type: type,
+            style: style,
+            title: title,
+            login: login,
+            number: number,
+            password: password,
+            pin: pin,
+            relate: relate,
+            description: description,
+            callback: callback
+        }
+    }
+
     Column {
         anchors.bottomMargin: 16
         anchors.topMargin: 16

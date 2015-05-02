@@ -81,19 +81,8 @@ Page {
                 anchors.leftMargin: 16
                 anchors.fill: parent
                 delegate: ListItem {
-//                    onClicked: app.openStore(file);
-                    onPressAndHold: editView.edit({
-                                                      type: type,
-                                                      style: style,
-                                                      title: title,
-                                                      login: login,
-                                                      number: number,
-                                                      password: password,
-                                                      pin: pin,
-                                                      relate: relate,
-                                                      description: description,
-                                                   callback: callback
-                                                  });
+                    onClicked: cardView.show(toJSON())
+                    onPressAndHold: editView.edit(toJSON(callback));
                     function callback(data){
                         type = data.type || 0;
                         style = data.style || 0;
@@ -128,6 +117,10 @@ Page {
     }
     ItemStyles{
         id: itemStyleModel
+    }
+
+    CardView{
+        id: cardView
     }
 
     EditView{
