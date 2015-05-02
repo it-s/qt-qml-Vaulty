@@ -23,6 +23,7 @@ Page {
                     text: "Add"
                     tooltip: "Add new vault"
                     onClicked: editView.open()
+                    Layout.alignment: Qt.AlignRight
                 }
             }
         }

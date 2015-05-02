@@ -35,9 +35,13 @@ Item
     }
 
     function close(){
+        state = ""
+    }
+
+    function _reset(){
+        pageViewWrapper.contentY = 0
         _editing = null;
         clear();
-        state = ""
     }
 
     Rectangle
@@ -48,66 +52,103 @@ Item
         opacity: 0.8
         MouseArea{
             anchors.fill: parent
-            onClicked: if (mouse.y < pageView.y || mouse.y > pageView.y + pageView.height) overView.close();
+            onClicked: if (mouse.y < pageViewWrapper.y || mouse.y > pageViewWrapper.y + pageViewWrapper.height) overView.close();
         }
     }
 
 
-    Rectangle
-    {
-        id: pageView
-        color: "#fff"
+    Flickable {
+        id: pageViewWrapper
+        width: parent.width
+        height: pageView.height > app.height? parent.height: pageView.height
+
+        contentHeight: pageView.height
+
+        flickableDirection: Flickable.VerticalFlick
+        interactive: pageView.height > app.height
+
         anchors.verticalCenter: parent.verticalCenter
-        anchors.right: parent.right
-        anchors.left: parent.left
-        height: childrenRect.height + 24*2
 
-        Column
+        Rectangle
         {
-            anchors.rightMargin: 15
-            anchors.leftMargin: 15
-            anchors.top: parent.top
-            anchors.topMargin: 24
-            spacing: 10
-            anchors.left: parent.left
-            anchors.right: parent.right
+            id: pageView
+            color: "#fff"
+            width: overView.width
+            height: childrenRect.height + 24*2
 
-                Column
+            Column
+            {
+                anchors.rightMargin: 15
+                anchors.leftMargin: 15
+                anchors.top: parent.top
+                anchors.topMargin: 24
+                spacing: 10
+                anchors.left: parent.left
+                anchors.right: parent.right
+
+                    Column
+                    {
+                        id: pageBody
+                        spacing: 10
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+
+                        //Overlay body
+
+                    }
+
+                Rectangle
                 {
-                    id: pageBody
-                    spacing: 10
+                    height: 1
+                    color: "#eee"
                     anchors.left: parent.left
                     anchors.right: parent.right
-
-                    //Overlay body
-
                 }
-
-            Rectangle
-            {
-                height: 1
-                color: "#eee"
-                anchors.left: parent.left
-                anchors.right: parent.right
-            }
-            RowLayout
-            {
-                id: pageFooter
-                anchors.left: parent.left
-                anchors.right: parent.right
-                Button{
-                    text: "Cancel"
-                    Layout.alignment: Qt.AlignRight
-                    onClicked: overView.close();
-                }
-                Button{
-                    text: "Save"
-                    Layout.alignment: Qt.AlignRight
-                    onClicked: overView.save();
+                RowLayout
+                {
+                    id: pageFooter
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    Button{
+                        text: "Cancel"
+                        Layout.alignment: Qt.AlignRight
+                        onClicked: overView.close();
+                    }
+                    Button{
+                        text: "Save"
+                        Layout.alignment: Qt.AlignRight
+                        onClicked: overView.save();
+                    }
                 }
             }
         }
     }
+
+    transitions: [
+        Transition {
+            from: ""
+            to: "OPEN"
+            SequentialAnimation{
+                NumberAnimation{
+                    target: overView
+                    properties: "opacity"
+                }
+            }
+        },
+        Transition {
+            from: "OPEN"
+            to: ""
+            SequentialAnimation{
+                NumberAnimation{
+                    target: overView
+                    properties: "opacity"
+                }
+                ScriptAction {
+                    script:  _reset();
+                }
+            }
+        }
+    ]
 
     states: [
         State {

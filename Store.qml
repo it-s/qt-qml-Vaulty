@@ -13,15 +13,17 @@ Page {
     onHidden: store.close()
 
     ColumnLayout {
+        spacing: 0
         anchors.fill: parent
 
         ToolBar {
             height: 64
+            z: 1
             Layout.fillWidth: true
             RowLayout {
                 anchors.fill: parent
                 ToolButton {
-                    text: "<"
+                    text: "< Vaulty"
                     tooltip: "Return to vault selector"
                     onClicked: app.goBack()
                     Layout.fillHeight: true
@@ -31,33 +33,47 @@ Page {
                     tooltip: "Add new item"
                     onClicked: editView.open()
                     Layout.fillHeight: true
-                }
-                TextField {
-                    placeholderText: "Filter"
-                    onTextChanged: store.setFilterRegExp(text)
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
+                    Layout.alignment: Qt.AlignRight
                 }
             }
         }
-        ToolBar{
-            height: 24
+        Rectangle {
+            height: 32
             Layout.fillWidth: true
-            ComboBox{
+            color: "white"
+            z: 1
+            RowLayout{
                 anchors.fill: parent
-                model: ItemTypes{
-                        id: itemTypeModel
-                        Component.onCompleted: insert(0,{text:"All Types",value:-1})
-                    }
-                onCurrentIndexChanged: store.setFilterType(itemTypeModel.value(currentIndex))
-//                Component.onCompleted: {model.insert(0,{text:"All Types",value:-1});currentIndex=0}
+
+                ComboBox{
+                    Layout.fillWidth: true
+                    model: ItemTypes{
+                            id: itemTypeModel
+                            Component.onCompleted: insert(0,{text:"All Types",value:-1})
+                        }
+                    onCurrentIndexChanged: store.setFilterType(itemTypeModel.value(currentIndex))
+                }
+                TextField {
+                    Layout.fillWidth: true
+                    placeholderText: "Filter"
+                    onTextChanged: store.setFilterRegExp(text)
+                }
+
             }
+        }
+        Rectangle {
+            Layout.fillWidth: true
+            height: 1
+            color: "gray"
+            z: 1
+        }
+        Item {
+            height: 15
         }
 
         Item {
             Layout.fillWidth: true
             Layout.fillHeight: true
-            clip: true
 
             ListView {
                 id: vaultsList
