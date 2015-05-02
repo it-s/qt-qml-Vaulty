@@ -13,7 +13,6 @@ Page {
     onHidden: store.close()
 
     ColumnLayout {
-        spacing: 0
         anchors.fill: parent
 
         ToolBar {
@@ -25,18 +24,36 @@ Page {
                     text: "<"
                     tooltip: "Return to vault selector"
                     onClicked: app.goBack()
+                    Layout.fillHeight: true
                 }
                 ToolButton {
                     text: "Add"
                     tooltip: "Add new item"
                     onClicked: editView.open()
+                    Layout.fillHeight: true
                 }
                 TextField {
                     placeholderText: "Filter"
-                    onTextChanged: store.setFilterRegExp("^"+text)
+                    onTextChanged: store.setFilterRegExp(text)
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
                 }
             }
         }
+        ToolBar{
+            height: 24
+            Layout.fillWidth: true
+            ComboBox{
+                anchors.fill: parent
+                model: ItemTypes{
+                        id: itemTypeModel
+                        Component.onCompleted: insert(0,{text:"All Types",value:-1})
+                    }
+                onCurrentIndexChanged: store.setFilterType(itemTypeModel.value(currentIndex))
+//                Component.onCompleted: {model.insert(0,{text:"All Types",value:-1});currentIndex=0}
+            }
+        }
+
         Item {
             Layout.fillWidth: true
             Layout.fillHeight: true
@@ -49,29 +66,40 @@ Page {
                 anchors.fill: parent
                 delegate: ListItem {
 //                    onClicked: app.openStore(file);
-                    onPressAndHold: editView.edit({
-                                                      type: type,
-                                                      style: style,
-                                                      title: title,
-                                                      login: login,
-                                                      number: number,
-                                                      password: password,
-                                                      pin: pin,
-                                                      relate: relate,
-                                                      description: description,
-                                                   callback: callback
-                                                  });
-                    function callback(data){
-                        type = data.type || 0;
-                        style = data.style || 0;
-                        title = data.title;
-                        login = data.login || "";
-                        number = data.number || "";
-                        password = data.password || "";
-                        pin = data.pin || "";
-                        relate = data.relate || "";
-                        description = data.description || "";
-                    }
+//                    onPressAndHold: editView.edit({
+//                                                      type: type,
+//                                                      style: style,
+//                                                      title: title,
+//                                                      login: login,
+//                                                      number: number,
+//                                                      password: password,
+//                                                      pin: pin,
+//                                                      relate: relate,
+//                                                      description: description,
+//                                                   callback: callback
+//                                                  });
+//                    function callback(data){
+//                        type = data.type || 0;
+//                        style = data.style || 0;
+//                        title = data.title;
+//                        login = data.login || "";
+//                        number = data.number || "";
+//                        password = data.password || "";
+//                        pin = data.pin || "";
+//                        relate = data.relate || "";
+//                        description = data.description || "";
+//                    }
+                    onPressAndHold: app.goToPage("Item", {
+                                         type: type,
+                                        style: style,
+                                        title: title,
+                                        login: login,
+                                        number: number,
+                                        password: password,
+                                        pin: pin,
+                                        relate: relate,
+                                        description: description
+                                  });
                 }
                 section.property: "type"
                 section.criteria: ViewSection.FullString
@@ -92,9 +120,6 @@ Page {
                 model: store
             }
         }
-    }
-    ItemTypes{
-        id: itemTypeModel
     }
     ItemStyles{
         id: itemStyleModel

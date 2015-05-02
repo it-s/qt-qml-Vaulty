@@ -14,4 +14,3 @@ include(deployment.pri)
 
 HEADERS += *.h
 
-DISTFILES += \

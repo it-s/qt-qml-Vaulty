@@ -13,7 +13,10 @@ ApplicationWindow {
     property var pages: {
                 "Vault":    Qt.resolvedUrl("/Vault.qml"),
                 "Store":    Qt.resolvedUrl("/Store.qml"),
+                "Item":    Qt.resolvedUrl("/Item.qml"),
     }
+
+    property var _intent
 
     property bool firstRun: true
 
@@ -25,24 +28,33 @@ ApplicationWindow {
         return firstRun;
     }
 
+    function setIntent(intent){
+        if (intent) _intent = intent;
+    }
+
+    function getIntent(){
+        return _intent;
+    }
+
+    function clearIntent(){
+        _intent = null;
+    }
+
     /**
      * Go To Previous Page
      */
-    function goBack(){
-        if (stack.depth > 1) stack.pop()
+    function goBack(intent){
+        setIntent(intent);
+        if (stack.depth > 1) stack.pop();
     }
 
     /**
      * Go To specific
      * @param page: Page Component
      */
-    function goToPage(page){
-        stack.push(pages[page])
-    }
-
-    function openStore(file){
-        store.open(file);
-        goToPage("Store");
+    function goToPage(page, intent){
+        setIntent(intent);
+        stack.push(pages[page]);
     }
 
     /*

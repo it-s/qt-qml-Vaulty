@@ -20,10 +20,6 @@ ListModel{
     }
 
     ListElement {
-        value: 0
-        text: "Unknown"
-    }
-    ListElement {
         value: 1001
         text: "Digital Services"
     }
@@ -42,5 +38,9 @@ ListModel{
     ListElement {
         value: 3001
         text: "Locks & Codes"
+    }
+    ListElement {
+        value: 0
+        text: "Uncategorized"
     }
 }

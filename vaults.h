@@ -33,6 +33,8 @@ public:
         FileNameRole
     };
 
+    void synch();
+
     explicit Vaults(QObject *parent = 0);
     ~Vaults();
 

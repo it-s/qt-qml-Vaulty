@@ -67,9 +67,9 @@ OverView {
 
     ComboBox {
         id: itemType
-        property int value: 0
         anchors.right: parent.right
         anchors.left: parent.left
+        currentIndex: itemTypeModel.count - 1
         model: ItemTypes{
             id: itemTypeModel
         }
