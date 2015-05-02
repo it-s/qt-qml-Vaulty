@@ -66,40 +66,29 @@ Page {
                 anchors.fill: parent
                 delegate: ListItem {
 //                    onClicked: app.openStore(file);
-//                    onPressAndHold: editView.edit({
-//                                                      type: type,
-//                                                      style: style,
-//                                                      title: title,
-//                                                      login: login,
-//                                                      number: number,
-//                                                      password: password,
-//                                                      pin: pin,
-//                                                      relate: relate,
-//                                                      description: description,
-//                                                   callback: callback
-//                                                  });
-//                    function callback(data){
-//                        type = data.type || 0;
-//                        style = data.style || 0;
-//                        title = data.title;
-//                        login = data.login || "";
-//                        number = data.number || "";
-//                        password = data.password || "";
-//                        pin = data.pin || "";
-//                        relate = data.relate || "";
-//                        description = data.description || "";
-//                    }
-                    onPressAndHold: app.goToPage("Item", {
-                                         type: type,
-                                        style: style,
-                                        title: title,
-                                        login: login,
-                                        number: number,
-                                        password: password,
-                                        pin: pin,
-                                        relate: relate,
-                                        description: description
-                                  });
+                    onPressAndHold: editView.edit({
+                                                      type: type,
+                                                      style: style,
+                                                      title: title,
+                                                      login: login,
+                                                      number: number,
+                                                      password: password,
+                                                      pin: pin,
+                                                      relate: relate,
+                                                      description: description,
+                                                   callback: callback
+                                                  });
+                    function callback(data){
+                        type = data.type || 0;
+                        style = data.style || 0;
+                        title = data.title;
+                        login = data.login || "";
+                        number = data.number || "";
+                        password = data.password || "";
+                        pin = data.pin || "";
+                        relate = data.relate || "";
+                        description = data.description || "";
+                    }
                 }
                 section.property: "type"
                 section.criteria: ViewSection.FullString

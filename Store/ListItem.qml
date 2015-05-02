@@ -18,6 +18,11 @@ MouseArea {
             font.bold: true
             visible: number != ""
         }
+        Rectangle{
+            width: parent.width
+            height: 1
+            color: "gray"
+        }
     }
 }
 
