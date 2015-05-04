@@ -11,10 +11,10 @@
 #include <QAbstractListModel>
 
 struct StoreItem {
-    int ID,
-        type,
+    int type,
         style;
     QString
+        ID,
         title,
         login,
         number,
@@ -22,37 +22,37 @@ struct StoreItem {
         pin,
         relate,
         description;
-    operator QVariant() const
-    {
-        return QVariant::fromValue(*this);
-    }
+//    operator QVariant() const
+//    {
+//        return QVariant::fromValue(*this);
+//    }
     operator QVariantMap() const
     {
         QVariantMap m;
-        m.value("ID",this->ID);
-        m.value("type",this->type);
-        m.value("style",this->style);
-        m.value("title",this->title);
-        m.value("login",this->login);
-        m.value("number",this->number);
-        m.value("password",this->password);
-        m.value("pin",this->pin);
-        m.value("relate",this->relate);
-        m.value("description",this->description);
+        m["ID"]=this->ID;
+        m["type"]=this->type;
+        m["style"]=this->style;
+        m["title"]=this->title;
+        m["login"]=this->login;
+        m["number"]=this->number;
+        m["password"]=this->password;
+        m["pin"]=this->pin;
+        m["relate"]=this->relate;
+        m["description"]=this->description;
         return m;
     }
     StoreItem& operator=(const QVariantMap& v)
     {
-        this->ID = v.value("ID").toInt();
-        this->type = v.value("type").toInt();
-        this->style = v.value("style").toInt();
-        this->title = v.value("title").toString();
-        this->login = v.value("login").toString();
-        this->number = v.value("number").toString();
-        this->password = v.value("password").toString();
-        this->pin = v.value("pin").toString();
-        this->relate = v.value("relate").toString();
-        this->description = v.value("description").toString();
+        if (v.contains("ID")) this->ID = v.value("ID").toString();
+        if (v.contains("type")) this->type = v.value("type").toInt();
+        if (v.contains("style")) this->style = v.value("style").toInt();
+        if (v.contains("title")) this->title = v.value("title").toString();
+        if (v.contains("login")) this->login = v.value("login").toString();
+        if (v.contains("number")) this->number = v.value("number").toString();
+        if (v.contains("password")) this->password = v.value("password").toString();
+        if (v.contains("pin")) this->pin = v.value("pin").toString();
+        if (v.contains("relate")) this->relate = v.value("relate").toString();
+        if (v.contains("description")) this->description = v.value("description").toString();
         return *this;
     }
 };
@@ -92,9 +92,9 @@ public slots:
     void close();
 
     void add(const QVariantMap& v);
-    QVariantMap get(const int index);
-    void set(const int index, const QVariantMap& v);
-    void remove(const int id);
+    QVariantMap get(const QString id);
+    void set(const QString id, const QVariantMap& v);
+    void remove(const QString id);
 
 private:
     bool isOpen;
@@ -107,6 +107,7 @@ private:
     void createNew(const QString fileName);
     QByteArray encode(QString raw);
     QString decode(QByteArray data);
+    StoreItem &findElementById(const QString id);
 
 };
 

@@ -1,3 +1,4 @@
+#include <QUuid>
 #include <QSettings>
 #include <QFileInfo>
 #include <QJsonDocument>
@@ -167,7 +168,7 @@ void Store::open(const QString storeName)
         for (int i=0; i< data.count(); i++){
             QJsonObject item = data.at(i).toObject();
             StoreItem storeItem;
-            storeItem.ID = item.value("ID").toInt();
+            storeItem.ID = item.value("ID").toString();
             storeItem.type = item.value("type").toInt();
             storeItem.style = item.value("style").toInt();
             storeItem.title = item.value("title").toString();
@@ -227,7 +228,7 @@ void Store::add(const QVariantMap &v)
     StoreItem storeItem;
     beginInsertRows(QModelIndex(), mData.count(), mData.count());
     storeItem = v;
-    storeItem.ID = mData.count();
+    storeItem.ID = QUuid::createUuid().toString();
 
 //    storeItem.type = v.value("type").toInt();
 //    storeItem.style = v.value("style").toInt();
@@ -243,23 +244,38 @@ void Store::add(const QVariantMap &v)
     endInsertRows();
 }
 
-QVariantMap Store::get(const int index)
+QVariantMap Store::get(const QString id)
 {
-    StoreItem &storeItem = mData[index];
-    return QVariantMap(storeItem);
+    return (QVariantMap) findElementById(id);
 }
 
-void Store::set(const int index, const QVariantMap &v)
+void Store::set(const QString id, const QVariantMap &v)
 {
-    StoreItem &storeItem = mData[index];
+    StoreItem &storeItem = findElementById(id);
     storeItem = v;
+    mStoreChanged = true;
 }
 
-void Store::remove(const int id)
+void Store::remove(const QString id)
 {
     if (!isOpen) return;
     qDebug("Remove row");
-    beginRemoveRows(QModelIndex(),id, id);
-    mData.removeAt(id);
+    const StoreItem storeItem = findElementById(id);
+    const int index = mData.indexOf(storeItem);
+    beginRemoveRows(QModelIndex(),index, index);
+    mData.removeOne(storeItem);
     endRemoveRows();
+}
+
+StoreItem& Store::findElementById(const QString id)
+{
+//    std::find_if (mData.begin(), mData.end(),
+//                  [id](const StoreItem & m) -> bool { return m.ID == id; });
+    QList<StoreItem>::iterator itr;
+    for(itr = mData.begin(); itr != mData.end(); ++itr) {
+        StoreItem& item = *itr;
+        if( item.ID == id ) return item;
+    }
+    StoreItem item;
+    return item;
 }

@@ -21,19 +21,20 @@ OverView {
         itemDescription.text = "";
     }
 
-    function edit(item){
+    function edit(index){
         //Edit code here
-        _editing = item;
+        _editing = index;
+        var v = store.get(index);
         if (_editing !== null){
-            itemType.currentIndex = itemTypeModel.index(item.type);
-            itemStyle.currentIndex = itemStyleModel.index(item.style);
-            itemTitle.text = item.title;
-            itemLogin.text = item.login;
-            itemNumber.text = item.number;
-            itemPass.text = item.password;
-            itemPin.text = item.pin;
-            itemRelate.text = item.relate;
-            itemDescription.text = item.description;
+            itemType.currentIndex = itemTypeModel.index(v.type);
+            itemStyle.currentIndex = itemStyleModel.index(v.style);
+            itemTitle.text = v.title;
+            itemLogin.text = v.login;
+            itemNumber.text = v.number;
+            itemPass.text = v.password;
+            itemPin.text = v.pin;
+            itemRelate.text = v.relate;
+            itemDescription.text = v.description;
         }
         open();
     }
@@ -52,7 +53,8 @@ OverView {
          };
 
         if (_editing !== null){
-            _editing.callback(data);
+//            _editing.callback(data);
+            store.set(_editing, data);
         }else{
             if (itemTitle.text != "")
                 store.add(data);

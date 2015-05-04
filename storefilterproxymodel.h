@@ -23,9 +23,9 @@ public slots:
     void close();
 
     void add(const QVariantMap& v);
-    QVariantMap get(const int index);
-    void set(const int index, const QVariantMap& v);
-    void remove(const int id);
+    QVariantMap get(const QString id);
+    void set(const QString id, const QVariantMap& v);
+    void remove(const QString id);
 
 protected:
     bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const;

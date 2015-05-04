@@ -51,18 +51,18 @@ void StoreFilterProxyModel::add(const QVariantMap &v)
     invalidate();
 }
 
-QVariantMap StoreFilterProxyModel::get(const int index)
+QVariantMap StoreFilterProxyModel::get(const QString id)
 {
-    store.get(index);
+    return store.get(id);
 }
 
-void StoreFilterProxyModel::set(const int index, const QVariantMap &v)
+void StoreFilterProxyModel::set(const QString id, const QVariantMap &v)
 {
-    store.set(index, v);
+    store.set(id, v);
     invalidate();
 }
 
-void StoreFilterProxyModel::remove(const int id)
+void StoreFilterProxyModel::remove(const QString id)
 {
     store.remove(id);
     invalidate();

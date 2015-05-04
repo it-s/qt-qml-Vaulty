@@ -81,20 +81,20 @@ Page {
                 anchors.leftMargin: 16
                 anchors.fill: parent
                 delegate: ListItem {
-                    onClicked: cardView.show(toJSON())
-                    onPressAndHold: editView.edit(toJSON(callback));
-                    function callback(data){
-                        console.log("Saving");
-                        type = data.type || 0;
-                        style = data.style || 0;
-                        title = data.title;
-                        login = data.login || "";
-                        number = data.number || "";
-                        password = data.password || "";
-                        pin = data.pin || "";
-                        relate = data.relate || "";
-                        description = data.description || "";
-                    }
+                    onClicked: cardView.show(toJSON());
+                    onPressAndHold: editView.edit(index);
+//                    function callback(data){
+//                        console.log("Saving");
+//                        type = data.type || 0;
+//                        style = data.style || 0;
+//                        title = data.title;
+//                        login = data.login || "";
+//                        number = data.number || "";
+//                        password = data.password || "";
+//                        pin = data.pin || "";
+//                        relate = data.relate || "";
+//                        description = data.description || "";
+//                    }
                 }
                 section.property: "type"
                 section.criteria: ViewSection.FullString
