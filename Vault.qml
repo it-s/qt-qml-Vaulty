@@ -20,6 +20,11 @@ Page {
             RowLayout {
                 anchors.fill: parent
                 ToolButton {
+                    text: "Vaulty"
+                    tooltip: "Configure application"
+                }
+
+                ToolButton {
                     text: "Add"
                     tooltip: "Add new vault"
                     onClicked: editView.open()

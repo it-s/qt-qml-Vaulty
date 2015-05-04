@@ -84,6 +84,7 @@ Page {
                     onClicked: cardView.show(toJSON())
                     onPressAndHold: editView.edit(toJSON(callback));
                     function callback(data){
+                        console.log("Saving");
                         type = data.type || 0;
                         style = data.style || 0;
                         title = data.title;

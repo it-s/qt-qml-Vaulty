@@ -23,6 +23,8 @@ public slots:
     void close();
 
     void add(const QVariantMap& v);
+    QVariantMap get(const int index);
+    void set(const int index, const QVariantMap& v);
     void remove(const int id);
 
 protected:

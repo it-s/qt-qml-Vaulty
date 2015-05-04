@@ -226,19 +226,33 @@ void Store::add(const QVariantMap &v)
     qDebug("Add row");
     StoreItem storeItem;
     beginInsertRows(QModelIndex(), mData.count(), mData.count());
+    storeItem = v;
     storeItem.ID = mData.count();
-    storeItem.type = v.value("type").toInt();
-    storeItem.style = v.value("style").toInt();
-    storeItem.title = v.value("title").toString();
-    storeItem.login = v.value("login").toString();
-    storeItem.number = v.value("number").toString();
-    storeItem.password = v.value("password").toString();
-    storeItem.pin = v.value("pin").toString();
-    storeItem.relate = v.value("relate").toString();
-    storeItem.description = v.value("description").toString();
+
+//    storeItem.type = v.value("type").toInt();
+//    storeItem.style = v.value("style").toInt();
+//    storeItem.title = v.value("title").toString();
+//    storeItem.login = v.value("login").toString();
+//    storeItem.number = v.value("number").toString();
+//    storeItem.password = v.value("password").toString();
+//    storeItem.pin = v.value("pin").toString();
+//    storeItem.relate = v.value("relate").toString();
+//    storeItem.description = v.value("description").toString();
     mData.append(storeItem);
     mStoreChanged = true;
     endInsertRows();
+}
+
+QVariantMap Store::get(const int index)
+{
+    StoreItem &storeItem = mData[index];
+    return QVariantMap(storeItem);
+}
+
+void Store::set(const int index, const QVariantMap &v)
+{
+    StoreItem &storeItem = mData[index];
+    storeItem = v;
 }
 
 void Store::remove(const int id)
