@@ -240,12 +240,12 @@ void Store::add(const QVariantMap &v)
 
 QVariantMap Store::get(const QString id)
 {
-    return (QVariantMap) findElementById(id);
+    return (QVariantMap) mData[findElementIndexById(id)];
 }
 
 void Store::set(const QString id, const QVariantMap &v)
 {
-    StoreItem &storeItem = findElementById(id);
+    StoreItem &storeItem = mData[findElementIndexById(id)];
     storeItem = v;
     mStoreChanged = true;
 }
@@ -254,22 +254,20 @@ void Store::remove(const QString id)
 {
     if (!isOpen) return;
     qDebug("Remove row");
-//    const StoreItem storeItem = findElementById(id);
-//    const int index = mData.indexOf(storeItem);
-//    beginRemoveRows(QModelIndex(),index, index);
-//    mData.removeOne(storeItem);
-//    endRemoveRows();
+    int index = findElementIndexById(id);
+    beginRemoveRows(QModelIndex(),index, index);
+    mData.removeAt(index);
+    endRemoveRows();
 }
 
-StoreItem& Store::findElementById(const QString id)
+int Store::findElementIndexById(const QString &id) const
 {
-//    std::find_if (mData.begin(), mData.end(),
-//                  [id](const StoreItem & m) -> bool { return m.ID == id; });
-    QList<StoreItem>::iterator itr;
-    for(itr = mData.begin(); itr != mData.end(); ++itr) {
-        StoreItem& item = *itr;
-        if( item.ID == id ) return item;
+    int index = -1;
+    for(int i=0; i<mData.count();++i){
+        if(mData[i].ID == id){
+            index = i;
+            break;
+        }
     }
-    StoreItem item;
-    return item;
+    return index;
 }
