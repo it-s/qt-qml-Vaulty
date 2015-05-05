@@ -21,10 +21,10 @@ OverView {
         itemDescription.text = "";
     }
 
-    function edit(index){
+    function edit(ID){
         //Edit code here
-        _editing = index;
-        var v = store.get(index);
+        _editing = ID;
+        var v = store.get(ID);
         if (_editing !== null){
             itemType.currentIndex = itemTypeModel.index(v.type);
             itemStyle.currentIndex = itemStyleModel.index(v.style);

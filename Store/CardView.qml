@@ -26,6 +26,7 @@ OverView {
 
     function show(item){
         //Edit code here
+
 //            itemType.currentIndex = itemTypeModel.index(item.type);
 //            itemStyle.currentIndex = itemStyleModel.index(item.style);
         itemTitle.text = item.title;

@@ -82,19 +82,7 @@ Page {
                 anchors.fill: parent
                 delegate: ListItem {
                     onClicked: cardView.show(toJSON());
-                    onPressAndHold: editView.edit(index);
-//                    function callback(data){
-//                        console.log("Saving");
-//                        type = data.type || 0;
-//                        style = data.style || 0;
-//                        title = data.title;
-//                        login = data.login || "";
-//                        number = data.number || "";
-//                        password = data.password || "";
-//                        pin = data.pin || "";
-//                        relate = data.relate || "";
-//                        description = data.description || "";
-//                    }
+                    onPressAndHold: editView.edit(ID);
                 }
                 section.property: "type"
                 section.criteria: ViewSection.FullString
@@ -106,10 +94,6 @@ Page {
                         text: itemTypeModel.name(section)
                         font.bold: true
                         font.pixelSize: 20
-                    }
-                    MouseArea{
-                        anchors.fill: parent
-                        onClicked: store.setFilterType(section)
                     }
                 }
                 model: store
