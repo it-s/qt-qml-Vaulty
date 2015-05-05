@@ -152,14 +152,16 @@ bool Store::removeRow(int row, const QModelIndex &parent)
     return result;
 }
 
-void Store::open(const QString storeName)
+void Store::open(const QString storeName, const quint64 key)
 {
     if (isOpen) close();
+    crypto.setKey(key);
     QSettings settings;
     mStore.setFileName(QFileInfo(settings.fileName()).absolutePath() + "/" + storeName);
     if (mStore.exists()){
         mStore.open(QIODevice::ReadOnly);
-        QJsonDocument json = QJsonDocument::fromJson(mStore.readAll());
+        QByteArray fileContents = crypto.decryptToByteArray(mStore.readAll());
+        QJsonDocument json = QJsonDocument::fromJson(fileContents);
         mStore.close();
 
         QJsonArray data = json.array();
@@ -207,10 +209,11 @@ void Store::close()
             data.append(item);
         }
         QJsonDocument json = QJsonDocument(data);
+        QByteArray fileContents = crypto.encryptToByteArray(json.toJson());
 
         if ( mStore.open(QIODevice::WriteOnly) )
         {
-            mStore.write(json.toJson());
+            mStore.write(fileContents);
             mStore.close();
         }
     }
