@@ -28,6 +28,11 @@ Store::~Store()
     close();
 }
 
+qint64 Store::toInt64(const QString &key)
+{
+
+}
+
 int Store::rowCount(const QModelIndex &parent) const
 {
     return parent.isValid() || !isOpen? 0: mData.size();
@@ -77,96 +82,106 @@ QVariant Store::data(const QModelIndex &index, int role) const
     return result;
 }
 
-bool Store::setData(const QModelIndex &index, const QVariant &value, int role)
-{
-    if (!isOpen) return false;
-    bool result = false;
-    if (index.isValid()) {
-        int row = index.row();
-        if (row >= 0 && row < mData.size()) {
-            StoreItem &storeItem = mData[row];
-            switch(role) {
-            case TypeRole:
-                storeItem.type = value.toInt();
-                result = true;
-                break;
-            case StyleRole:
-                storeItem.style = value.toInt();
-                result = true;
-                break;
-            case TitleRole:
-                storeItem.title = value.toString();
-                result = true;
-                break;
-            case LoginRole:
-                storeItem.login = value.toString();
-                result = true;
-                break;
-            case NumberRole:
-                storeItem.number = value.toString();
-                result = true;
-                break;
-            case PasswordRole:
-                storeItem.password = value.toString();
-                result = true;
-                break;
-            case PinRole:
-                storeItem.pin = value.toString();
-                result = true;
-                break;
-            case RelateRole:
-                storeItem.relate = value.toString();
-                result = true;
-                break;
-            case DescriptionRole:
-                storeItem.description = value.toString();
-                result = true;
-                break;
-            }
-        }
-    }
-    if (result){
-        mStoreChanged = true;
-        emit dataChanged(index, index);
-    }
-    return result;
-}
+//bool Store::setData(const QModelIndex &index, const QVariant &value, int role)
+//{
+//    if (!isOpen) return false;
+//    bool result = false;
+//    if (index.isValid()) {
+//        int row = index.row();
+//        if (row >= 0 && row < mData.size()) {
+//            StoreItem &storeItem = mData[row];
+//            switch(role) {
+//            case TypeRole:
+//                storeItem.type = value.toInt();
+//                result = true;
+//                break;
+//            case StyleRole:
+//                storeItem.style = value.toInt();
+//                result = true;
+//                break;
+//            case TitleRole:
+//                storeItem.title = value.toString();
+//                result = true;
+//                break;
+//            case LoginRole:
+//                storeItem.login = value.toString();
+//                result = true;
+//                break;
+//            case NumberRole:
+//                storeItem.number = value.toString();
+//                result = true;
+//                break;
+//            case PasswordRole:
+//                storeItem.password = value.toString();
+//                result = true;
+//                break;
+//            case PinRole:
+//                storeItem.pin = value.toString();
+//                result = true;
+//                break;
+//            case RelateRole:
+//                storeItem.relate = value.toString();
+//                result = true;
+//                break;
+//            case DescriptionRole:
+//                storeItem.description = value.toString();
+//                result = true;
+//                break;
+//            }
+//        }
+//    }
+//    if (result){
+//        mStoreChanged = true;
+//        emit dataChanged(index, index);
+//    }
+//    return result;
+//}
 
-bool Store::insertRow(int row, const QModelIndex &parent)
-{
-    if (!isOpen) return false;
-    bool result = false;
-    beginInsertRows(parent, row, row);
+//bool Store::insertRow(int row, const QModelIndex &parent)
+//{
+//    if (!isOpen) return false;
+//    bool result = false;
+//    beginInsertRows(parent, row, row);
 
-    endInsertRows();
-    return result;
-}
+//    endInsertRows();
+//    return result;
+//}
 
-bool Store::removeRow(int row, const QModelIndex &parent)
-{
-    if (!isOpen) return false;
-    bool result = false;
-    beginRemoveRows(parent,row,row);
-    mData.removeAt(row);
-    endRemoveRows();
-    return result;
-}
+//bool Store::removeRow(int row, const QModelIndex &parent)
+//{
+//    if (!isOpen) return false;
+//    bool result = false;
+//    beginRemoveRows(parent,row,row);
+//    mData.removeAt(row);
+//    endRemoveRows();
+//    return result;
+//}
 
-void Store::open(const QString storeName, const quint64 key)
+bool Store::open(const QString storeName, const QString key)
 {
     if (isOpen) close();
+    //Set crypto key
     crypto.setKey(key);
+    //Find the file location
     QSettings settings;
     mStore.setFileName(QFileInfo(settings.fileName()).absolutePath() + "/" + storeName);
+    //And attempt to open it:
     if (mStore.exists()){
         mStore.open(QIODevice::ReadOnly);
+        QByteArray storeTest = storeName.toUtf8(); //Create test string from file name
         QByteArray fileContents = crypto.decryptToByteArray(mStore.readAll());
+        //Test the loaded data to make sure it's decrypted properly
+        //When we saved the data we appended the file name to it
+        if (!fileContents.endsWith(storeTest)) return false;
+        //Remove test string
+        fileContents.remove(fileContents.length() - storeTest.length(),storeTest.length());
+        //and convert to JSON
         QJsonDocument json = QJsonDocument::fromJson(fileContents);
         mStore.close();
 
+        //Convert loaded data to QList
         QJsonArray data = json.array();
-
-        beginInsertRows(QModelIndex(), mData.count(), mData.count());
+        beginInsertRows(QModelIndex(), 0, mData.count());
         for (int i=0; i< data.count(); i++){
             QJsonObject item = data.at(i).toObject();
             StoreItem storeItem;
@@ -183,40 +198,16 @@ void Store::open(const QString storeName, const quint64 key)
             mData.append(storeItem);
         }
         endInsertRows();
-    }
+    }else sync(); //Need to create store file right away to make sure we don't end up with broken keys
     mStoreChanged = false;
     isOpen = true;
+    return true;
 }
 
 void Store::close()
 {
     if (!isOpen) return;
-    if (mStoreChanged) {
-        QJsonArray data;
-        for (int i=0; i < mData.count(); i++){
-            QJsonObject item;
-            StoreItem storeItem = mData.at(i);
-            item.insert("ID", QJsonValue(storeItem.ID));
-            item.insert("type", QJsonValue(storeItem.type));
-            item.insert("style", QJsonValue(storeItem.style));
-            item.insert("title", QJsonValue(storeItem.title));
-            item.insert("login", QJsonValue(storeItem.login));
-            item.insert("number", QJsonValue(storeItem.number));
-            item.insert("password", QJsonValue(storeItem.password));
-            item.insert("pin", QJsonValue(storeItem.pin));
-            item.insert("relate", QJsonValue(storeItem.relate));
-            item.insert("description", QJsonValue(storeItem.description));
-            data.append(item);
-        }
-        QJsonDocument json = QJsonDocument(data);
-        QByteArray fileContents = crypto.encryptToByteArray(json.toJson());
-
-        if ( mStore.open(QIODevice::WriteOnly) )
-        {
-            mStore.write(fileContents);
-            mStore.close();
-        }
-    }
+    if (mStoreChanged) sync();
     beginRemoveRows(QModelIndex(), 0, mData.count());
         mData.clear();
     endRemoveRows();
@@ -258,6 +249,41 @@ void Store::remove(const QString id)
     beginRemoveRows(QModelIndex(),index, index);
     mData.removeAt(index);
     endRemoveRows();
+}
+
+void Store::sync()
+{
+    //Convert our data to QJsonArray
+    QJsonArray data;
+     for (int i=0; i < mData.count(); i++){
+         QJsonObject item;
+         StoreItem storeItem = mData.at(i);
+         item.insert("ID", QJsonValue(storeItem.ID));
+         item.insert("type", QJsonValue(storeItem.type));
+         item.insert("style", QJsonValue(storeItem.style));
+         item.insert("title", QJsonValue(storeItem.title));
+         item.insert("login", QJsonValue(storeItem.login));
+         item.insert("number", QJsonValue(storeItem.number));
+         item.insert("password", QJsonValue(storeItem.password));
+         item.insert("pin", QJsonValue(storeItem.pin));
+         item.insert("relate", QJsonValue(storeItem.relate));
+         item.insert("description", QJsonValue(storeItem.description));
+         data.append(item);
+     }
+     //--
+     // Prepare data for saving
+     QByteArray fileContents = QJsonDocument(data).toJson();
+        // Append the test string
+         fileContents.append(mStore.fileName().toUtf8());
+        //--
+     //and Convert to ByteArray
+     fileContents = crypto.encryptToByteArray(fileContents);
+     //finally save to file
+     if ( mStore.open(QIODevice::WriteOnly) )
+     {
+         mStore.write(fileContents);
+         mStore.close();
+     }
 }
 
 int Store::findElementIndexById(const QString &id) const

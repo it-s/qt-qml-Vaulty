@@ -80,17 +80,19 @@ public:
     Store(QObject *parent = 0);
     ~Store();
 
+    static qint64 toInt64(const QString& key);
+
 protected:
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
     QHash<int, QByteArray> roleNames() const {return mDataRoles;}
 
-    bool setData(const QModelIndex & index, const QVariant & value, int role = Qt::EditRole);
-    bool insertRow(int row, const QModelIndex & parent = QModelIndex());
-    bool removeRow(int row, const QModelIndex & parent = QModelIndex());
+//    bool setData(const QModelIndex & index, const QVariant & value, int role = Qt::EditRole);
+//    bool insertRow(int row, const QModelIndex & parent = QModelIndex());
+//    bool removeRow(int row, const QModelIndex & parent = QModelIndex());
 
 public slots:
-    void open(const QString storeName, const quint64 key = 0);
+    bool open(const QString storeName, const QString key);
     void close();
 
     void add(const QVariantMap& v);
@@ -106,12 +108,11 @@ private:
     bool mStoreChanged;
     SimpleCrypt crypto;
 
+    void sync();
     bool storeExists(const QString fileName);
     void createNew(const QString fileName);
     int findElementIndexById(const QString& id) const;
     void setDataKey(const quint64 key);
-    quint64 getDataKey() const;
-
 };
 
 #endif // STORE_H

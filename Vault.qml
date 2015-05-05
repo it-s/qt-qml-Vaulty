@@ -41,18 +41,22 @@ Page {
                 id: vaultsList
                 anchors.fill: parent
                 delegate: ListItem {
-                    onClicked: {
-                        store.open(file);
-                        app.goToPage("Store");
+                    onClicked: keyView.open({
+                                                store: file,
+                                                callback: callbackOpen
+                                            })
+                    function callbackOpen(e) {
+                        if (e)
+                            app.goToPage("Store")
                     }
                     onPressAndHold: editView.edit({
                                                       name: name,
                                                       description: description,
-                                                   callback: callback
-                                                  });
-                    function callback(data){
-                        name = data.name;
-                        description = data.description;
+                                                      callback: callbackEdit
+                                                  })
+                    function callbackEdit(data) {
+                        name = data.name
+                        description = data.description
                     }
                 }
                 model: vaults
@@ -62,5 +66,9 @@ Page {
 
     EditView {
         id: editView
+    }
+
+    KeyView {
+        id: keyView
     }
 }
