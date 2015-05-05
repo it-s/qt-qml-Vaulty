@@ -251,11 +251,11 @@ void Store::remove(const QString id)
 {
     if (!isOpen) return;
     qDebug("Remove row");
-    const StoreItem storeItem = findElementById(id);
-    const int index = mData.indexOf(storeItem);
-    beginRemoveRows(QModelIndex(),index, index);
-    mData.removeOne(storeItem);
-    endRemoveRows();
+//    const StoreItem storeItem = findElementById(id);
+//    const int index = mData.indexOf(storeItem);
+//    beginRemoveRows(QModelIndex(),index, index);
+//    mData.removeOne(storeItem);
+//    endRemoveRows();
 }
 
 StoreItem& Store::findElementById(const QString id)
