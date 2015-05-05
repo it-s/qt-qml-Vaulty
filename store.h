@@ -107,7 +107,7 @@ private:
     void createNew(const QString fileName);
     QByteArray encode(QString raw);
     QString decode(QByteArray data);
-    StoreItem &findElementById(const QString id);
+    int findElementIndexById(const QString id) const;
 
 };
 
