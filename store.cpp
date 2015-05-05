@@ -230,15 +230,6 @@ void Store::add(const QVariantMap &v)
     storeItem = v;
     storeItem.ID = QUuid::createUuid().toString();
 
-//    storeItem.type = v.value("type").toInt();
-//    storeItem.style = v.value("style").toInt();
-//    storeItem.title = v.value("title").toString();
-//    storeItem.login = v.value("login").toString();
-//    storeItem.number = v.value("number").toString();
-//    storeItem.password = v.value("password").toString();
-//    storeItem.pin = v.value("pin").toString();
-//    storeItem.relate = v.value("relate").toString();
-//    storeItem.description = v.value("description").toString();
     mData.append(storeItem);
     mStoreChanged = true;
     endInsertRows();
