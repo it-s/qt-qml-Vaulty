@@ -155,9 +155,9 @@ function invalidKey(str){
     re = /[a-z]/;
     if(!re.test(str))
     return "Error: password must contain at least one lowercase letter (a-z)!";
-    re = /[A-Z]/;
-    if(!re.test(str))
-    return "Error: password must contain at least one uppercase letter (A-Z)!";
+//    re = /[A-Z]/;
+//    if(!re.test(str))
+//    return "Error: password must contain at least one uppercase letter (A-Z)!";
 
     return 0;
 }
