@@ -228,14 +228,16 @@ void Store::add(const QVariantMap &v)
 {
     if (!isOpen) return;
     qDebug("Add row");
+    int index = mData.count();
     StoreItem storeItem;
-    beginInsertRows(QModelIndex(), mData.count(), mData.count());
+    beginInsertRows(QModelIndex(), index, index);
     storeItem = v;
     storeItem.ID = QUuid::createUuid().toString();
 
     mData.append(storeItem);
-    mStoreChanged = true;
     endInsertRows();
+//    emit dataChanged(index, index);
+    mStoreChanged = true;
 }
 
 QVariantMap Store::get(const QString id)
@@ -245,8 +247,10 @@ QVariantMap Store::get(const QString id)
 
 void Store::set(const QString id, const QVariantMap &v)
 {
-    StoreItem &storeItem = mData[findElementIndexById(id)];
+    int index = findElementIndexById(id);
+    StoreItem &storeItem = mData[index];
     storeItem = v;
+//    emit dataChanged(index, index);
     mStoreChanged = true;
 }
 
@@ -258,6 +262,8 @@ void Store::remove(const QString id)
     beginRemoveRows(QModelIndex(),index, index);
     mData.removeAt(index);
     endRemoveRows();
+//    emit dataChanged(index, index);
+    mStoreChanged = true;
 }
 
 int Store::findElementIndexById(const QString &id) const

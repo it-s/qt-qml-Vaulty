@@ -19,7 +19,7 @@ public slots:
     void setFilterType(int type);
     int filterType();
 
-    void open(const QString storeName);
+    void open(const QString storeName, const quint64 key = 0);
     void close();
 
     void add(const QVariantMap& v);

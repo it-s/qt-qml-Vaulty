@@ -32,9 +32,9 @@ int StoreFilterProxyModel::filterType()
     return mType;
 }
 
-void StoreFilterProxyModel::open(const QString storeName)
+void StoreFilterProxyModel::open(const QString storeName, const quint64 key)
 {
-    store.open(storeName);
+    store.open(storeName, key);
     invalidate();
 }
 
