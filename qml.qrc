@@ -12,5 +12,8 @@
         <file>Store/ItemTypes.qml</file>
         <file>Store/ItemStyles.qml</file>
         <file>Store/CardView.qml</file>
+        <file>Store/utils.js</file>
+        <file>Vault/KeyView.qml</file>
+        <file>Vault/utils.js</file>
     </qresource>
 </RCC>

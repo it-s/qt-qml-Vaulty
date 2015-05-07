@@ -32,10 +32,14 @@ int StoreFilter::filterType()
     return mType;
 }
 
-bool StoreFilter::open(const QString storeName)
+bool StoreFilter::open(const QString storeName, const QString key)
 {
-    store.open(storeName);
+    //convert password hash to quint64
+    quint64 n = key.toULongLong(NULL, 16);
+    qDebug() << n;
+    bool result = store.open(storeName, n);
     invalidate();
+    return result;
 }
 
 void StoreFilter::close()
