@@ -1,9 +1,10 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+#include <QSettings>
 
 #include "vaults.h"
-#include "storefilterproxymodel.h"
+#include "storefilter.h"
 
 int main(int argc, char *argv[])
 {
@@ -11,14 +12,11 @@ int main(int argc, char *argv[])
     app.setOrganizationName("Likalo.com");
     app.setOrganizationDomain("Likalo.com");
     app.setApplicationName("Vaulty");
+    QSettings settings;
+    settings.setDefaultFormat(QSettings::IniFormat);
 
     Vaults vaults;
-    StoreFilterProxyModel store;
-
-//    QSortFilterProxyModel proxyStore;
-//    proxyStore.setSourceModel(&store);
-//    proxyStore.setFilterRole(store.TypeRole);
-//    proxyStore.setFilterCaseSensitivity(Qt::CaseInsensitive);
+    StoreFilter store;
 
     QQmlApplicationEngine engine;
     engine.rootContext()->setContextProperty("vaults", &vaults);

@@ -1,3 +1,4 @@
+#include <QDebug>
 #include <QUuid>
 #include <QSettings>
 #include <QFileInfo>
@@ -152,15 +153,20 @@ bool Store::removeRow(int row, const QModelIndex &parent)
     return result;
 }
 
-void Store::open(const QString storeName, const quint64 key)
+bool Store::open(const QString storeName, const quint64 key)
 {
     if (isOpen) close();
     crypto.setKey(key);
     QSettings settings;
     mStore.setFileName(QFileInfo(settings.fileName()).absolutePath() + "/" + storeName);
+    //qDebug() << mStore.fileName();
     if (mStore.exists()){
         mStore.open(QIODevice::ReadOnly);
         QByteArray fileContents = crypto.decryptToByteArray(mStore.readAll());
+        //Test the crypto data for errors
+        //THis would tell us if the key provided is the right key
+        if (crypto.lastError() != SimpleCrypt::ErrorNoError) return false;
+
         QJsonDocument json = QJsonDocument::fromJson(fileContents);
         mStore.close();
 
@@ -183,40 +189,15 @@ void Store::open(const QString storeName, const quint64 key)
             mData.append(storeItem);
         }
         endInsertRows();
-    }
-    mStoreChanged = false;
-    isOpen = true;
+    } else saveData(); //If store file does not exist, create it
+    mStoreChanged = false;    
+    return isOpen = true;
 }
 
 void Store::close()
 {
     if (!isOpen) return;
-    if (mStoreChanged) {
-        QJsonArray data;
-        for (int i=0; i < mData.count(); i++){
-            QJsonObject item;
-            StoreItem storeItem = mData.at(i);
-            item.insert("ID", QJsonValue(storeItem.ID));
-            item.insert("type", QJsonValue(storeItem.type));
-            item.insert("style", QJsonValue(storeItem.style));
-            item.insert("title", QJsonValue(storeItem.title));
-            item.insert("login", QJsonValue(storeItem.login));
-            item.insert("number", QJsonValue(storeItem.number));
-            item.insert("password", QJsonValue(storeItem.password));
-            item.insert("pin", QJsonValue(storeItem.pin));
-            item.insert("relate", QJsonValue(storeItem.relate));
-            item.insert("description", QJsonValue(storeItem.description));
-            data.append(item);
-        }
-        QJsonDocument json = QJsonDocument(data);
-        QByteArray fileContents = crypto.encryptToByteArray(json.toJson());
-
-        if ( mStore.open(QIODevice::WriteOnly) )
-        {
-            mStore.write(fileContents);
-            mStore.close();
-        }
-    }
+    if (mStoreChanged) saveData();
     beginRemoveRows(QModelIndex(), 0, mData.count());
         mData.clear();
     endRemoveRows();
@@ -234,8 +215,8 @@ void Store::add(const QVariantMap &v)
     storeItem.ID = QUuid::createUuid().toString();
 
     mData.append(storeItem);
-    mStoreChanged = true;
     endInsertRows();
+    mStoreChanged = true;
 }
 
 QVariantMap Store::get(const QString id)
@@ -258,6 +239,7 @@ void Store::remove(const QString id)
     beginRemoveRows(QModelIndex(),index, index);
     mData.removeAt(index);
     endRemoveRows();
+    mStoreChanged = true;
 }
 
 int Store::findElementIndexById(const QString &id) const
@@ -270,4 +252,32 @@ int Store::findElementIndexById(const QString &id) const
         }
     }
     return index;
+}
+
+void Store::saveData()
+{
+    QJsonArray data;
+     for (int i=0; i < mData.count(); i++){
+         QJsonObject item;
+         StoreItem storeItem = mData.at(i);
+         item.insert("ID", QJsonValue(storeItem.ID));
+         item.insert("type", QJsonValue(storeItem.type));
+         item.insert("style", QJsonValue(storeItem.style));
+         item.insert("title", QJsonValue(storeItem.title));
+         item.insert("login", QJsonValue(storeItem.login));
+         item.insert("number", QJsonValue(storeItem.number));
+         item.insert("password", QJsonValue(storeItem.password));
+         item.insert("pin", QJsonValue(storeItem.pin));
+         item.insert("relate", QJsonValue(storeItem.relate));
+         item.insert("description", QJsonValue(storeItem.description));
+         data.append(item);
+     }
+     QJsonDocument json = QJsonDocument(data);
+     QByteArray fileContents = crypto.encryptToByteArray(json.toJson());
+
+     if ( mStore.open(QIODevice::WriteOnly) )
+     {
+         mStore.write(fileContents);
+         mStore.close();
+     }
 }

@@ -90,7 +90,7 @@ protected:
     bool removeRow(int row, const QModelIndex & parent = QModelIndex());
 
 public slots:
-    void open(const QString storeName, const quint64 key = 0);
+    bool open(const QString storeName, const quint64 key = 0);
     void close();
 
     void add(const QVariantMap& v);
@@ -111,6 +111,7 @@ private:
     int findElementIndexById(const QString& id) const;
     void setDataKey(const quint64 key);
     quint64 getDataKey() const;
+    void saveData();
 
 };
 
