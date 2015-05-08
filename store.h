@@ -98,6 +98,9 @@ public slots:
     void set(const QString id, const QVariantMap& v);
     void remove(const QString id);
 
+//    QString encode(QString v);
+//    QString decode(QString v);
+
 private:
     bool isOpen;
     QFile mStore;
@@ -108,11 +111,8 @@ private:
 
     bool storeExists(const QString fileName);
     void createNew(const QString fileName);
-    int findElementIndexById(const QString& id) const;
-    void setDataKey(const quint64 key);
-    quint64 getDataKey() const;
+    int findElementIndexById(const QString id) const;
     void saveData();
-
 };
 
 #endif // STORE_H

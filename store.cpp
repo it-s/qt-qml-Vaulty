@@ -242,7 +242,7 @@ void Store::remove(const QString id)
     mStoreChanged = true;
 }
 
-int Store::findElementIndexById(const QString &id) const
+int Store::findElementIndexById(const QString id) const
 {
     int index = -1;
     for(int i=0; i<mData.count();++i){
