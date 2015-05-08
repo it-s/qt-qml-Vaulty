@@ -153,7 +153,7 @@ bool Store::removeRow(int row, const QModelIndex &parent)
     return result;
 }
 
-bool Store::open(const QString storeName, const quint64 key)
+bool Store::open(const QString &storeName, const quint64 key)
 {
     if (isOpen) close();
     crypto.setKey(key);
@@ -219,19 +219,19 @@ void Store::add(const QVariantMap &v)
     mStoreChanged = true;
 }
 
-QVariantMap Store::get(const QString id)
+QVariantMap Store::get(const QString &id)
 {
     return (QVariantMap) mData[findElementIndexById(id)];
 }
 
-void Store::set(const QString id, const QVariantMap &v)
+void Store::set(const QString &id, const QVariantMap &v)
 {
     StoreItem &storeItem = mData[findElementIndexById(id)];
     storeItem = v;
     mStoreChanged = true;
 }
 
-void Store::remove(const QString id)
+void Store::remove(const QString &id)
 {
     if (!isOpen) return;
     qDebug("Remove row");
@@ -240,6 +240,18 @@ void Store::remove(const QString id)
     mData.removeAt(index);
     endRemoveRows();
     mStoreChanged = true;
+}
+
+QString Store::encode(const QString &v)
+{
+    if (!isOpen) return v;
+    return crypto.encryptToString(v);
+}
+
+QString Store::decode(const QString &v)
+{
+    if (!isOpen) return v;
+    return crypto.decryptToString(v);
 }
 
 int Store::findElementIndexById(const QString id) const

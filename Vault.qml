@@ -41,10 +41,6 @@ Page {
                 id: vaultsList
                 anchors.fill: parent
                 delegate: ListItem {
-//                    onClicked: {
-//                        store.open(file);
-//                        app.goToPage("Store");
-//                    }
                     onClicked: keyView.open(file)
                     onPressAndHold: editView.edit({
                                                       name: name,

@@ -90,16 +90,16 @@ protected:
     bool removeRow(int row, const QModelIndex & parent = QModelIndex());
 
 public slots:
-    bool open(const QString storeName, const quint64 key = 0);
+    bool open(const QString& storeName, const quint64 key = 0);
     void close();
 
     void add(const QVariantMap& v);
-    QVariantMap get(const QString id);
-    void set(const QString id, const QVariantMap& v);
-    void remove(const QString id);
+    QVariantMap get(const QString& id);
+    void set(const QString& id, const QVariantMap& v);
+    void remove(const QString& id);
 
-//    QString encode(QString v);
-//    QString decode(QString v);
+    QString encode(const QString &v);
+    QString decode(const QString &v);
 
 private:
     bool isOpen;
@@ -109,8 +109,6 @@ private:
     bool mStoreChanged;
     SimpleCrypt crypto;
 
-    bool storeExists(const QString fileName);
-    void createNew(const QString fileName);
     int findElementIndexById(const QString id) const;
     void saveData();
 };

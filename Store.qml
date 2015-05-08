@@ -111,4 +111,12 @@ Page {
     EditView{
         id: editView
     }
+
+//    Component.onCompleted: {
+//        var t = "Test string";
+//        console.log(t);
+//        var c = store.encode(t);
+//        console.log(c);
+//        console.log(store.decode(c));
+//    }
 }
