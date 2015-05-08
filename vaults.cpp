@@ -23,11 +23,12 @@ Vaults::Vaults(QObject *parent) :
     }
 
     mSettings.endArray();
+    mDataChanged = false;
 }
 
 Vaults::~Vaults()
 {    
-    synch();
+    if (mDataChanged) synch();
 }
 
 
@@ -105,7 +106,7 @@ bool Vaults::setData(const QModelIndex &index, const QVariant &value, int role)
     }
     if (result){
         emit dataChanged(index, index);
-        synch();
+        mDataChanged = result;
     }
     return result;
 }
@@ -130,7 +131,7 @@ void Vaults::add(const QVariantMap &v)
     vault.file = "store" + QString("%1").arg(mData.count(), 3, 10, QChar('0'));
     mData.append(vault);
     endInsertRows();
-    synch();
+    mDataChanged = true;
 }
 
 void Vaults::remove(const int id)
@@ -141,6 +142,6 @@ void Vaults::remove(const int id)
     //TODO make sure store is also deleted
 //    bool QFile::remove(const QString &fileName);
     endRemoveRows();
-    synch();
+    mDataChanged = true;
 }
 
