@@ -1,7 +1,7 @@
 #include <QDebug>
-#include "storefilterproxymodel.h"
+#include "storefilter.h"
 
-StoreFilterProxyModel::StoreFilterProxyModel(QObject *parent)
+StoreFilter::StoreFilter(QObject *parent)
     : QSortFilterProxyModel(parent)
 {
     mType = -1;
@@ -11,64 +11,68 @@ StoreFilterProxyModel::StoreFilterProxyModel(QObject *parent)
     sort(0);
 }
 
-StoreFilterProxyModel::~StoreFilterProxyModel()
+StoreFilter::~StoreFilter()
 {
     store.close();
 }
 
-void StoreFilterProxyModel::setFilterType()
+void StoreFilter::setFilterType()
 {
     setFilterType(-1);
 }
 
-void StoreFilterProxyModel::setFilterType(int type)
+void StoreFilter::setFilterType(int type)
 {
     mType = type;
     invalidate();
 }
 
-int StoreFilterProxyModel::filterType()
+int StoreFilter::filterType()
 {
     return mType;
 }
 
-void StoreFilterProxyModel::open(const QString storeName)
+bool StoreFilter::open(const QString storeName, const QString key)
 {
-    store.open(storeName);
+    //convert password hash to quint64
+    quint64 n = key.toULongLong(NULL, 16);
+    qDebug() << n;
+    bool result = store.open(storeName, n);
     invalidate();
+    return result;
 }
 
-void StoreFilterProxyModel::close()
+void StoreFilter::close()
 {
     store.close();
     mType = -1;
     invalidate();
 }
 
-void StoreFilterProxyModel::add(const QVariantMap &v)
+void StoreFilter::add(const QVariantMap &v)
 {
     store.add(v);
     invalidate();
 }
 
-QVariantMap StoreFilterProxyModel::get(const QString id)
+QVariantMap StoreFilter::get(const QString id)
 {
     return store.get(id);
 }
 
-void StoreFilterProxyModel::set(const QString id, const QVariantMap &v)
+void StoreFilter::set(const QString id, const QVariantMap &v)
 {
     store.set(id, v);
     invalidate();
 }
 
-void StoreFilterProxyModel::remove(const QString id)
+void StoreFilter::remove(const QString id)
 {
     store.remove(id);
     invalidate();
 }
 
-bool StoreFilterProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const
+bool StoreFilter::filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const
 {
     QModelIndex index = sourceModel()->index(sourceRow, 0, sourceParent);
     int type = sourceModel()->data(index, Store::TypeRole).toInt();

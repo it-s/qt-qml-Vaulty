@@ -10,6 +10,8 @@
 #include <QObject>
 #include <QAbstractListModel>
 
+#include "simplecrypt.h"
+
 struct StoreItem {
     int type,
         style;
@@ -88,7 +90,7 @@ protected:
     bool removeRow(int row, const QModelIndex & parent = QModelIndex());
 
 public slots:
-    void open(const QString storeName);
+    bool open(const QString storeName, const quint64 key = 0);
     void close();
 
     void add(const QVariantMap& v);
@@ -96,19 +98,21 @@ public slots:
     void set(const QString id, const QVariantMap& v);
     void remove(const QString id);
 
+//    QString encode(QString v);
+//    QString decode(QString v);
+
 private:
     bool isOpen;
     QFile mStore;
     QList<StoreItem> mData;
     QHash<int, QByteArray> mDataRoles;
     bool mStoreChanged;
+    SimpleCrypt crypto;
 
     bool storeExists(const QString fileName);
     void createNew(const QString fileName);
-    QByteArray encode(QString raw);
-    QString decode(QByteArray data);
     int findElementIndexById(const QString id) const;
-
+    void saveData();
 };
 
 #endif // STORE_H

@@ -1,25 +1,25 @@
-#ifndef STOREFILTERPROXYMODEL_H
-#define STOREFILTERPROXYMODEL_H
+#ifndef StoreFilter_H
+#define StoreFilter_H
 
 #include <QObject>
 #include <QSortFilterProxyModel>
 
 #include "store.h"
 
-class StoreFilterProxyModel : public QSortFilterProxyModel
+class StoreFilter : public QSortFilterProxyModel
 {
     Q_OBJECT
 
 public:
-    StoreFilterProxyModel(QObject *parent = 0);
-    ~StoreFilterProxyModel();
+    StoreFilter(QObject *parent = 0);
+    ~StoreFilter();
 
 public slots:
     void setFilterType();
     void setFilterType(int type);
     int filterType();
 
-    void open(const QString storeName);
+    bool open(const QString storeName, const QString key);
     void close();
 
     void add(const QVariantMap& v);
@@ -37,4 +37,4 @@ private:
 
 };
 
-#endif // STOREFILTERPROXYMODEL_H
+#endif // StoreFilter_H

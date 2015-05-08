@@ -50,6 +50,7 @@ public slots:
     void remove(const int id);
 
 private:
+    bool mDataChanged;
     QList<Vault> mData;
     QHash<int, QByteArray> mDataRoles;
 };
