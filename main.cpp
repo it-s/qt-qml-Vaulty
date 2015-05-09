@@ -12,8 +12,11 @@ int main(int argc, char *argv[])
     app.setOrganizationName("Likalo.com");
     app.setOrganizationDomain("Likalo.com");
     app.setApplicationName("Vaulty");
+
+#if defined(Q_OS_WIN)
     QSettings settings;
     settings.setDefaultFormat(QSettings::IniFormat);
+#endif
 
     Vaults vaults;
     StoreFilter store;
