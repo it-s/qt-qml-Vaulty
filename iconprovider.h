@@ -9,6 +9,11 @@ public:
     IconProvider();
 
     QPixmap requestPixmap(const QString &id, QSize *size, const QSize &requestedSize);
+
+private:
+    QColor mColor;
+    QSize mSize;
+
 };
 
 #endif // ICONPROVIDER_H
