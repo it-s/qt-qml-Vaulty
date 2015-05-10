@@ -77,22 +77,22 @@ Item
             id: pageView
             color: "#fff"
             width: overView.width
-            height: childrenRect.height + 24*2
+            height: childrenRect.height + U.px(48)
 
             Column
             {
-                anchors.rightMargin: 15
-                anchors.leftMargin: 15
+                anchors.rightMargin: U.px(15)
+                anchors.leftMargin: U.px(15)
                 anchors.top: parent.top
-                anchors.topMargin: 24
-                spacing: 10
+                anchors.topMargin: U.px(24)
+                spacing: U.px(10)
                 anchors.left: parent.left
                 anchors.right: parent.right
 
                     Column
                     {
                         id: pageBody
-                        spacing: 10
+                        spacing: U.px(10)
                         anchors.left: parent.left
                         anchors.right: parent.right
 

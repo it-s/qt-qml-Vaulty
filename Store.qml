@@ -17,7 +17,7 @@ Page {
         anchors.fill: parent
 
         ToolBar {
-            height: 64
+            height: U.px(64)
             z: 1
             Layout.fillWidth: true
             RowLayout {
@@ -38,7 +38,7 @@ Page {
             }
         }
         Rectangle {
-            height: 32
+            height: U.px(32)
             Layout.fillWidth: true
             color: "white"
             z: 1
@@ -68,7 +68,7 @@ Page {
             z: 1
         }
         Item {
-            height: 15
+            height: U.px(15)
         }
 
         Item {
@@ -77,8 +77,8 @@ Page {
 
             ListView {
                 id: vaultsList
-                anchors.rightMargin: 16
-                anchors.leftMargin: 16
+                anchors.rightMargin: U.px(16)
+                anchors.leftMargin: U.px(16)
                 anchors.fill: parent
                 delegate: ListItem {
                     onClicked: cardView.show(toJSON());
@@ -93,7 +93,7 @@ Page {
                     Text {
                         text: itemTypeModel.name(section)
                         font.bold: true
-                        font.pixelSize: 20
+                        font.pixelSize: U.px(20)
                     }
                 }
                 model: store

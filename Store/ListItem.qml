@@ -2,7 +2,7 @@ import QtQuick 2.4
 
 MouseArea {
     width: parent.width
-    height: 64
+    height: U.px(64)
 
     function toJSON(callback){
         return {
@@ -20,10 +20,10 @@ MouseArea {
     }
 
     Column {
-        anchors.bottomMargin: 16
-        anchors.topMargin: 16
+        anchors.bottomMargin: U.px(16)
+        anchors.topMargin: U.px(16)
         anchors.fill: parent
-        spacing: 10
+        spacing: U.px(10)
         Text {
             text: title
             font.bold: true
@@ -35,7 +35,7 @@ MouseArea {
         }
         Rectangle{
             width: parent.width
-            height: 1
+            height: U.px(1)
             color: "silver"
         }
     }

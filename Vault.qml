@@ -15,7 +15,7 @@ Page {
         anchors.fill: parent
 
         ToolBar {
-            height: 64
+            height: U.px(64)
             Layout.fillWidth: true
             RowLayout {
                 anchors.fill: parent
