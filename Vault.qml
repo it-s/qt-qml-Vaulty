@@ -29,6 +29,7 @@ Page {
                     tooltip: "Add new vault"
                     onClicked: editView.open()
                     Layout.alignment: Qt.AlignRight
+                    iconSource: "image://icons/pluscircle"
                 }
             }
         }

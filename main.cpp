@@ -5,6 +5,7 @@
 
 #include "vaults.h"
 #include "storefilter.h"
+#include "iconprovider.h"
 
 int main(int argc, char *argv[])
 {
@@ -22,8 +23,9 @@ int main(int argc, char *argv[])
     StoreFilter store;
 
     QQmlApplicationEngine engine;
-    engine.rootContext()->setContextProperty("vaults", &vaults);
-    engine.rootContext()->setContextProperty("store", &store);
+    engine.rootContext()->setContextProperty(QLatin1String("vaults"), &vaults);
+    engine.rootContext()->setContextProperty(QLatin1String("store"), &store);
+    engine.addImageProvider(QLatin1String("icons"), new IconProvider);
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
     return app.exec();

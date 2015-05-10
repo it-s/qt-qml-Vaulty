@@ -1,12 +1,14 @@
 #include "iconprovider.h"
 
 IconProvider::IconProvider()
+    : QQuickImageProvider(QQuickImageProvider::Pixmap)
 {
 
 }
 
-IconProvider::~IconProvider()
+QPixmap IconProvider::requestPixmap(const QString &id, QSize *size, const QSize &requestedSize)
 {
 
 }
+
 
