@@ -1,0 +1,3 @@
+[submodule "Units"]
+	path = Units
+	url = ssh://git@github.com/it-s/qt-cpp-Units.git
