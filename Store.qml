@@ -18,7 +18,7 @@ Page {
 
         ToolBar {
             height: U.px(64)
-            z: 1
+            z: 2
             Layout.fillWidth: true
             RowLayout {
                 anchors.fill: parent
@@ -65,7 +65,7 @@ Page {
         Rectangle {
             Layout.fillWidth: true
             height: 1
-            color: "gray"
+            color: "silver"
             z: 1
         }
         Item {
@@ -113,11 +113,4 @@ Page {
         id: editView
     }
 
-//    Component.onCompleted: {
-//        var t = "Test string";
-//        console.log(t);
-//        var c = store.encode(t);
-//        console.log(c);
-//        console.log(store.decode(c));
-//    }
 }
