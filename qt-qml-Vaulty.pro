@@ -11,11 +11,8 @@ QML_IMPORT_PATH =
 
 # Default rules for deployment.
 include(deployment.pri)
-<<<<<<< HEAD
 include(Units/Units.pri)
+include(QtAwesome/QtAwesome.pri)
 
 HEADERS += *.h
-=======
-include(QtAwesome/QtAwesome.pri)
->>>>>>> refs/remotes/origin/ImageProvider
 

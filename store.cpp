@@ -189,6 +189,7 @@ bool Store::open(const QString &storeName, const quint64 key)
             mData.append(storeItem);
         }
         endInsertRows();
+        mStore.close();
     } else saveData(); //If store file does not exist, create it
     mStoreChanged = false;    
     return isOpen = true;
