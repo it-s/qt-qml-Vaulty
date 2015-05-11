@@ -22,6 +22,10 @@ Item
         state = "OPEN"
     }
 
+    function opened(){
+
+    }
+
     function edit(item){
         //Edit code here
         _editing = item;
@@ -117,12 +121,14 @@ Item
                         Layout.alignment: Qt.AlignRight
                         onClicked: overView.close();
                         visible: overView.closeButtonText != ""
+                        isDefault: overView.saveButtonText == ""
                     }
                     Button{
                         text: overView.saveButtonText
                         Layout.alignment: Qt.AlignRight
                         onClicked: overView.save();
                         visible: overView.saveButtonText != ""
+                        isDefault: visible
                     }
                 }
             }
@@ -137,6 +143,9 @@ Item
                 NumberAnimation{
                     target: overView
                     properties: "opacity"
+                }
+                ScriptAction {
+                    script: opened();
                 }
             }
         },

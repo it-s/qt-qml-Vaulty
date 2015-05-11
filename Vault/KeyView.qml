@@ -11,7 +11,13 @@ OverView {
 
     saveButtonText: "OK"
 
-    onStateChanged: keyText.focus = true
+//    onStateChanged: keyText.focus = true
+
+    function opened(){
+        keyText.forceActiveFocus()
+        keyText.focus = true;
+    }
+
 
     function clear(){
         messageDialog.text = "";

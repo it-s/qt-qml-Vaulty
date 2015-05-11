@@ -7,6 +7,7 @@
 
 #include "vaults.h"
 #include "storefilter.h"
+#include "iconprovider.h"
 
 int main(int argc, char *argv[])
 {
@@ -24,6 +25,7 @@ int main(int argc, char *argv[])
     StoreFilter store;
 
     QQmlApplicationEngine engine;
+<<<<<<< HEAD
 #if (defined(Q_OS_ANDROID) || defined(Q_OS_IOS) || defined(Q_OS_WINPHONE))
     engine.rootContext()->setContextProperty("U", new Units(qApp->screens().first()->size(), QSize(320,480)));
 #else
@@ -31,6 +33,11 @@ int main(int argc, char *argv[])
 #endif
     engine.rootContext()->setContextProperty("vaults", &vaults);
     engine.rootContext()->setContextProperty("store", &store);
+=======
+    engine.rootContext()->setContextProperty(QLatin1String("vaults"), &vaults);
+    engine.rootContext()->setContextProperty(QLatin1String("store"), &store);
+    engine.addImageProvider(QLatin1String("icons"), new IconProvider);
+>>>>>>> refs/remotes/origin/ImageProvider
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
     return app.exec();

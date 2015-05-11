@@ -7,7 +7,11 @@ import "../Common"
 OverView {
     id: editView
 
-    onStateChanged: nameText.focus = true
+//    onStateChanged: nameText.focus = true
+    function opened(){
+        nameText.forceActiveFocus()
+        nameText.focus = true;
+    }
 
     function clear(){
         nameText.text = "";

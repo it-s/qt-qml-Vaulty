@@ -7,7 +7,10 @@ import "../Common"
 OverView {
     id: editView
 
-    onStateChanged: itemTitle.focus = true
+    function opened(){
+        itemTitle.forceActiveFocus()
+        itemTitle.focus = true;
+    }
 
     function clear(){
         itemType.currentIndex = 0;

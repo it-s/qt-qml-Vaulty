@@ -22,13 +22,14 @@ Page {
                 ToolButton {
                     text: "Vaulty"
                     tooltip: "Configure application"
+                    iconSource: "image://icons/bars"
                 }
 
                 ToolButton {
-                    text: "Add"
                     tooltip: "Add new vault"
                     onClicked: editView.open()
                     Layout.alignment: Qt.AlignRight
+                    iconSource: "image://icons/pluscircle"
                 }
             }
         }

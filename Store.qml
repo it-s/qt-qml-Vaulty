@@ -23,17 +23,18 @@ Page {
             RowLayout {
                 anchors.fill: parent
                 ToolButton {
-                    text: "< Vaulty"
+                    text: "Vaulty"
                     tooltip: "Return to vault selector"
                     onClicked: app.goBack()
                     Layout.fillHeight: true
+                    iconSource: "image://icons/chevronleft"
                 }
                 ToolButton {
-                    text: "Add"
                     tooltip: "Add new item"
                     onClicked: editView.open()
                     Layout.fillHeight: true
                     Layout.alignment: Qt.AlignRight
+                    iconSource: "image://icons/pluscircle"
                 }
             }
         }
