@@ -2,6 +2,7 @@
 #define ICONPROVIDER_H
 
 #include <QQuickImageProvider>
+#include <QHash>
 #include <QtAwesome.h>
 
 struct IconOptions {
@@ -26,7 +27,7 @@ private:
     QSize mDefaultSize;
     QtAwesome* mAwesome;
 
-    IconOptions &getOptions(const QString &s);
+    IconOptions getOptions(const QString &s);
 
 };
 
