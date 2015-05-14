@@ -15,5 +15,10 @@
         <file>Store/utils.js</file>
         <file>Vault/KeyView.qml</file>
         <file>Vault/utils.js</file>
+        <file>Common/sizes.js</file>
+        <file>Common/VLabel.qml</file>
+        <file>Common/palette.js</file>
+        <file>Common/VListItem.qml</file>
+        <file>Common/VListHeader.qml</file>
     </qresource>
 </RCC>

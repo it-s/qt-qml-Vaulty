@@ -6,6 +6,9 @@ import Qt.labs.settings 1.0
 import "Common"
 import "Vault"
 
+import "Common/sizes.js" as Size
+import "Common/palette.js" as Palette
+
 Page {
     width: 320
     height: 480
@@ -15,7 +18,7 @@ Page {
         anchors.fill: parent
 
         ToolBar {
-            height: U.px(64)
+            height: Size.TOOLBAR
             Layout.fillWidth: true
             RowLayout {
                 anchors.fill: parent
@@ -41,7 +44,26 @@ Page {
             ListView {
                 id: vaultsList
                 anchors.fill: parent
-                delegate: ListItem {
+                header: VListHeader {
+                    text: "Vaults"
+                }
+
+                delegate: VListItem {
+                    prefix: Image {
+                        width: 32
+                        height: 32
+                        source: "image://icons/light/32x32/pluscircle"
+                    }
+
+                    VLabel {
+                        text: name
+                        color: Palette.LIST_ITEM_TEXT
+                    }
+                    VLabel {
+                        text: description
+                        color: Palette.LIST_ITEM_SUBTEXT
+                        font.pixelSize: Size.FONT_SIZE_SMALL
+                    }
                     onClicked: keyView.open(file)
                     onPressAndHold: editView.edit({
                                                       name: name,
@@ -53,7 +75,21 @@ Page {
                         description = data.description;
                     }
                 }
-                model: vaults
+                model: //vaults
+                    ListModel{
+                    ListElement {
+                        name: "Apple"
+                        description: "A green, yellow, or red fruit"
+                    }
+                    ListElement {
+                        name: "Orange"
+                        description: "Large orange fruit"
+                    }
+                    ListElement {
+                        name: "Banana"
+                        description: "Yellow long and sweet grass"
+                    }
+                }
             }
         }
     }

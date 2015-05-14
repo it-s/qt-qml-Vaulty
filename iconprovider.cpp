@@ -11,8 +11,8 @@ IconProvider::IconProvider()
     mAwesome = new QtAwesome();
     mAwesome->initFontAwesome();
 
-    mColorMap["light"] = QColor(255,255,255);
-    mColorMap["dark"] = QColor(0,0,0);
+    mColorMap["light"] = QColor("#E3EAF7");
+    mColorMap["dark"] = QColor("#1B2934");
     mColorMap["default"] = mColorMap["dark"];
 
     mDefaultSize = QSize(24, 24);
