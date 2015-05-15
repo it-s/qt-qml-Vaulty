@@ -11,10 +11,10 @@ Rectangle {
     anchors.right: parent.right
     height: Sizes.TOOLBAR_MIN
     color: Palette.TOOLBAR
-    clip: true
     default property alias _contentChildren: content.data
     property alias icon: toolabrIcon.icon
     property alias text: toolbarText.text
+    property bool shadow: false
 
     signal action
 
@@ -34,7 +34,7 @@ Rectangle {
             }
             VLabel{
                 id: toolbarText
-                color: Palette.TOOLBAR_TEXT
+                color: Palette.LIST_ITEM_HEAD
                 font.pixelSize: Sizes.FONT_SIZE_SUBHEAD
                 text: "Toolbar"
                 anchors.verticalCenter: parent.verticalCenter
@@ -42,6 +42,39 @@ Rectangle {
             }
        }
     }
+    Rectangle {
+        id: _border
+        height: Sizes.BORDER * 4
+        color: Palette.BORDER
+        opacity: 0
+        anchors.top: parent.bottom
+        gradient: Gradient {
+            GradientStop {
+                id: gradientStop2
+                position: 0
+                color: Palette.BORDER
+            }
+
+            GradientStop {
+                id: gradientStop1
+                position: 1
+                color: "#00000000"
+            }
+        }
+        anchors.right: parent.right
+        anchors.left: parent.left
+        Behavior on opacity {NumberAnimation{duration: 100}}
+    }
+    states: [
+        State {
+            name: "borderShadow"
+            when: shadow
+            PropertyChanges {
+                target: _border
+                opacity: 1
+            }
+        }
+    ]
 
 }
 

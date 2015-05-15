@@ -68,13 +68,13 @@ MouseArea {
 
     Rectangle {
         id: _border
-        height: Sizes.BORDER
         color: Palette.BORDER
+        height: Sizes.BORDER
         gradient: Gradient {
             GradientStop {
                 id: gradientStop2
                 position: 0
-                color: Palette.BORDER
+                color: "#c5cbd6"
             }
 
             GradientStop {
@@ -91,10 +91,17 @@ MouseArea {
     states: [
         State {
             name: "borderShadow"
-
             PropertyChanges {
                 target: _border
                 height: Sizes.BORDER * 4
+            }
+        },
+        State {
+            name: "borderShadowTop"
+            PropertyChanges {
+                target: _border
+                height: Sizes.BORDER * 4
+                anchors.bottomMargin: listItem.height - height
             }
         }
     ]

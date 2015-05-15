@@ -2,6 +2,9 @@ import QtQuick 2.4
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
 
+import "sizes.js" as Sizes
+import "palette.js" as Palette
+
 Item
 {
     id: overView
@@ -54,9 +57,8 @@ Item
     Rectangle
     {
         id: pageOverlay
-        color: "#000"
+        color: Palette.DARK
         anchors.fill: parent
-        opacity: 0.8
         MouseArea{
             anchors.fill: parent
             onClicked: if (mouse.y < pageViewWrapper.y || mouse.y > pageViewWrapper.y + pageViewWrapper.height) overView.close();
@@ -79,24 +81,24 @@ Item
         Rectangle
         {
             id: pageView
-            color: "#fff"
+            color: Palette.PAGE
             width: overView.width
-            height: childrenRect.height + U.px(48)
+            height: childrenRect.height + Sizes.MARGIN * 3
 
             Column
             {
-                anchors.rightMargin: U.px(15)
-                anchors.leftMargin: U.px(15)
+                anchors.rightMargin:Sizes.MARGIN
+                anchors.leftMargin: Sizes.MARGIN
                 anchors.top: parent.top
-                anchors.topMargin: U.px(24)
-                spacing: U.px(10)
+                anchors.topMargin: Sizes.MARGIN_DOUBLE
+                spacing: Sizes.MARGIN
                 anchors.left: parent.left
                 anchors.right: parent.right
 
                     Column
                     {
                         id: pageBody
-                        spacing: U.px(10)
+                        spacing: Sizes.MARGIN
                         anchors.left: parent.left
                         anchors.right: parent.right
 
@@ -106,8 +108,8 @@ Item
 
                 Rectangle
                 {
-                    height: 1
-                    color: "#eee"
+                    height: Sizes.BORDER
+                    color: Palette.BORDER
                     anchors.left: parent.left
                     anchors.right: parent.right
                 }
@@ -116,19 +118,20 @@ Item
                     id: pageFooter
                     anchors.left: parent.left
                     anchors.right: parent.right
-                    Button{
+                    VButton {
                         text: overView.closeButtonText
                         Layout.alignment: Qt.AlignRight
+                        Layout.fillWidth: false
                         onClicked: overView.close();
                         visible: overView.closeButtonText != ""
-                        isDefault: overView.saveButtonText == ""
+                        type: "link"
                     }
-                    Button{
+                    VButton {
                         text: overView.saveButtonText
                         Layout.alignment: Qt.AlignRight
+                        Layout.fillWidth: false
                         onClicked: overView.save();
-                        visible: overView.saveButtonText != ""
-                        isDefault: visible
+                        visible: overView.closeButtonText != ""
                     }
                 }
             }
