@@ -18,7 +18,7 @@ Page {
         anchors.fill: parent
 
         VToolbar {
-            icon: "image://icons/32x32/bars"
+            icon: "image://icons/bars"
             text: "Vaults"
             shadow: vaultsList.contentY > 0
             Layout.fillHeight: false

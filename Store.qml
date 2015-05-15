@@ -23,7 +23,7 @@ Page {
 
         VToolbar {
             id: toolbar
-            icon: "image://icons/32x32/chevronleft"
+            icon: "image://icons/chevronleft"
             text: "Vaults"
             shadow: vaultsList.contentY > 0
             Layout.fillHeight: false
