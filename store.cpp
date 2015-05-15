@@ -165,7 +165,10 @@ bool Store::open(const QString &storeName, const quint64 key)
         QByteArray fileContents = crypto.decryptToByteArray(mStore.readAll());
         //Test the crypto data for errors
         //THis would tell us if the key provided is the right key
-        if (crypto.lastError() != SimpleCrypt::ErrorNoError) return false;
+        if (crypto.lastError() != SimpleCrypt::ErrorNoError){
+            mStore.close();
+            return false;
+        }
 
         QJsonDocument json = QJsonDocument::fromJson(fileContents);
         mStore.close();
