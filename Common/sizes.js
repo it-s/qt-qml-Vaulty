@@ -33,3 +33,5 @@ var LIST_ITEM = 72//U.px(72);
 var LIST_TITLE = LIST_ITEM;
 var LIST_ITEM_TALL = LIST_ITEM * 1.5;
 var LIST_ITEM_HEAD = 48//U.px(48);
+//Button
+var BUTTON_RADIUS = MARGIN / 2;
