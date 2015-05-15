@@ -14,7 +14,7 @@ struct IconOptions {
 class IconProvider : public QQuickImageProvider
 {
 public:
-    IconProvider();
+    IconProvider(const qreal ratio = 1);
 
     QPixmap requestPixmap(const QString &id, QSize *size, const QSize &requestedSize);
 
@@ -26,7 +26,9 @@ private:
     QHash<QString, QColor> mColorMap;
     QSize mDefaultSize;
     QtAwesome* mAwesome;
+    qreal mRatio;
 
+    QSize qStringToQSize(const QString &s = "");
     IconOptions getOptions(const QString &s);
 
 };
