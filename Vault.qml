@@ -17,31 +17,13 @@ Page {
         spacing: 0
         anchors.fill: parent
 
-//        ToolBar {
-//            height: Size.TOOLBAR
-//            Layout.fillWidth: true
-//            RowLayout {
-//                anchors.fill: parent
-//                ToolButton {
-//                    text: "Vaulty"
-//                    tooltip: "Configure application"
-//                    iconSource: "image://icons/bars"
-//                }
-
-//                ToolButton {
-//                    tooltip: "Add new vault"
-//                    onClicked: editView.open()
-//                    Layout.alignment: Qt.AlignRight
-//                    iconSource: "image://icons/pluscircle"
-//                }
-//            }
-//        }
         VToolbar {
-            icon: "image://icons/light/32x32/bars"
-            text: "Vaulty"
+            icon: "image://icons/32x32/bars"
+            text: "Vaults"
+            shadow: vaultsList.contentY > 0
             Layout.fillHeight: false
             VToolbarButton {
-                icon: "image://icons/light/32x32/pluscircle"
+                icon: "image://icons/32x32/pluscircle"
                 Layout.alignment: Qt.AlignRight
                 onClicked: editView.open()
             }
@@ -55,9 +37,6 @@ Page {
             ListView {
                 id: vaultsList
                 anchors.fill: parent
-                header: VListHeader {
-                    text: "Vaults"
-                }
 
                 delegate: VListItem {
                     prefix: Image {
@@ -84,21 +63,21 @@ Page {
                         description = data.description;
                     }
                 }
-                model: //vaults
-                    ListModel{
-                    ListElement {
-                        name: "Apple"
-                        description: "A green, yellow, or red fruit"
-                    }
-                    ListElement {
-                        name: "Orange"
-                        description: "Large orange fruit"
-                    }
-                    ListElement {
-                        name: "Banana"
-                        description: "Yellow long and sweet grass"
-                    }
-                }
+                model: vaults
+//                    ListModel{
+//                    ListElement {
+//                        name: "Apple"
+//                        description: "A green, yellow, or red fruit"
+//                    }
+//                    ListElement {
+//                        name: "Orange"
+//                        description: "Large orange fruit"
+//                    }
+//                    ListElement {
+//                        name: "Banana"
+//                        description: "Yellow long and sweet grass"
+//                    }
+//                }
             }
         }
     }
