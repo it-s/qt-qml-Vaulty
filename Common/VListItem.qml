@@ -6,7 +6,7 @@ import "palette.js" as Palette
 
 MouseArea {
     id: listItem
-    width: 320//parent.width
+    width: 320
     anchors.left: parent.left
     anchors.right: parent.right
     height: Sizes.LIST_ITEM
@@ -24,7 +24,23 @@ MouseArea {
         radius: width
         color: Palette.LIST_ITEM_HIGHLIGHT
         opacity: (width / listItem.width)
-        Behavior on width {NumberAnimation{}}
+        Behavior on width {
+            SequentialAnimation{
+                PauseAnimation {
+                    duration: 500
+                }
+                NumberAnimation{
+                    duration: 300
+                }
+            }
+        }
+    }
+    Rectangle {
+        id: selection
+        anchors.fill: parent
+        color: Palette.LIGHT
+        opacity: parent.pressed? 1: 0
+        Behavior on opacity {NumberAnimation{duration: 100}}
     }
 
     RowLayout{
@@ -33,6 +49,8 @@ MouseArea {
         spacing: Sizes.MARGIN
         Item {
             id: listItemPrefix
+            width: childrenRect.width
+            height: childrenRect.height
             Layout.fillWidth: false
         }
         Column {
@@ -42,6 +60,8 @@ MouseArea {
         }
         Item {
             id: listItemSuffix
+            width: childrenRect.width
+            height: childrenRect.height
             Layout.fillWidth: false
         }
     }

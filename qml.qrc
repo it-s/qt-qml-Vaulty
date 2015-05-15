@@ -20,5 +20,8 @@
         <file>Common/palette.js</file>
         <file>Common/VListItem.qml</file>
         <file>Common/VListHeader.qml</file>
+        <file>Common/VToolbar.qml</file>
+        <file>Common/VButton.qml</file>
+        <file>Common/VToolbarButton.qml</file>
     </qresource>
 </RCC>

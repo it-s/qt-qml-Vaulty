@@ -1,6 +1,8 @@
 //Primary
 var WHITE = "#E3EAF7";
 var BLACK = "#1B2934";
+var LIGHT = Qt.lighter("#40E3EAF7")
+var DARK = Qt.darker("#401B2934")
 var GRAY = "#C5CBD6";
 var ACCENT1 = "#261435";
 var ACCENT2 = "#414770";

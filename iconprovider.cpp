@@ -12,7 +12,7 @@ IconProvider::IconProvider()
     mAwesome->initFontAwesome();
 
     mColorMap["light"] = QColor("#E3EAF7");
-    mColorMap["dark"] = QColor("#1B2934");
+    mColorMap["dark"] = QColor("#414770");
     mColorMap["default"] = mColorMap["dark"];
 
     mDefaultSize = QSize(24, 24);

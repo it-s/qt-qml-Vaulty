@@ -17,25 +17,36 @@ Page {
         spacing: 0
         anchors.fill: parent
 
-        ToolBar {
-            height: Size.TOOLBAR
-            Layout.fillWidth: true
-            RowLayout {
-                anchors.fill: parent
-                ToolButton {
-                    text: "Vaulty"
-                    tooltip: "Configure application"
-                    iconSource: "image://icons/bars"
-                }
+//        ToolBar {
+//            height: Size.TOOLBAR
+//            Layout.fillWidth: true
+//            RowLayout {
+//                anchors.fill: parent
+//                ToolButton {
+//                    text: "Vaulty"
+//                    tooltip: "Configure application"
+//                    iconSource: "image://icons/bars"
+//                }
 
-                ToolButton {
-                    tooltip: "Add new vault"
-                    onClicked: editView.open()
-                    Layout.alignment: Qt.AlignRight
-                    iconSource: "image://icons/pluscircle"
-                }
+//                ToolButton {
+//                    tooltip: "Add new vault"
+//                    onClicked: editView.open()
+//                    Layout.alignment: Qt.AlignRight
+//                    iconSource: "image://icons/pluscircle"
+//                }
+//            }
+//        }
+        VToolbar {
+            icon: "image://icons/light/32x32/bars"
+            text: "Vaulty"
+            Layout.fillHeight: false
+            VToolbarButton {
+                icon: "image://icons/light/32x32/pluscircle"
+                Layout.alignment: Qt.AlignRight
+                onClicked: editView.open()
             }
         }
+
         Item {
             Layout.fillWidth: true
             Layout.fillHeight: true
@@ -50,9 +61,7 @@ Page {
 
                 delegate: VListItem {
                     prefix: Image {
-                        width: 32
-                        height: 32
-                        source: "image://icons/light/32x32/pluscircle"
+                        source: "image://icons/32x32/lock"
                     }
 
                     VLabel {
