@@ -36,8 +36,8 @@ ApplicationWindow {
      * Go To specific
      * @param page: Page Component
      */
-    function goToPage(page){
-        stack.push(pages[page]);
+    function goToPage(page, properties){
+        stack.push(pages[page], properties);
     }
 
     /*
