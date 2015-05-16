@@ -12,7 +12,8 @@ ApplicationWindow {
 
     property var pages: {
                 "Vault":    Qt.resolvedUrl("/Vault.qml"),
-                "Store":    Qt.resolvedUrl("/Store.qml")
+                "Store":    Qt.resolvedUrl("/Store.qml"),
+                "StoreEditor": Qt.resolvedUrl("/StoreEditor.qml")
     }
 
     property bool firstRun: true

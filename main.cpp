@@ -8,6 +8,7 @@
 #include "vaults.h"
 #include "storefilter.h"
 #include "iconprovider.h"
+#include "clipboard.h"
 
 int main(int argc, char *argv[])
 {
@@ -28,7 +29,10 @@ int main(int argc, char *argv[])
     Units units;
 #endif
 
+    Clipboard *clipboard = new Clipboard(QGuiApplication::clipboard());
+
     engine.rootContext()->setContextProperty(QLatin1String("U"), &units);
+    engine.rootContext()->setContextProperty(QLatin1String("clipboard"), clipboard);
     engine.rootContext()->setContextProperty(QLatin1String("vaults"), new Vaults);
     engine.rootContext()->setContextProperty(QLatin1String("store"), new StoreFilter);
     engine.addImageProvider(QLatin1String("icons"), new IconProvider(units.ratio()));

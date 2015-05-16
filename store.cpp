@@ -133,25 +133,6 @@ bool Store::setData(const QModelIndex &index, const QVariant &value, int role)
     return result;
 }
 
-bool Store::insertRow(int row, const QModelIndex &parent)
-{
-    if (!isOpen) return false;
-    bool result = false;
-    beginInsertRows(parent, row, row);
-
-    endInsertRows();
-    return result;
-}
-
-bool Store::removeRow(int row, const QModelIndex &parent)
-{
-    if (!isOpen) return false;
-    bool result = false;
-    beginRemoveRows(parent,row,row);
-    mData.removeAt(row);
-    endRemoveRows();
-    return result;
-}
 
 bool Store::open(const QString &storeName, const quint64 key)
 {
@@ -193,7 +174,7 @@ bool Store::open(const QString &storeName, const quint64 key)
         }
         endInsertRows();
         mStore.close();
-    } else saveData(); //If store file does not exist, create it
+    } else sync(); //If store file does not exist, create it
     mStoreChanged = false;    
     return isOpen = true;
 }
@@ -201,7 +182,7 @@ bool Store::open(const QString &storeName, const quint64 key)
 void Store::close()
 {
     if (!isOpen) return;
-    if (mStoreChanged) saveData();
+    if (mStoreChanged) sync();
     beginRemoveRows(QModelIndex(), 0, mData.count());
         mData.clear();
     endRemoveRows();
@@ -220,7 +201,8 @@ void Store::add(const QVariantMap &v)
 
     mData.append(storeItem);
     endInsertRows();
-    mStoreChanged = true;
+    //    mStoreChanged = true;
+        sync();
 }
 
 QVariantMap Store::get(const QString &id)
@@ -232,7 +214,8 @@ void Store::set(const QString &id, const QVariantMap &v)
 {
     StoreItem &storeItem = mData[findElementIndexById(id)];
     storeItem = v;
-    mStoreChanged = true;
+    //    mStoreChanged = true;
+        sync();
 }
 
 void Store::remove(const QString &id)
@@ -243,7 +226,8 @@ void Store::remove(const QString &id)
     beginRemoveRows(QModelIndex(),index, index);
     mData.removeAt(index);
     endRemoveRows();
-    mStoreChanged = true;
+//    mStoreChanged = true;
+    sync();
 }
 
 QString Store::encode(const QString &v)
@@ -270,7 +254,7 @@ int Store::findElementIndexById(const QString id) const
     return index;
 }
 
-void Store::saveData()
+void Store::sync()
 {
     QJsonArray data;
      for (int i=0; i < mData.count(); i++){
@@ -296,4 +280,5 @@ void Store::saveData()
          mStore.write(fileContents);
          mStore.close();
      }
+     mStoreChanged = false;
 }

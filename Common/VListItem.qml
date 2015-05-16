@@ -10,37 +10,37 @@ MouseArea {
     anchors.left: parent.left
     anchors.right: parent.right
     height: Sizes.LIST_ITEM
-    clip: true
     default property alias _contentChildren: listItemContent.data
     property alias border: _border.visible
     property alias prefix: listItemPrefix.data
     property alias suffix: listItemSuffix.data
 
     Rectangle {
-        id: highlight
-        anchors.centerIn: parent
-        width: parent.pressed? parent.width: 0
-        height: width
-        radius: width
-        color: Palette.LIST_ITEM_HIGHLIGHT
-        opacity: (width / listItem.width)
-        Behavior on width {
-            SequentialAnimation{
-                PauseAnimation {
-                    duration: 500
-                }
-                NumberAnimation{
-                    duration: 300
-                }
-            }
-        }
-    }
-    Rectangle {
         id: selection
         anchors.fill: parent
         color: Palette.LIGHT
         opacity: parent.pressed? 1: 0
+        clip: true
         Behavior on opacity {NumberAnimation{duration: 100}}
+        Rectangle {
+            id: highlight
+            anchors.centerIn: parent
+            width: listItem.pressed? parent.width: 0
+            height: width
+            radius: width
+            color: Palette.LIST_ITEM_HIGHLIGHT
+            opacity: (width / listItem.width)
+            Behavior on width {
+                SequentialAnimation{
+                    PauseAnimation {
+                        duration: 500
+                    }
+                    NumberAnimation{
+                        duration: 300
+                    }
+                }
+            }
+        }
     }
 
     RowLayout{
@@ -70,6 +70,7 @@ MouseArea {
         id: _border
         color: Palette.BORDER
         height: Sizes.BORDER
+        clip: true
         gradient: Gradient {
             GradientStop {
                 id: gradientStop2
@@ -85,10 +86,17 @@ MouseArea {
         }
         anchors.right: parent.right
         anchors.left: parent.left
-        anchors.bottom: parent.bottom
+        anchors.top: parent.bottom
 
     }
     states: [
+        State {
+            name: "borderNone"
+            PropertyChanges {
+                target: _border
+                visible: false
+            }
+        },
         State {
             name: "borderShadow"
             PropertyChanges {
@@ -98,10 +106,14 @@ MouseArea {
         },
         State {
             name: "borderShadowTop"
+            AnchorChanges {
+                target: _border
+                anchors.top: parent.top
+                anchors.bottom: undefined
+            }
             PropertyChanges {
                 target: _border
                 height: Sizes.BORDER * 4
-                anchors.bottomMargin: listItem.height - height
             }
         }
     ]

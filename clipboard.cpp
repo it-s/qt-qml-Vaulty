@@ -1,12 +1,12 @@
 #include "clipboard.h"
 
-Clipboard::Clipboard(QObject *parent) : QObject(parent)
+Clipboard::Clipboard(QClipboard *clipboard, QObject *parent) : QObject(parent)
 {
-
+    mClipboard = clipboard;
 }
 
-Clipboard::~Clipboard()
+void Clipboard::copy(QString t)
 {
-
+    mClipboard->setText(t);
 }
 

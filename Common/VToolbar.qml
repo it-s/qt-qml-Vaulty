@@ -35,7 +35,7 @@ Rectangle {
             VLabel{
                 id: toolbarText
                 color: Palette.LIST_ITEM_HEAD
-                font.pixelSize: Sizes.FONT_SIZE_SUBHEAD
+//                font.pixelSize: Sizes.FONT_SIZE_SUBHEAD
                 text: "Toolbar"
                 anchors.verticalCenter: parent.verticalCenter
                 verticalAlignment: Text.AlignBottom

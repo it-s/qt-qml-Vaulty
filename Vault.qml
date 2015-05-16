@@ -44,7 +44,7 @@ Page {
                     }
 
                     VLabel {
-                        text: name
+                        text: title
                         color: Palette.LIST_ITEM_TEXT
                     }
                     VLabel {
@@ -52,16 +52,8 @@ Page {
                         color: Palette.LIST_ITEM_SUBTEXT
                         font.pixelSize: Size.FONT_SIZE_SMALL
                     }
-                    onClicked: keyView.open(file)
-                    onPressAndHold: editView.edit({
-                                                      name: name,
-                                                      description: description,
-                                                   callback: callback
-                                                  });
-                    function callback(data){
-                        name = data.name;
-                        description = data.description;
-                    }
+                    onClicked: keyView.open(ID)
+                    onPressAndHold: editView.edit(ID)
                 }
                 model: vaults
 //                    ListModel{

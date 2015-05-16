@@ -14,7 +14,7 @@ Page {
     width: 320
     height: 480
 
-    onHidden: store.close()
+//    onHidden: store.close()
     property alias title: toolbar.text
 
     ColumnLayout {
@@ -31,32 +31,9 @@ Page {
             VToolbarButton {
                 icon: "image://icons/32x32/pluscircle"
                 Layout.alignment: Qt.AlignRight
-                onClicked: editView.open()
+                onClicked: app.goToPage("StoreEditor");//editView.open()
             }
         }
-
-//        ToolBar {
-//            height: U.px(64)
-//            z: 2
-//            Layout.fillWidth: true
-//            RowLayout {
-//                anchors.fill: parent
-//                ToolButton {
-//                    text: "Vaulty"
-//                    tooltip: "Return to vault selector"
-//                    onClicked: app.goBack()
-//                    Layout.fillHeight: true
-//                    iconSource: "image://icons/chevronleft"
-//                }
-//                ToolButton {
-//                    tooltip: "Add new item"
-//                    onClicked: editView.open()
-//                    Layout.fillHeight: true
-//                    Layout.alignment: Qt.AlignRight
-//                    iconSource: "image://icons/pluscircle"
-//                }
-//            }
-//        }
 //        Rectangle {
 //            height: U.px(32)
 //            Layout.fillWidth: true
@@ -91,16 +68,17 @@ Page {
                 id: vaultsList
                 anchors.fill: parent
                 delegate: VListItem {
+                    border: index < (vaultsList.count - 1)
+                    state: ListView.section !== ListView.nextSection? "borderShadow": ""
                     prefix: Image {
                         source: itemTypeModel.icon(type)
                     }
-
                     VLabel {
                         text: title
                         color: Palette.LIST_ITEM_TEXT
                     }
                     VLabel {
-                        text: number
+                        text: number.length ? number : login
                         color: Palette.LIST_ITEM_SUBTEXT
                         font.pixelSize: Size.FONT_SIZE_SMALL
                     }
@@ -115,29 +93,15 @@ Page {
                                                  relate: relate,
                                                  description: description
                                              });
-                    onPressAndHold: editView.edit(ID);
-
+                    onPressAndHold: app.goToPage("StoreEditor", {title: title, storeID: ID});//editView.edit(ID);
                 }
-//                delegate: ListItem {
-//                    onClicked: cardView.show(toJSON());
-//                    onPressAndHold: editView.edit(ID);
-//                }
                 section.property: "type"
+//                section.labelPositioning: ViewSection.CurrentLabelAtStart
                 section.criteria: ViewSection.FullString
                 section.delegate: VListSection {
+                    state: "borderNone"
                     text: itemTypeModel.name(section)
                 }
-
-//                    Rectangle {
-//                    width: parent.width
-//                    height: childrenRect.height
-//                    color: "lightsteelblue"
-//                    Text {
-//                        text: itemTypeModel.name(section)
-//                        font.bold: true
-//                        font.pixelSize: U.px(20)
-//                    }
-//                }
                 model: store
             }
         }

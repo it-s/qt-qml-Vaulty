@@ -11,9 +11,7 @@ VListItem {
     property alias text: textElement.text
     VLabel {
         id: textElement
-//        font.pixelSize: Sizes.FONT_SIZE_SMALL
         color: Palette.LIST_ITEM_TITLE
-        anchors.verticalCenter: parent.verticalCenter
         verticalAlignment: Text.AlignVCenter
     }
 }

@@ -1,7 +1,223 @@
-import QtQuick 2.0
+import QtQuick 2.4
+import QtQuick.Layouts 1.1
+import QtQuick.Controls 1.2
 
-Rectangle {
-    width: 100
-    height: 62
+import "Common"
+import "Store"
+
+import "Common/sizes.js" as Sizes
+import "Common/palette.js" as Palette
+
+Page {
+    id: page
+    width: 320
+    height: 480
+
+    property string storeID: ""
+    property alias title: toolbar.text
+
+    function save(){
+        var data = {
+            type: itemTypeModel.value(itemType.currentIndex),
+            style: itemStyleModel.value(itemStyle.currentIndex),
+            title: itemTitle.text,
+            login: itemLogin.text,
+            number: itemNumber.text,
+            password: itemPass.text != ""? store.encode(itemPass.text): "",
+            pin: itemPin.text != ""? store.encode(itemPin.text): "",
+            relate: itemRelate.text,
+            description: itemDescription.text
+         };
+
+        if (storeID !== ""){
+            store.set(storeID, data);
+        }else{
+            if (itemTitle.text != "")
+                store.add(data);
+        }
+        app.goBack();
+    }
+
+    onShow: {
+        if (storeID !== ""){
+            var v = store.get(storeID);
+            itemType.currentIndex = itemTypeModel.index(v.type);
+            itemStyle.currentIndex = itemStyleModel.index(v.style);
+            itemTitle.text = v.title;
+            itemLogin.text = v.login;
+            itemNumber.text = v.number;
+            itemPass.text = v.password;
+            itemPin.text = v.pin;
+            itemRelate.text = v.relate;
+            itemDescription.text = v.description;
+        }
+    }
+
+    onHidden: {
+        itemType.currentIndex = 0;
+        itemStyle.currentIndex = 0;
+        itemTitle.text = "";
+        itemLogin.text = "";
+        itemNumber.text = "";
+        itemPass.text = "";
+        itemPin.text = "";
+        itemRelate.text = "";
+        itemDescription.text = "";
+        storeID = "";
+    }
+
+    ColumnLayout {
+        anchors.fill: parent
+        spacing: 0
+
+        VToolbar {
+            id: toolbar
+            icon: "image://icons/times"
+            text: "New card"
+            shadow: flickable.contentY > 0
+            Layout.fillHeight: false
+            onAction: app.goBack()
+            VButton {
+                text: "save"
+                Layout.alignment: Qt.AlignRight
+                onClicked: page.save()
+                enabled: itemTitle.text != ""
+            }
+        }
+
+        Flickable {
+            id: flickable
+            flickableDirection: Flickable.VerticalFlick
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            contentWidth: width
+            contentHeight: content.height
+            clip: true
+
+            Column {
+                id: content
+                spacing: Sizes.MARGIN
+                anchors.right: parent.right
+                anchors.left: parent.left
+                anchors {rightMargin: Sizes.MARGIN; leftMargin: Sizes.MARGIN}
+
+                Item {
+                    anchors.right: parent.right
+                    anchors.left: parent.left
+                    height: Sizes.MARGIN
+                }
+
+                SLabel {
+                    text: qsTr("Service type:")
+                }
+
+                ComboBox {
+                    id: itemType
+                    anchors.right: parent.right
+                    anchors.left: parent.left
+                    anchors.leftMargin: Sizes.MARGIN
+                    currentIndex: itemTypeModel.count - 1
+                    model: ItemTypes{
+                        id: itemTypeModel
+                    }
+                }
+
+                SLabel {
+                    text: qsTr("Service name:")
+                }
+
+                TextField {
+                    id: itemTitle
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.leftMargin: Sizes.MARGIN
+                    placeholderText: qsTr("My Service")
+                }
+
+                SLabel {
+                    text: qsTr("Service detials:")
+                }
+
+                TextField {
+                    id: itemNumber
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.leftMargin: Sizes.MARGIN
+                    placeholderText: qsTr("Account number (if any)")
+                    inputMethodHints: Qt.ImhPreferNumbers | Qt.ImhNoPredictiveText
+                }
+
+                TextField {
+                    id: itemLogin
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.leftMargin: Sizes.MARGIN
+                    placeholderText: qsTr("User name")
+                    inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText
+                }
+
+                TextField {
+                    id: itemPass
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.leftMargin: Sizes.MARGIN
+                    placeholderText: qsTr("Password")
+                    echoMode: TextInput.Password
+                    inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText
+                }
+
+                TextField {
+                    id: itemPin
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.leftMargin: Sizes.MARGIN
+                    placeholderText: qsTr("Pin number (if any)")
+                    echoMode: TextInput.Password
+                    inputMethodHints: Qt.ImhPreferNumbers | Qt.ImhNoPredictiveText
+                }
+
+                TextField {
+                    id: itemRelate
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.leftMargin: Sizes.MARGIN
+                    placeholderText: qsTr("Service URL (if any)")
+                    inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText
+                }
+
+                SLabel {
+                    text: qsTr("Style:")
+                }
+
+                ComboBox {
+                    id: itemStyle
+                    property int value: 0
+                    anchors.right: parent.right
+                    anchors.left: parent.left
+                    anchors.leftMargin: Sizes.MARGIN
+                    model: ItemStyles {
+                        id: itemStyleModel
+                    }
+                }
+
+                SLabel {
+                    text: qsTr("Additional notes:")
+                }
+
+                TextArea {
+                    id: itemDescription
+                    anchors.right: parent.right
+                    anchors.left: parent.left
+                    anchors.leftMargin: Sizes.MARGIN
+                }
+
+                Item {
+                    anchors.right: parent.right
+                    anchors.left: parent.left
+                    height: Sizes.MARGIN
+                }
+
+            }
+        }
+    }
 }
-

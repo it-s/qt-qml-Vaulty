@@ -24,5 +24,8 @@
         <file>Common/VButton.qml</file>
         <file>Common/VToolbarButton.qml</file>
         <file>Common/VListSection.qml</file>
+        <file>StoreEditor.qml</file>
+        <file>Store/SLabel.qml</file>
+        <file>Store/CardItem.qml</file>
     </qresource>
 </RCC>

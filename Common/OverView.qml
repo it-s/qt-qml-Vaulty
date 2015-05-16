@@ -97,7 +97,6 @@ Item
 
                 VLabel {
                     id: pageTitle
-                    font.pixelSize: Sizes.FONT_SIZE_HEADLINE
                     color: Palette.ACCENT3
                     text: ""
                     visible: text != ""

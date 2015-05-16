@@ -4,6 +4,9 @@ import QtQuick.Controls 1.2
 
 import "../Common"
 
+import "../Common/sizes.js" as Sizes
+import "../Common/palette.js" as Palette
+
 OverView {
     id: editView
 
@@ -39,48 +42,24 @@ OverView {
         open();
     }
 
-    Text {
+    VListHeader {
         id: itemTitle
-        anchors.left: parent.left
-        anchors.right: parent.right
-        visible: text!=""
+        state: "borderNone"
+        suffix: VButton {
+                        icon: "image://icons/32x32/eye"
+                        onClicked: {
+                            itemPass.text = store.decode(itemPass.text);
+                            itemPin.text = store.decode(itemPin.text);
+                            enabled = false;
+                        }
+                    }
     }
-    Text {
-        id: itemLogin
-        anchors.left: parent.left
-        anchors.right: parent.right
-        visible: text!=""
-    }
-    Text {
-        id: itemNumber
-        anchors.left: parent.left
-        anchors.right: parent.right
-        visible: text!=""
-    }
-    Text {
-        id: itemPass
-        anchors.left: parent.left
-        anchors.right: parent.right
-        visible: text!=""
-    }
-    Text {
-        id: itemPin
-        anchors.left: parent.left
-        anchors.right: parent.right
-        visible: text!=""
-    }
-    Text {
-        id: itemRelate
-        anchors.left: parent.left
-        anchors.right: parent.right
-        visible: text!=""
-    }
-    Text {
-        id: itemDescription
-        anchors.left: parent.left
-        anchors.right: parent.right
-        visible: text!=""
-    }
+    CardItem {id: itemNumber; description: "Account number:";}
+    CardItem {id: itemLogin; description: "Login:";}
+    CardItem {id: itemPass; description: "Password:";}
+    CardItem {id: itemPin; description: "Pin Number:";}
+    CardItem {id: itemRelate; description: "Service URL:";}
+    CardItem {id: itemDescription; description: "Additional notes:";}
 
 
 }

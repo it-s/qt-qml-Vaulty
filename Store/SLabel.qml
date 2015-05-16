@@ -1,7 +1,13 @@
-import QtQuick 2.0
+import QtQuick 2.4
 
-Rectangle {
-    width: 100
-    height: 62
+import "../Common"
+
+import "../Common/sizes.js" as Sizes
+import "../Common/palette.js" as Palette
+
+VLabel {
+    anchors.left: parent.left
+    font.pixelSize: Sizes.FONT_SIZE_SMALL
+    color: Palette.LIST_ITEM_TITLE
 }
 

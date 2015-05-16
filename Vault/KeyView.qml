@@ -28,10 +28,10 @@ OverView {
         keyText.text = "";
     }
 
-    function open(file){
-//        console.log(file);
-        if (!file) return;
-        _editing = file;
+    function open(id){
+        if (!id) return;
+        _editing = vaults.get(id);
+        title = _editing.title;
         state = "OPEN"
     }
 
@@ -44,9 +44,9 @@ OverView {
             error = "Could not unlock valut with the key provided.";
             var key = Utils.toKey(keyText.text);
 //            console.log(key);
-            if (store.open(_editing, key)){
+            if (store.open(_editing.file, key)){
                 close();
-                app.goToPage("Store");
+                app.goToPage("Store",{title: _editing.title});
             }else {
                 messageDialog.text = error;
                 messageDialog.open();

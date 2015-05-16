@@ -27,6 +27,9 @@ public slots:
     void set(const QString id, const QVariantMap& v);
     void remove(const QString id);
 
+    Q_INVOKABLE QString encode(const QString &v){return store.encode(v);}
+    Q_INVOKABLE QString decode(const QString &v){return store.decode(v);}
+
 protected:
     bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const;
 //    bool lessThan(const QModelIndex &left, const QModelIndex &right) const;
