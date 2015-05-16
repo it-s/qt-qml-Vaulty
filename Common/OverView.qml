@@ -17,8 +17,10 @@ Item
     default property alias _contentChildren: pageBody.data
     property var _editing: null
 
+    property alias title: pageTitle.text
     property string saveButtonText: "Save"
     property string closeButtonText: "Cancel"
+    property alias saveButtonEnabled: saveButton.enabled
 
     function open(){
         //Open code here
@@ -87,51 +89,63 @@ Item
 
             Column
             {
-                anchors.rightMargin:Sizes.MARGIN
-                anchors.leftMargin: Sizes.MARGIN
                 anchors.top: parent.top
-                anchors.topMargin: Sizes.MARGIN_DOUBLE
-                spacing: Sizes.MARGIN
                 anchors.left: parent.left
                 anchors.right: parent.right
+                anchors.topMargin: Sizes.MARGIN_DOUBLE
+                spacing: Sizes.MARGIN
 
-                    Column
-                    {
-                        id: pageBody
-                        spacing: Sizes.MARGIN
-                        anchors.left: parent.left
-                        anchors.right: parent.right
-
-                        //Overlay body
-
-                    }
-
-                Rectangle
-                {
-                    height: Sizes.BORDER
-                    color: Palette.BORDER
+                VLabel {
+                    id: pageTitle
+                    font.pixelSize: Sizes.FONT_SIZE_HEADLINE
+                    color: Palette.ACCENT3
+                    text: ""
+                    visible: text != ""
                     anchors.left: parent.left
                     anchors.right: parent.right
+                    anchors.rightMargin:Sizes.MARGIN
+                    anchors.leftMargin: Sizes.MARGIN
                 }
+
+                Column
+                {
+                    id: pageBody
+                    spacing: Sizes.MARGIN
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.rightMargin:Sizes.MARGIN
+                    anchors.leftMargin: Sizes.MARGIN
+
+                    //Overlay body
+
+                }
+
                 RowLayout
                 {
                     id: pageFooter
                     anchors.left: parent.left
                     anchors.right: parent.right
+                    anchors.rightMargin:Sizes.MARGIN
+                    anchors.leftMargin: Sizes.MARGIN
+                    Item {
+                        Layout.fillWidth: true
+                    }
+
                     VButton {
+                        id: cancelButton
                         text: overView.closeButtonText
-                        Layout.alignment: Qt.AlignRight
-                        Layout.fillWidth: false
                         onClicked: overView.close();
                         visible: overView.closeButtonText != ""
-                        type: "link"
-                    }
-                    VButton {
-                        text: overView.saveButtonText
                         Layout.alignment: Qt.AlignRight
                         Layout.fillWidth: false
+                    }
+                    VButton {
+                        id: saveButton
+                        text: overView.saveButtonText
                         onClicked: overView.save();
-                        visible: overView.closeButtonText != ""
+                        visible: overView.saveButtonText != ""
+                        Layout.alignment: Qt.AlignRight
+                        Layout.fillWidth: false
                     }
                 }
             }

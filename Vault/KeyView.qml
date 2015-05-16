@@ -4,11 +4,15 @@ import QtQuick.Controls 1.2
 import QtQuick.Dialogs 1.1
 
 import "../Common"
+import "../Common/sizes.js" as Size
+import "../Common/palette.js" as Palette
 import "utils.js" as Utils
+
 
 OverView {
     id: keyView
 
+    saveButtonEnabled: keyText.text != ""
     saveButtonText: "OK"
 
 //    onStateChanged: keyText.focus = true
@@ -49,12 +53,6 @@ OverView {
             }
         }
     }
-    Label{
-        anchors.right: parent.right
-        anchors.left: parent.left
-        text: "Key must contain at least six characters, including uppercase, lowercase letters and numbers."
-        wrapMode: Text.WordWrap
-    }
 
     TextField {
         id: keyText
@@ -63,6 +61,15 @@ OverView {
         placeholderText: qsTr("Vault key")
         echoMode: TextInput.Password
         inputMethodHints: Qt.ImhHiddenText | Qt.ImhNoPredictiveText
+    }
+
+    VLabel{
+        anchors.right: parent.right
+        anchors.left: parent.left
+        text: "Key must contain at least six characters, including uppercase, lowercase letters and numbers."
+        wrapMode: Text.WordWrap
+        color: Palette.LIST_ITEM_SUBTEXT
+        font.pixelSize: Size.FONT_SIZE_SMALL
     }
 
     MessageDialog {

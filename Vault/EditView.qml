@@ -7,6 +7,8 @@ import "../Common"
 OverView {
     id: editView
 
+    saveButtonEnabled: nameText.text != ""
+
 //    onStateChanged: nameText.focus = true
     function opened(){
         nameText.forceActiveFocus()

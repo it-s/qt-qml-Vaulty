@@ -8,10 +8,6 @@ MouseArea {
     width: childrenRect.width
     height: Sizes.ICON_32
 
-    readonly property string type_Default: ""
-    readonly property string type_Link: "link"
-    readonly property string type_Primary: "primary"
-
     property alias icon: contentIcon.source
     property alias text: contentLabel.text
     property alias type: button.state
@@ -21,9 +17,6 @@ MouseArea {
         width: contentIcon.width + contentLabel.width + Sizes.MARGIN_DOUBLE
         height: Sizes.ICON_32
         color: Palette.BUTTON
-        radius: Sizes.BUTTON_RADIUS
-        border.width: Sizes.BORDER
-        border.color: Palette.BUTTON_BORDER
 
         Row {
             scale: button.pressed? 0.8: 1
@@ -33,23 +26,11 @@ MouseArea {
             }
             VLabel {
                 id: contentLabel
-                color: Palette.BUTTON_TEXT
+                color: button.enabled? Palette.BUTTON_TEXT: Palette.GRAY
+                font.capitalization: Font.AllUppercase
             }
         }
 
     }
-    states: [
-        State {
-            name: "link"
-
-            PropertyChanges {
-                target: content
-                border.color: "#00000000"
-            }
-        },
-        State {
-            name: "primary"
-        }
-    ]
 }
 
