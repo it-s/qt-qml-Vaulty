@@ -6,6 +6,8 @@ import "../Common"
 import "../Common/sizes.js" as Size
 import "../Common/palette.js" as Palette
 
+import "utils.js" as Utils
+
 Item {
     width: 320
     anchors.left: parent.left
@@ -13,6 +15,7 @@ Item {
     height: Size.LIST_ITEM_HEAD
     property alias text: itemValue.text
     property alias description: itemDescription.text
+    property alias isURL: listItemURL.visible
     visible: itemValue.text!=""
     RowLayout{
         anchors.fill: parent
@@ -34,6 +37,17 @@ Item {
                 font.pixelSize: Size.FONT_SIZE_SMALL
                 text: "Description:"
             }
+        }
+        VButton {
+            id: listItemURL
+            width: Size.ICON
+            height: width
+            visible: false
+            anchors.verticalCenter: parent.verticalCenter
+            Layout.fillWidth: false
+            Layout.alignment: Qt.AlignRight
+            icon: "image://icons/16x16/globe"
+            onClicked: Qt.openUrlExternally(Utils.formatURL(itemValue.text))
         }
         VButton {
             id: listItemSuffix

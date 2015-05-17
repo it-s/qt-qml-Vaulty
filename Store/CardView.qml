@@ -64,7 +64,7 @@ OverView {
     CardItem {id: itemLogin; description: "Login:";}
     CardItem {id: itemPass; description: "Password:";}
     CardItem {id: itemPin; description: "Pin Number:";}
-    CardItem {id: itemRelate; description: "Service URL:";}
+    CardItem {id: itemRelate; description: "Service URL:"; isURL: true }
     CardItem {id: itemDescription; description: "Additional notes:";}
 
 

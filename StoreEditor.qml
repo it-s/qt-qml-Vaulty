@@ -8,6 +8,8 @@ import "Store"
 import "Common/sizes.js" as Sizes
 import "Common/palette.js" as Palette
 
+import "Store/utils.js" as Utils
+
 Page {
     id: page
     width: 320
@@ -26,7 +28,7 @@ Page {
             number: itemNumber.text,
             password: itemPass.text != ""? store.encode(itemPass.text): "",
             pin: itemPin.text != ""? store.encode(itemPin.text): "",
-            relate: itemRelate.text,
+            relate: Utils.cleanURL(itemRelate.text),
             description: itemDescription.text
          };
 
