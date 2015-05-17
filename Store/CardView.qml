@@ -45,8 +45,10 @@ OverView {
     VListHeader {
         id: itemTitle
         state: "borderNone"
+        anchors.left: parent.left
+        anchors.right: parent.right
         suffix: VButton {
-                        icon: "image://icons/32x32/eye"
+                        icon: "image://icons/eye"
                         onClicked: {
                             itemPass.text = store.decode(itemPass.text);
                             itemPin.text = store.decode(itemPin.text);

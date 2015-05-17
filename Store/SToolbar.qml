@@ -1,157 +1,74 @@
 import QtQuick 2.4
-import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
+import QtQuick.Layouts 1.1
 
-import "../Common"
+import "../Common/sizes.js" as Sizes
+import "../Common/palette.js" as Palette
 
-OverView {
-    id: editView
+Rectangle {
+    id: toolbar
+    width: 320
+    anchors.left: parent.left
+    anchors.right: parent.right
+    height: hidden? 0: Sizes.TOOLBAR_MIN / 2
+    color: Palette.TOOLBAR
+    //clip: hidden? true: false;
+    property bool shadow: false
+    property bool hidden: false
 
-    function opened(){
-        itemTitle.forceActiveFocus()
-        itemTitle.focus = true;
-    }
+    Behavior on height {NumberAnimation{duration: 100}}
 
-    function clear(){
-        itemType.currentIndex = 0;
-        itemStyle.currentIndex = 0;
-        itemTitle.text = "";
-        itemLogin.text = "";
-        itemNumber.text = "";
-        itemPass.text = "";
-        itemPin.text = "";
-        itemRelate.text = "";
-        itemDescription.text = "";
-    }
-
-    function edit(ID){
-        //Edit code here
-        _editing = ID;
-        var v = store.get(ID);
-        if (_editing !== null){
-            itemType.currentIndex = itemTypeModel.index(v.type);
-            itemStyle.currentIndex = itemStyleModel.index(v.style);
-            itemTitle.text = v.title;
-            itemLogin.text = v.login;
-            itemNumber.text = v.number;
-            itemPass.text = v.password;
-            itemPin.text = v.pin;
-            itemRelate.text = v.relate;
-            itemDescription.text = v.description;
+    RowLayout {
+        id: content
+        anchors.fill: parent
+        anchors {leftMargin: Sizes.MARGIN; rightMargin: Sizes.MARGIN}
+        spacing: Sizes.MARGIN
+        ComboBox{
+            Layout.fillWidth: true
+            model: ItemTypes {
+                    id: itemTypeModel
+                    Component.onCompleted: insert(0,{text:"All Types",value:-1})
+                }
+            onCurrentIndexChanged: store.setFilterType(itemTypeModel.value(currentIndex))
         }
-        open();
-    }
-
-    function save(){
-        var data = {
-            type: itemTypeModel.value(itemType.currentIndex),
-            style: itemStyleModel.value(itemStyle.currentIndex),
-            title: itemTitle.text,
-            login: itemLogin.text,
-            number: itemNumber.text,
-            password: itemPass.text,
-            pin: itemPin.text,
-            relate: itemRelate.text,
-            description: itemDescription.text
-         };
-
-        if (_editing !== null){
-//            _editing.callback(data);
-            store.set(_editing, data);
-        }else{
-            if (itemTitle.text != "")
-                store.add(data);
-        }
-        close();
-    }
-
-    Label {
-        text: qsTr("Service Type:")
-        anchors.left: parent.left
-    }
-
-    ComboBox {
-        id: itemType
-        anchors.right: parent.right
-        anchors.left: parent.left
-        currentIndex: itemTypeModel.count - 1
-        model: ItemTypes{
-            id: itemTypeModel
+        TextField {
+            Layout.fillWidth: true
+            placeholderText: "Filter"
+            onTextChanged: store.setFilterRegExp(text)
         }
     }
+    Rectangle {
+        id: _border
+        height: Sizes.BORDER * 4
+        color: Palette.BORDER
+        opacity: 0
+        anchors.top: parent.bottom
+        gradient: Gradient {
+            GradientStop {
+                id: gradientStop2
+                position: 0
+                color: Palette.BORDER
+            }
 
-    TextField {
-        id: itemTitle
-        anchors.left: parent.left
-        anchors.right: parent.right
-        placeholderText: qsTr("Service Name")
-    }
-
-    TextField {
-        id: itemNumber
-        anchors.left: parent.left
-        anchors.right: parent.right
-        placeholderText: qsTr("Account Number (if any)")
-        inputMethodHints: Qt.ImhPreferNumbers | Qt.ImhNoPredictiveText
-    }
-
-    TextField {
-        id: itemLogin
-        anchors.left: parent.left
-        anchors.right: parent.right
-        placeholderText: qsTr("User Name")
-        inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText
-    }
-
-    TextField {
-        id: itemPass
-        anchors.left: parent.left
-        anchors.right: parent.right
-        placeholderText: qsTr("Password")
-        echoMode: TextInput.Password
-        inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText
-    }
-
-    TextField {
-        id: itemPin
-        anchors.left: parent.left
-        anchors.right: parent.right
-        placeholderText: qsTr("Pin Number (if any)")
-        inputMethodHints: Qt.ImhPreferNumbers | Qt.ImhNoPredictiveText
-    }
-
-    TextField {
-        id: itemRelate
-        anchors.left: parent.left
-        anchors.right: parent.right
-        placeholderText: qsTr("Service URL (if any)")
-        inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText
-    }
-
-    Label {
-        text: qsTr("Style:")
-        anchors.left: parent.left
-    }
-
-    ComboBox {
-        id: itemStyle
-        property int value: 0
-        anchors.right: parent.right
-        anchors.left: parent.left
-        model: ItemStyles {
-            id: itemStyleModel
+            GradientStop {
+                id: gradientStop1
+                position: 1
+                color: "#00000000"
+            }
         }
-    }
-
-    Label {
-        text: qsTr("Additional notes:")
-        anchors.left: parent.left
-    }
-
-    TextArea {
-        id: itemDescription
         anchors.right: parent.right
         anchors.left: parent.left
+        Behavior on opacity {NumberAnimation{duration: 100}}
     }
+    states: [
+        State {
+            name: "borderShadow"
+            when: shadow
+            PropertyChanges {
+                target: _border
+                opacity: 1
+            }
+        }
+    ]
 
 }

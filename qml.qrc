@@ -7,7 +7,7 @@
         <file>Vault/ListItem.qml</file>
         <file>Store/ListItem.qml</file>
         <file>Vault/EditView.qml</file>
-        <file>Store/EditView.qml</file>
+        <file>Store/SToolbar.qml</file>
         <file>Common/OverView.qml</file>
         <file>Store/ItemTypes.qml</file>
         <file>Store/ItemStyles.qml</file>

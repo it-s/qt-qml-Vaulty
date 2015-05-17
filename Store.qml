@@ -25,8 +25,8 @@ Page {
             id: toolbar
             icon: "image://icons/chevronleft"
             text: "Vaults"
-            shadow: vaultsList.contentY > 0
             Layout.fillHeight: false
+            shadow: filterBar.hidden
             onAction: app.goBack()
             VToolbarButton {
                 icon: "image://icons/32x32/pluscircle"
@@ -34,6 +34,12 @@ Page {
                 onClicked: app.goToPage("StoreEditor");//editView.open()
             }
         }
+        SToolbar{
+            id: filterBar
+            shadow: vaultsList.contentY > 0
+//            hidden:
+        }
+
 //        Rectangle {
 //            height: U.px(32)
 //            Layout.fillWidth: true
@@ -117,10 +123,6 @@ Page {
 
     CardView{
         id: cardView
-    }
-
-    EditView{
-        id: editView
     }
 
 }
