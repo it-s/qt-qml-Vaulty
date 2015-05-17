@@ -25,6 +25,7 @@ OverView {
         itemPin.text = "";
         itemRelate.text = "";
         itemDescription.text = "";
+        showHidden.enabled = true;
     }
 
     function show(item){
@@ -48,13 +49,16 @@ OverView {
         anchors.left: parent.left
         anchors.right: parent.right
         suffix: VButton {
-                        icon: "image://icons/eye"
-                        onClicked: {
-                            itemPass.text = store.decode(itemPass.text);
-                            itemPin.text = store.decode(itemPin.text);
-                            enabled = false;
-                        }
-                    }
+            id: showHidden
+            width: Sizes.ICON_32
+            visible: itemPass.visible || itemPin.visible
+            icon: "image://icons/eye"
+            onClicked: {
+                itemPass.text = store.decode(itemPass.text);
+                itemPin.text = store.decode(itemPin.text);
+                enabled = false;
+            }
+        }
     }
     CardItem {id: itemNumber; description: "Account number:";}
     CardItem {id: itemLogin; description: "Login:";}

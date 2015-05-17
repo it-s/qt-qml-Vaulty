@@ -10,24 +10,32 @@ Rectangle {
     width: 320
     anchors.left: parent.left
     anchors.right: parent.right
-    height: hidden? 0: Sizes.TOOLBAR_MIN / 2
+    height: Sizes.LIST_ITEM_HEAD
     color: Palette.TOOLBAR
-    //clip: hidden? true: false;
+    clip: hidden? true: false;
     property bool shadow: false
     property bool hidden: false
+
+    function hide(){
+        hidden = true
+    }
+
+    function show(){
+        hidden = false
+    }
 
     Behavior on height {NumberAnimation{duration: 100}}
 
     RowLayout {
         id: content
         anchors.fill: parent
-        anchors {leftMargin: Sizes.MARGIN; rightMargin: Sizes.MARGIN}
+        anchors {leftMargin: Sizes.MARGIN; topMargin: 0; rightMargin: Sizes.MARGIN; bottomMargin: Sizes.MARGIN}
         spacing: Sizes.MARGIN
         ComboBox{
             Layout.fillWidth: true
             model: ItemTypes {
                     id: itemTypeModel
-                    Component.onCompleted: insert(0,{text:"All Types",value:-1})
+                    Component.onCompleted: insert(0,{text:"All Types",value:-1,icon:""})
                 }
             onCurrentIndexChanged: store.setFilterType(itemTypeModel.value(currentIndex))
         }

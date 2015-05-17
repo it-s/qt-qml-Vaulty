@@ -83,7 +83,7 @@ Item
         Rectangle
         {
             id: pageView
-            color: Palette.PAGE
+            color: Palette.MODAL
             width: overView.width
             height: childrenRect.height + Sizes.MARGIN * 3
 

@@ -13,7 +13,6 @@ VListItem {
         font.pixelSize: Sizes.FONT_SIZE_HEADLINE
         color: Palette.LIST_ITEM_HEAD
         anchors.verticalCenter: parent.verticalCenter
-        verticalAlignment: Text.AlignVCenter
     }
 }
 

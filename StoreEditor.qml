@@ -12,6 +12,7 @@ Page {
     id: page
     width: 320
     height: 480
+    color: Palette.MODAL
 
     property string storeID: ""
     property alias title: toolbar.text
@@ -74,11 +75,13 @@ Page {
             id: toolbar
             icon: "image://icons/times"
             text: "New card"
-            shadow: flickable.contentY > 0
+            shadow: true
+//            shadow: flickable.contentY > 0
             Layout.fillHeight: false
             onAction: app.goBack()
             VButton {
                 text: "save"
+                anchors.verticalCenter: parent.verticalCenter
                 Layout.alignment: Qt.AlignRight
                 onClicked: page.save()
                 enabled: itemTitle.text != ""

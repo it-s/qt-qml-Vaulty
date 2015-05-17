@@ -21,6 +21,7 @@ MouseArea {
         color: Palette.BUTTON
 
         Row {
+            id: row1
             height: parent.height
             scale: button.pressed? 0.8: 1
             anchors.centerIn: parent
@@ -33,6 +34,7 @@ MouseArea {
                 verticalAlignment: Text.AlignVCenter
                 font.capitalization: Font.AllUppercase
                 visible: text != ""
+                lineHeight: 1
             }
         }
 

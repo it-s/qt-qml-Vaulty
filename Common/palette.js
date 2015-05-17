@@ -1,4 +1,5 @@
 //Primary
+var BLANK = "#FFF";
 var WHITE = "#E3EAF7";
 var BLACK = "#1B2934";
 var LIGHT = Qt.lighter("#40E3EAF7")
@@ -11,6 +12,7 @@ var ACCENT3 = "#5B85AA";
 //Elements
 var TEXT = BLACK;
 var PAGE = WHITE;
+var MODAL = BLANK;
 var BORDER = GRAY;
 var TOOLBAR = TRANSPARENT;
 var TOOLBAR_TEXT = WHITE;
