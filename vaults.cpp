@@ -1,4 +1,5 @@
 #include <QDebug>
+#include <QUuid>
 #include <QSettings>
 #include "vaults.h"
 
@@ -6,19 +7,19 @@ Vaults::Vaults(QObject *parent) :
     QAbstractListModel(parent)
 {
     mDataRoles[ID] = "ID";
-    mDataRoles[NameRole] = "name";
-    mDataRoles[DescriptionRole] = "description";
+    mDataRoles[TitleRole] = "title";
     mDataRoles[FileNameRole] = "file";
+    mDataRoles[DescriptionRole] = "description";
 
     QSettings mSettings;
     int size = mSettings.beginReadArray("vaults");
     for (int i = 0; i < size; ++i) {
         mSettings.setArrayIndex(i);
         Vault vault;
-        vault.ID = mSettings.value("ID").toInt();
-        vault.name = mSettings.value("name").toString();
-        vault.description = mSettings.value("description").toString();
+        vault.ID = mSettings.value("ID").toString();
         vault.file = mSettings.value("file").toString();
+        vault.title = mSettings.value("title").toString();
+        vault.description = mSettings.value("description").toString();
         mData.append(vault);
     }
 
@@ -39,11 +40,12 @@ void Vaults::synch()
     for (int i = 0; i < mData.size(); ++i) {
         mSettings.setArrayIndex(i);
         mSettings.setValue("ID", mData.at(i).ID);
-        mSettings.setValue("name", mData.at(i).name);
-        mSettings.setValue("description", mData.at(i).description);
         mSettings.setValue("file", mData.at(i).file);
+        mSettings.setValue("title", mData.at(i).title);
+        mSettings.setValue("description", mData.at(i).description);
     }
     mSettings.endArray();
+    mDataChanged = false;
 }
 
 int Vaults::rowCount(const QModelIndex &parent) const
@@ -69,8 +71,8 @@ QVariant Vaults::data(const QModelIndex &index, int role) const
             case ID:
                 result = vault.ID;
                 break;
-            case NameRole:
-                result = vault.name;
+            case TitleRole:
+                result = vault.title;
                 break;
             case DescriptionRole:
                 result = vault.description;
@@ -93,8 +95,8 @@ bool Vaults::setData(const QModelIndex &index, const QVariant &value, int role)
         if (row >= 0 && row < mData.size()) {
             Vault &vault = mData[row];
             switch(role) {
-            case NameRole:
-                vault.name = value.toString();
+            case TitleRole:
+                vault.title = value.toString();
                 result = true;
                 break;
             case DescriptionRole:
@@ -111,13 +113,17 @@ bool Vaults::setData(const QModelIndex &index, const QVariant &value, int role)
     return result;
 }
 
-QVariantMap Vaults::get(const int ID)
+QVariantMap Vaults::get(const QString& id)
 {
-    Vault vault = mData.at(ID);
-    QVariantMap map;
-    map.value("name", vault.name);
-    map.value("description", vault.description);
-    return map;
+    return (QVariantMap) mData[findElementIndexById(id)];
+}
+
+void Vaults::set(const QString &id, const QVariantMap &v)
+{
+    Vault &vault = mData[findElementIndexById(id)];
+    vault = v;
+//    mDataChanged = true;
+    synch();
 }
 
 void Vaults::add(const QVariantMap &v)
@@ -125,13 +131,13 @@ void Vaults::add(const QVariantMap &v)
     qDebug("Add row");
     Vault vault;
     beginInsertRows(QModelIndex(), mData.count(), mData.count());
-    vault.ID = mData.count();
-    vault.name = v.value("name").toString();
-    vault.description = v.value("description").toString();
-    vault.file = "store" + QString("%1").arg(mData.count(), 3, 10, QChar('0'));
+    vault = v;
+    vault.ID = QUuid::createUuid().toString();
+    vault.file = "store" + vault.ID;
     mData.append(vault);
     endInsertRows();
-    mDataChanged = true;
+//    mDataChanged = true;
+    synch();
 }
 
 void Vaults::remove(const int id)
@@ -142,6 +148,19 @@ void Vaults::remove(const int id)
     //TODO make sure store is also deleted
 //    bool QFile::remove(const QString &fileName);
     endRemoveRows();
-    mDataChanged = true;
+//    mDataChanged = true;
+    synch();
+}
+
+int Vaults::findElementIndexById(const QString id) const
+{
+    int index = -1;
+    for(int i=0; i<mData.count();++i){
+        if(mData[i].ID == id){
+            index = i;
+            break;
+        }
+    }
+    return index;
 }
 

@@ -7,22 +7,24 @@ import "../Common"
 OverView {
     id: editView
 
+    saveButtonEnabled: titleText.text != ""
+
 //    onStateChanged: nameText.focus = true
     function opened(){
-        nameText.forceActiveFocus()
-        nameText.focus = true;
+        titleText.forceActiveFocus()
+        titleText.focus = true;
     }
 
     function clear(){
-        nameText.text = "";
+        titleText.text = "";
         descriptionText.text = "";
     }
 
-    function edit(item){
+    function edit(id){
         //Edit code here
-        _editing = item;
-        if (_editing !== null){
-            nameText.text = _editing.name;
+        if (id !== null){
+            _editing = vaults.get(id);
+            titleText.text = _editing.title;
             descriptionText.text = _editing.description;
         }
         open();
@@ -30,21 +32,20 @@ OverView {
 
     function save(){
         var data = {
-            name: nameText.text,
+            title: titleText.text,
             description: descriptionText.text
          };
 
         if (_editing !== null){
-            _editing.callback(data);
+            vaults.set(_editing.ID, data);
         }else{
-            if (nameText.text != "")
-                vaults.add(data);
+            vaults.add(data);
         }
         editView.close();
     }
 
     TextField {
-        id: nameText
+        id: titleText
         anchors.right: parent.right
         anchors.left: parent.left
         placeholderText: qsTr("Vault name")

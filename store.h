@@ -86,20 +86,18 @@ protected:
     QHash<int, QByteArray> roleNames() const {return mDataRoles;}
 
     bool setData(const QModelIndex & index, const QVariant & value, int role = Qt::EditRole);
-    bool insertRow(int row, const QModelIndex & parent = QModelIndex());
-    bool removeRow(int row, const QModelIndex & parent = QModelIndex());
 
 public slots:
-    bool open(const QString& storeName, const quint64 key = 0);
-    void close();
+    Q_INVOKABLE bool open(const QString& storeName, const quint64 key = 0);
+    Q_INVOKABLE void close();
 
-    void add(const QVariantMap& v);
-    QVariantMap get(const QString& id);
-    void set(const QString& id, const QVariantMap& v);
-    void remove(const QString& id);
+    Q_INVOKABLE void add(const QVariantMap& v);
+    Q_INVOKABLE QVariantMap get(const QString& id);
+    Q_INVOKABLE void set(const QString& id, const QVariantMap& v);
+    Q_INVOKABLE void remove(const QString& id);
 
-    QString encode(const QString &v);
-    QString decode(const QString &v);
+    Q_INVOKABLE QString encode(const QString &v);
+    Q_INVOKABLE QString decode(const QString &v);
 
 private:
     bool isOpen;
@@ -110,7 +108,7 @@ private:
     SimpleCrypt crypto;
 
     int findElementIndexById(const QString id) const;
-    void saveData();
+    void sync();
 };
 
 #endif // STORE_H

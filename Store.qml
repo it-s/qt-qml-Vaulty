@@ -6,111 +6,102 @@ import Qt.labs.settings 1.0
 import "Common"
 import "Store"
 
+import "Common/sizes.js" as Size
+import "Common/palette.js" as Palette
+
 Page {
+    id: page
     width: 320
     height: 480
 
-    onHidden: store.close()
+//    onHidden: store.close()
+    property alias title: toolbar.text
 
-    ColumnLayout {
-        spacing: 0
-        anchors.fill: parent
 
-        ToolBar {
-            height: U.px(64)
-            z: 2
-            Layout.fillWidth: true
-            RowLayout {
-                anchors.fill: parent
-                ToolButton {
-                    text: "Vaulty"
-                    tooltip: "Return to vault selector"
-                    onClicked: app.goBack()
-                    Layout.fillHeight: true
-                    iconSource: "image://icons/chevronleft"
-                }
-                ToolButton {
-                    tooltip: "Add new item"
-                    onClicked: editView.open()
-                    Layout.fillHeight: true
-                    Layout.alignment: Qt.AlignRight
-                    iconSource: "image://icons/pluscircle"
-                }
+        VToolbar {
+            id: toolbar
+            icon: "image://icons/chevronleft"
+            text: "Vaults"
+            anchors.top: parent.top
+            onAction: app.goBack()
+            VToolbarButton {
+                icon: "image://icons/32x32/pluscircle"
+                Layout.alignment: Qt.AlignRight
+                onClicked: app.goToPage("StoreEditor");//editView.open()
             }
         }
-        Rectangle {
-            height: U.px(32)
-            Layout.fillWidth: true
-            color: "white"
-            z: 1
-            RowLayout{
-                anchors.fill: parent
+        SToolbar{
+            id: filterBar
+            anchors.top: toolbar.bottom
+            shadow: vaultsList.contentY > 0
+        }
 
-                ComboBox{
-                    Layout.fillWidth: true
-                    model: ItemTypes{
-                            id: itemTypeModel
-                            Component.onCompleted: insert(0,{text:"All Types",value:-1})
-                        }
-                    onCurrentIndexChanged: store.setFilterType(itemTypeModel.value(currentIndex))
-                }
-                TextField {
-                    Layout.fillWidth: true
-                    placeholderText: "Filter"
-                    onTextChanged: store.setFilterRegExp(text)
-                }
+        ListView {
+            id: vaultsList
+            clip: true
+            anchors.top: filterBar.bottom
+            anchors.right: parent.right
+            anchors.bottom: parent.bottom
+            anchors.left: parent.left
 
+            delegate: VListItem {
+                border: index < (vaultsList.count - 1)
+                state: ListView.section !== ListView.nextSection? "borderShadow": ""
+                prefix: Image {
+                    source: itemTypeModel.icon(type)
+                }
+                VLabel {
+                    text: title
+                    color: Palette.LIST_ITEM_TEXT
+                }
+                VLabel {
+                    text: number.length ? number : login
+                    color: Palette.LIST_ITEM_SUBTEXT
+                    font.pixelSize: Size.FONT_SIZE_SMALL
+                }
+                onClicked: cardView.show({
+                                             type: type,
+                                             style: style,
+                                             title: title,
+                                             login: login,
+                                             number: number,
+                                             password: password,
+                                             pin: pin,
+                                             relate: relate,
+                                             description: description
+                                         });
+                onPressAndHold: app.goToPage("StoreEditor", {title: title, storeID: ID});//editView.edit(ID);
+                onAction: store.remove(ID)
             }
-        }
-        Rectangle {
-            Layout.fillWidth: true
-            height: 1
-            color: "silver"
-            z: 1
-        }
-        Item {
-            height: U.px(15)
-        }
-
-        Item {
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-
-            ListView {
-                id: vaultsList
-                anchors.rightMargin: U.px(16)
-                anchors.leftMargin: U.px(16)
-                anchors.fill: parent
-                delegate: ListItem {
-                    onClicked: cardView.show(toJSON());
-                    onPressAndHold: editView.edit(ID);
-                }
-                section.property: "type"
-                section.criteria: ViewSection.FullString
-                section.delegate:  Rectangle {
-                    width: parent.width
-                    height: childrenRect.height
-                    color: "lightsteelblue"
-                    Text {
-                        text: itemTypeModel.name(section)
-                        font.bold: true
-                        font.pixelSize: U.px(20)
-                    }
-                }
-                model: store
+            section.property: "type"
+//                section.labelPositioning: ViewSection.CurrentLabelAtStart
+            section.criteria: ViewSection.FullString
+            section.delegate: VListSection {
+                state: "borderNone"
+                text: itemTypeModel.name(section)
             }
+            model: store
         }
+
+        VLabel{
+            color: Palette.HEAD
+            font.pixelSize: Size.FONT_SIZE_DISPLAY
+            anchors.centerIn: parent
+            text: "Empty Store"
+            visible: vaultsList.count == 0
+        }
+
+    ItemTypes {
+        id: itemTypeModel
+        Component.onCompleted: insert(0,{text:"All Types",value:-1})
     }
+
     ItemStyles{
         id: itemStyleModel
     }
 
     CardView{
         id: cardView
-    }
-
-    EditView{
-        id: editView
     }
 
 }

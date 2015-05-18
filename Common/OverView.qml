@@ -2,6 +2,9 @@ import QtQuick 2.4
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
 
+import "sizes.js" as Sizes
+import "palette.js" as Palette
+
 Item
 {
     id: overView
@@ -14,8 +17,10 @@ Item
     default property alias _contentChildren: pageBody.data
     property var _editing: null
 
+    property alias title: pageTitle.text
     property string saveButtonText: "Save"
     property string closeButtonText: "Cancel"
+    property alias saveButtonEnabled: saveButton.enabled
 
     function open(){
         //Open code here
@@ -54,9 +59,8 @@ Item
     Rectangle
     {
         id: pageOverlay
-        color: "#000"
+        color: Palette.DARK
         anchors.fill: parent
-        opacity: 0.8
         MouseArea{
             anchors.fill: parent
             onClicked: if (mouse.y < pageViewWrapper.y || mouse.y > pageViewWrapper.y + pageViewWrapper.height) overView.close();
@@ -79,56 +83,70 @@ Item
         Rectangle
         {
             id: pageView
-            color: "#fff"
+            color: Palette.MODAL
             width: overView.width
-            height: childrenRect.height + U.px(48)
+            height: childrenRect.height + Sizes.MARGIN * 3
 
             Column
             {
-                anchors.rightMargin: U.px(15)
-                anchors.leftMargin: U.px(15)
                 anchors.top: parent.top
-                anchors.topMargin: U.px(24)
-                spacing: U.px(10)
                 anchors.left: parent.left
                 anchors.right: parent.right
+                anchors.topMargin: Sizes.MARGIN_DOUBLE
+                spacing: Sizes.MARGIN
 
-                    Column
-                    {
-                        id: pageBody
-                        spacing: U.px(10)
-                        anchors.left: parent.left
-                        anchors.right: parent.right
-
-                        //Overlay body
-
-                    }
-
-                Rectangle
-                {
-                    height: 1
-                    color: "#eee"
+                VLabel {
+                    id: pageTitle
+                    color: Palette.TITLE
+                    text: ""
+                    visible: text != ""
                     anchors.left: parent.left
                     anchors.right: parent.right
+                    anchors.rightMargin:Sizes.MARGIN
+                    anchors.leftMargin: Sizes.MARGIN
                 }
+
+                Column
+                {
+                    id: pageBody
+                    spacing: Sizes.MARGIN
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.rightMargin:Sizes.MARGIN
+                    anchors.leftMargin: Sizes.MARGIN
+
+                    //Overlay body
+
+                }
+
                 RowLayout
                 {
                     id: pageFooter
                     anchors.left: parent.left
                     anchors.right: parent.right
-                    Button{
+                    anchors.rightMargin:Sizes.MARGIN
+                    anchors.leftMargin: Sizes.MARGIN
+
+                    Item {
+                        Layout.fillWidth: true
+                    }
+
+                    VButton {
+                        id: cancelButton
                         text: overView.closeButtonText
-                        Layout.alignment: Qt.AlignRight
                         onClicked: overView.close();
                         visible: overView.closeButtonText != ""
-                        isDefault: overView.saveButtonText == ""
-                    }
-                    Button{
-                        text: overView.saveButtonText
                         Layout.alignment: Qt.AlignRight
+                        Layout.fillWidth: false
+                    }
+                    VButton {
+                        id: saveButton
+                        text: overView.saveButtonText
                         onClicked: overView.save();
                         visible: overView.saveButtonText != ""
-                        isDefault: visible
+                        Layout.alignment: Qt.AlignRight
+                        Layout.fillWidth: false
+                        primary: true
                     }
                 }
             }

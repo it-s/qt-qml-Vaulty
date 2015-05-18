@@ -10,14 +10,28 @@
 #include <QByteArray>
 
 struct Vault {
-    int ID;
     QString
-        name,
-        description,
-        file;
-    operator QVariant() const
+        ID,
+        file,
+        title,
+        description;
+
+    operator QVariantMap() const
     {
-        return QVariant::fromValue(*this);
+        QVariantMap m;
+        m["ID"]=this->ID;
+        m["file"]=this->file;
+        m["title"]=this->title;
+        m["description"]=this->description;
+        return m;
+    }
+    Vault& operator=(const QVariantMap& v)
+    {
+        if (v.contains("ID")) this->ID = v.value("ID").toString();
+        if (v.contains("file")) this->file = v.value("file").toString();
+        if (v.contains("title")) this->title = v.value("title").toString();
+        if (v.contains("description")) this->description = v.value("description").toString();
+        return *this;
     }
 };
 Q_DECLARE_METATYPE(Vault);
@@ -28,7 +42,7 @@ class Vaults : public QAbstractListModel
 public:
     enum Roles {
         ID = Qt::UserRole + 1,
-        NameRole,
+        TitleRole,
         DescriptionRole,
         FileNameRole
     };
@@ -45,14 +59,17 @@ protected:
     bool setData(const QModelIndex & index, const QVariant & value, int role = Qt::EditRole);
 
 public slots:
-    QVariantMap get(const int ID);
-    void add(const QVariantMap& v);
-    void remove(const int id);
+    Q_INVOKABLE void add(const QVariantMap& v);
+    Q_INVOKABLE QVariantMap get(const QString& id);
+    Q_INVOKABLE void set(const QString& id, const QVariantMap& v);
+    Q_INVOKABLE void remove(const int id);
 
 private:
     bool mDataChanged;
     QList<Vault> mData;
     QHash<int, QByteArray> mDataRoles;
+
+    int findElementIndexById(const QString id) const;
 };
 
 #endif // VAULTS_H

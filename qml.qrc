@@ -4,10 +4,8 @@
         <file>Vault.qml</file>
         <file>Store.qml</file>
         <file>Common/Page.qml</file>
-        <file>Vault/ListItem.qml</file>
-        <file>Store/ListItem.qml</file>
         <file>Vault/EditView.qml</file>
-        <file>Store/EditView.qml</file>
+        <file>Store/SToolbar.qml</file>
         <file>Common/OverView.qml</file>
         <file>Store/ItemTypes.qml</file>
         <file>Store/ItemStyles.qml</file>
@@ -15,5 +13,17 @@
         <file>Store/utils.js</file>
         <file>Vault/KeyView.qml</file>
         <file>Vault/utils.js</file>
+        <file>Common/sizes.js</file>
+        <file>Common/VLabel.qml</file>
+        <file>Common/palette.js</file>
+        <file>Common/VListItem.qml</file>
+        <file>Common/VListHeader.qml</file>
+        <file>Common/VToolbar.qml</file>
+        <file>Common/VButton.qml</file>
+        <file>Common/VToolbarButton.qml</file>
+        <file>Common/VListSection.qml</file>
+        <file>StoreEditor.qml</file>
+        <file>Store/SLabel.qml</file>
+        <file>Store/CardItem.qml</file>
     </qresource>
 </RCC>

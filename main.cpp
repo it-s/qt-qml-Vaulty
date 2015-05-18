@@ -8,6 +8,7 @@
 #include "vaults.h"
 #include "storefilter.h"
 #include "iconprovider.h"
+#include "clipboard.h"
 
 int main(int argc, char *argv[])
 {
@@ -21,18 +22,20 @@ int main(int argc, char *argv[])
     settings.setDefaultFormat(QSettings::IniFormat);
 #endif
 
-    Vaults vaults;
-    StoreFilter store;
-
     QQmlApplicationEngine engine;
 #if (defined(Q_OS_ANDROID) || defined(Q_OS_IOS) || defined(Q_OS_WINPHONE))
-    engine.rootContext()->setContextProperty(QLatin1String("U"), new Units(qApp->screens().first()->size(), QSize(320,480)));
+    Units units(qApp->screens().first()->size(), QSize(320,480));
 #else
-    engine.rootContext()->setContextProperty(QLatin1String("U"), new Units());
+    Units units;
 #endif
-    engine.rootContext()->setContextProperty(QLatin1String("vaults"), &vaults);
-    engine.rootContext()->setContextProperty(QLatin1String("store"), &store);
-    engine.addImageProvider(QLatin1String("icons"), new IconProvider);
+
+    Clipboard *clipboard = new Clipboard(QGuiApplication::clipboard());
+
+    engine.rootContext()->setContextProperty(QLatin1String("U"), &units);
+    engine.rootContext()->setContextProperty(QLatin1String("clipboard"), clipboard);
+    engine.rootContext()->setContextProperty(QLatin1String("vaults"), new Vaults);
+    engine.rootContext()->setContextProperty(QLatin1String("store"), new StoreFilter);
+    engine.addImageProvider(QLatin1String("icons"), new IconProvider(units.ratio()));
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
     return app.exec();

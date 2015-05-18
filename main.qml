@@ -12,7 +12,8 @@ ApplicationWindow {
 
     property var pages: {
                 "Vault":    Qt.resolvedUrl("/Vault.qml"),
-                "Store":    Qt.resolvedUrl("/Store.qml")
+                "Store":    Qt.resolvedUrl("/Store.qml"),
+                "StoreEditor": Qt.resolvedUrl("/StoreEditor.qml")
     }
 
     property bool firstRun: true
@@ -36,8 +37,8 @@ ApplicationWindow {
      * Go To specific
      * @param page: Page Component
      */
-    function goToPage(page){
-        stack.push(pages[page]);
+    function goToPage(page, properties){
+        stack.push(pages[page], properties);
     }
 
     /*

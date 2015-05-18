@@ -1,7 +1,11 @@
 import QtQuick 2.4
 
+import "palette.js" as Palette
+
 Rectangle {
     id: page
+
+    color: Palette.PAGE
 
     property int pageTransitionDuration: 300
     default property alias _contentChildren: pageContent.data

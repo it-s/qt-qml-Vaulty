@@ -21,3 +21,11 @@ function sha1(msg)
   }
   return tohex(H0)+tohex(H1)+tohex(H2)+tohex(H3)+tohex(H4);
 }
+
+function cleanURL(url) {
+    return url.toLowerCase().replace("http://", "");
+}
+
+function formatURL(url) {
+    if (url.indexOf("http://") < 0) return "http://" + url.toLowerCase();
+}
