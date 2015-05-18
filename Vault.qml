@@ -74,6 +74,14 @@ Page {
         }
     }
 
+    VLabel{
+        color: Palette.ACCENT3
+        font.pixelSize: Size.FONT_SIZE_DISPLAY
+        anchors.centerIn: parent
+        text: "No Valuts"
+        visible: vaultsList.count == 0
+    }
+
     EditView {
         id: editView
     }

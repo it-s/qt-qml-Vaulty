@@ -82,6 +82,14 @@ Page {
             model: store
         }
 
+        VLabel{
+            color: Palette.ACCENT3
+            font.pixelSize: Size.FONT_SIZE_DISPLAY
+            anchors.centerIn: parent
+            text: "Empty Store"
+            visible: vaultsList.count == 0
+        }
+
     ItemTypes {
         id: itemTypeModel
         Component.onCompleted: insert(0,{text:"All Types",value:-1})
