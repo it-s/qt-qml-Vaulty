@@ -71,6 +71,7 @@ Page {
                                              description: description
                                          });
                 onPressAndHold: app.goToPage("StoreEditor", {title: title, storeID: ID});//editView.edit(ID);
+                onAction: store.remove(ID)
             }
             section.property: "type"
 //                section.labelPositioning: ViewSection.CurrentLabelAtStart
@@ -83,7 +84,7 @@ Page {
         }
 
         VLabel{
-            color: Palette.ACCENT3
+            color: Palette.HEAD
             font.pixelSize: Size.FONT_SIZE_DISPLAY
             anchors.centerIn: parent
             text: "Empty Store"

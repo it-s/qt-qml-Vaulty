@@ -10,22 +10,45 @@ MouseArea {
     anchors.left: parent.left
     anchors.right: parent.right
     height: Sizes.LIST_ITEM
+
+    drag.target: itemBody
+    drag.axis: Drag.XAxis
+    drag.minimumX: 0
+    drag.maximumX: width
+
+    Connections {
+        onReleased: {
+            if (itemBody.x > width / 2)
+            {
+                active = true;
+                itemBody.x = width / 2;
+            } else {
+                active = false;
+                itemBody.x = 0;
+            }
+        }
+    }
+
     default property alias _contentChildren: listItemContent.data
+    property bool active: false
     property alias border: _border.visible
     property alias prefix: listItemPrefix.data
     property alias suffix: listItemSuffix.data
+    property alias anctionText: itemActionButton.text
+
+    signal action
 
     Rectangle {
         id: selection
         anchors.fill: parent
-        color: Palette.LIGHT
+        color: Palette.LIST_ITEM_SELECT
         opacity: parent.pressed? 1: 0
         clip: true
         Behavior on opacity {NumberAnimation{duration: 100}}
         Rectangle {
             id: highlight
             anchors.centerIn: parent
-            width: listItem.pressed? parent.width: 0
+            width: listItem.pressed && !listItem.drag.active? parent.width: 0
             height: width
             radius: width
             color: Palette.LIST_ITEM_HIGHLIGHT
@@ -43,26 +66,52 @@ MouseArea {
         }
     }
 
-    RowLayout{
+    Rectangle {
+        id: itemAction
+        color: Palette.BLANK
         anchors.fill: parent
-        anchors.margins: Sizes.MARGIN
-        spacing: Sizes.MARGIN
-        Item {
-            id: listItemPrefix
-            width: childrenRect.width
-            height: childrenRect.height
-            Layout.fillWidth: false
+        opacity: itemBody.x / (parent.width / 2)
+
+        VButton {
+            id: itemActionButton
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.left: parent.left
+            anchors.leftMargin: Sizes.MARGIN_DOUBLE
+            text: "Delete"
+            enabled: listItem.active
+            onClicked: listItem.action()
         }
-        Column {
-            id: listItemContent
-            spacing: 0//Sizes.FONT_MARGIN
-            Layout.fillWidth: true
-        }
-        Item {
-            id: listItemSuffix
-            width: childrenRect.width
-            height: childrenRect.height
-            Layout.fillWidth: false
+
+    }
+
+
+    Rectangle {
+        id: itemBody
+        color: Palette.BUTTON
+        width: parent.width
+        height: parent.height
+        Behavior on x {NumberAnimation{duration: 50}}
+        RowLayout{
+            anchors.fill: parent
+            anchors.margins: Sizes.MARGIN
+            spacing: Sizes.MARGIN
+            Item {
+                id: listItemPrefix
+                width: childrenRect.width
+                height: childrenRect.height
+                Layout.fillWidth: false
+            }
+            Column {
+                id: listItemContent
+                spacing: 0//Sizes.FONT_MARGIN
+                Layout.fillWidth: true
+            }
+            Item {
+                id: listItemSuffix
+                width: childrenRect.width
+                height: childrenRect.height
+                Layout.fillWidth: false
+            }
         }
     }
 

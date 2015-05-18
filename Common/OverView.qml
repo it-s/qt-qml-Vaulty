@@ -97,7 +97,7 @@ Item
 
                 VLabel {
                     id: pageTitle
-                    color: Palette.ACCENT3
+                    color: Palette.TITLE
                     text: ""
                     visible: text != ""
                     anchors.left: parent.left
@@ -126,6 +126,7 @@ Item
                     anchors.right: parent.right
                     anchors.rightMargin:Sizes.MARGIN
                     anchors.leftMargin: Sizes.MARGIN
+
                     Item {
                         Layout.fillWidth: true
                     }
@@ -145,6 +146,7 @@ Item
                         visible: overView.saveButtonText != ""
                         Layout.alignment: Qt.AlignRight
                         Layout.fillWidth: false
+                        primary: true
                     }
                 }
             }

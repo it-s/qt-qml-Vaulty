@@ -8,6 +8,6 @@ import "../Common/palette.js" as Palette
 VLabel {
     anchors.left: parent.left
     font.pixelSize: Sizes.FONT_SIZE_SMALL
-    color: Palette.LIST_ITEM_TITLE
+    color: Palette.LIST_ITEM_SUBTEXT
 }
 

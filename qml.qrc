@@ -4,8 +4,6 @@
         <file>Vault.qml</file>
         <file>Store.qml</file>
         <file>Common/Page.qml</file>
-        <file>Vault/ListItem.qml</file>
-        <file>Store/ListItem.qml</file>
         <file>Vault/EditView.qml</file>
         <file>Store/SToolbar.qml</file>
         <file>Common/OverView.qml</file>

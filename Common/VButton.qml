@@ -12,7 +12,7 @@ MouseArea {
 
     property alias icon: contentIcon.source
     property alias text: contentLabel.text
-    property alias type: button.state
+    property bool primary: false
 
     Rectangle {
         id: content
@@ -35,6 +35,7 @@ MouseArea {
                 font.capitalization: Font.AllUppercase
                 visible: text != ""
                 lineHeight: 1
+                color: primary? Palette.BUTTON_TEXT_PRIMARY: Palette.BUTTON_TEXT
             }
         }
 

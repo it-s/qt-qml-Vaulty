@@ -84,6 +84,7 @@ Page {
             VButton {
                 text: "save"
                 anchors.verticalCenter: parent.verticalCenter
+                Layout.fillWidth: false
                 Layout.alignment: Qt.AlignRight
                 onClicked: page.save()
                 enabled: itemTitle.text != ""

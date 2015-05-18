@@ -10,7 +10,7 @@ Rectangle {
     width: 320
     anchors.left: parent.left
     anchors.right: parent.right
-    height: Sizes.LIST_ITEM_HEAD
+    height: Sizes.SUBTOOLBAR
     color: Palette.TOOLBAR
     clip: hidden? true: false;
     property bool shadow: false

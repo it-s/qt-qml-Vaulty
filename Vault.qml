@@ -10,8 +10,11 @@ import "Common/sizes.js" as Size
 import "Common/palette.js" as Palette
 
 Page {
+    id: page
     width: 320
     height: 480
+
+    property alias openVaultID: keyView.openVaultID
 
     ColumnLayout {
         spacing: 0
@@ -40,7 +43,7 @@ Page {
 
                 delegate: VListItem {
                     prefix: Image {
-                        source: "image://icons/32x32/lock"
+                        source: page.openVaultID==ID? "image://icons/32x32/unlock": "image://icons/32x32/lock"
                     }
 
                     VLabel {
@@ -54,6 +57,7 @@ Page {
                     }
                     onClicked: keyView.open(ID)
                     onPressAndHold: editView.edit(ID)
+                    onAction: vaults.remove(ID)
                 }
                 model: vaults
 //                    ListModel{
@@ -75,7 +79,7 @@ Page {
     }
 
     VLabel{
-        color: Palette.ACCENT3
+        color: Palette.HEAD
         font.pixelSize: Size.FONT_SIZE_DISPLAY
         anchors.centerIn: parent
         text: "No Valuts"

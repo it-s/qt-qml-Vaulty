@@ -28,6 +28,7 @@ var ICON_64 = ICON_32 * 2;
 var TOOLBAR = U.px(64);
 var TOOLBAR_MIN = TOOLBAR;
 var TOOLBAR_MAX = TOOLBAR * 2;
+var SUBTOOLBAR = U.px(48);
 //Lists
 var LIST_ITEM = U.px(72);
 var LIST_TITLE = LIST_ITEM;

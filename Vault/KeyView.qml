@@ -12,6 +12,7 @@ import "utils.js" as Utils
 OverView {
     id: keyView
 
+    property string openVaultID: ""
     saveButtonEnabled: keyText.text != ""
     saveButtonText: "OK"
 
@@ -31,8 +32,13 @@ OverView {
     function open(id){
         if (!id) return;
         _editing = vaults.get(id);
-        title = _editing.title;
-        state = "OPEN"
+        if (openVaultID != id){
+            title = _editing.title;
+            state = "OPEN"
+        }else{
+            close();
+            app.goToPage("Store",{title: _editing.title});
+        }
     }
 
     function save(){
@@ -46,6 +52,7 @@ OverView {
 //            console.log(key);
             if (store.open(_editing.file, key)){
                 close();
+                openVaultID = _editing.ID;
                 app.goToPage("Store",{title: _editing.title});
             }else {
                 messageDialog.text = error;
@@ -68,7 +75,7 @@ OverView {
         anchors.left: parent.left
         text: "Key must contain at least six characters, including uppercase, lowercase letters and numbers."
         wrapMode: Text.WordWrap
-        color: Palette.LIST_ITEM_SUBTEXT
+        color: Palette.SUBTEXT
         font.pixelSize: Size.FONT_SIZE_SMALL
     }
 
