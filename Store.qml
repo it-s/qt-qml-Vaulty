@@ -17,6 +17,12 @@ Page {
 //    onHidden: store.close()
     property alias title: toolbar.text
 
+    function back(){
+        if(cardView.isOpen)cardView.close();
+        else app.goBack();
+        return true;
+    }
+
     onShown: {
         var header = store.header();
         console.log ("Version: " + header.storeVersion);

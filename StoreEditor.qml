@@ -56,6 +56,11 @@ Page {
         }
     }
 
+    onShown: {
+        itemTitle.focus = true;
+        itemTitle.forceActiveFocus();
+    }
+
     onHidden: {
         itemType.currentIndex = 0;
         itemStyle.currentIndex = 0;
@@ -150,7 +155,7 @@ Page {
                     anchors.right: parent.right
                     anchors.leftMargin: Sizes.MARGIN
                     placeholderText: qsTr("Account number (if any)")
-                    inputMethodHints: Qt.ImhPreferNumbers | Qt.ImhNoPredictiveText
+                    inputMethodHints: Qt.ImhSensitiveData | Qt.ImhPreferNumbers | Qt.ImhNoPredictiveText
                 }
 
                 TextField {
@@ -159,7 +164,7 @@ Page {
                     anchors.right: parent.right
                     anchors.leftMargin: Sizes.MARGIN
                     placeholderText: qsTr("User name")
-                    inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText
+                    inputMethodHints: Qt.ImhSensitiveData | Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText
                 }
 
                 TextField {
@@ -169,7 +174,7 @@ Page {
                     anchors.leftMargin: Sizes.MARGIN
                     placeholderText: qsTr("Password")
                     echoMode: TextInput.Password
-                    inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText
+                    inputMethodHints: Qt.ImhSensitiveData | Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText
                 }
 
                 TextField {
@@ -179,7 +184,7 @@ Page {
                     anchors.leftMargin: Sizes.MARGIN
                     placeholderText: qsTr("Pin number (if any)")
                     echoMode: TextInput.Password
-                    inputMethodHints: Qt.ImhPreferNumbers | Qt.ImhNoPredictiveText
+                    inputMethodHints: Qt.ImhSensitiveData | Qt.ImhPreferNumbers | Qt.ImhNoPredictiveText
                 }
 
                 TextField {
@@ -188,7 +193,7 @@ Page {
                     anchors.right: parent.right
                     anchors.leftMargin: Sizes.MARGIN
                     placeholderText: qsTr("Service URL (if any)")
-                    inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText
+                    inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText | Qt.ImhUrlCharactersOnly
                 }
 
                 SLabel {
@@ -215,6 +220,7 @@ Page {
                     anchors.right: parent.right
                     anchors.left: parent.left
                     anchors.leftMargin: Sizes.MARGIN
+                    inputMethodHints: Qt.ImhMultiLine
                 }
 
                 Item {

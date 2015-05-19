@@ -17,6 +17,7 @@ Item
     default property alias _contentChildren: pageBody.data
     property var _editing: null
 
+    property bool isOpen: false
     property alias title: pageTitle.text
     property string saveButtonText: "Save"
     property string closeButtonText: "Cancel"
@@ -190,6 +191,7 @@ Item
                 target: overView
                 enabled: true
                 opacity: 1
+                isOpen: true
             }
         }
     ]
