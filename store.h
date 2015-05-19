@@ -58,11 +58,36 @@ struct StoreItem {
         return *this;
     }
 };
+
+struct StoreHeader {
+    int storeVersion;
+    QString title,
+            description;
+    operator QVariantMap() const
+    {
+        QVariantMap m;
+        m["storeVersion"]=this->storeVersion;
+        m["title"]=this->title;
+        m["description"]=this->description;
+        return m;
+    }
+    StoreHeader& operator=(const QVariantMap& v)
+    {
+        if (v.contains("storeVersion")) this->storeVersion = v.value("storeVersion").toInt();
+        if (v.contains("title")) this->title = v.value("title").toString();
+        if (v.contains("description")) this->description = v.value("description").toString();
+        return *this;
+    }
+};
+
 Q_DECLARE_METATYPE(StoreItem);
 
 class Store : public QAbstractListModel
 {
     Q_OBJECT
+
+    static const int VERSION = 1;
+
 public:
     enum Roles {
         ID = Qt::UserRole + 1,
@@ -88,9 +113,10 @@ protected:
     bool setData(const QModelIndex & index, const QVariant & value, int role = Qt::EditRole);
 
 public slots:
-    Q_INVOKABLE bool open(const QString& storeName, const quint64 key = 0);
+    Q_INVOKABLE bool open(const QVariantMap& vault, const quint64 key = 0);
     Q_INVOKABLE void close();
 
+    Q_INVOKABLE QVariantMap header();
     Q_INVOKABLE void add(const QVariantMap& v);
     Q_INVOKABLE QVariantMap get(const QString& id);
     Q_INVOKABLE void set(const QString& id, const QVariantMap& v);
@@ -102,6 +128,7 @@ public slots:
 private:
     bool isOpen;
     QFile mStore;
+    StoreHeader mHeader;
     QList<StoreItem> mData;
     QHash<int, QByteArray> mDataRoles;
     bool mStoreChanged;

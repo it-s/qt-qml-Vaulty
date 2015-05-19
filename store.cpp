@@ -134,12 +134,12 @@ bool Store::setData(const QModelIndex &index, const QVariant &value, int role)
 }
 
 
-bool Store::open(const QString &storeName, const quint64 key)
+bool Store::open(const QVariantMap& vault, const quint64 key)
 {
     if (isOpen) close();
     crypto.setKey(key);
     QSettings settings;
-    mStore.setFileName(QFileInfo(settings.fileName()).absolutePath() + "/" + storeName);
+    mStore.setFileName(QFileInfo(settings.fileName()).absolutePath() + "/" + vault.value("file").toString());
     //qDebug() << mStore.fileName();
     if (mStore.exists()){
         mStore.open(QIODevice::ReadOnly);
@@ -159,22 +159,31 @@ bool Store::open(const QString &storeName, const quint64 key)
         beginInsertRows(QModelIndex(), mData.count(), mData.count());
         for (int i=0; i< data.count(); i++){
             QJsonObject item = data.at(i).toObject();
-            StoreItem storeItem;
-            storeItem.ID = item.value("ID").toString();
-            storeItem.type = item.value("type").toInt();
-            storeItem.style = item.value("style").toInt();
-            storeItem.title = item.value("title").toString();
-            storeItem.login = item.value("login").toString();
-            storeItem.number = item.value("number").toString();
-            storeItem.password = item.value("password").toString();
-            storeItem.pin = item.value("pin").toString();
-            storeItem.relate = item.value("relate").toString();
-            storeItem.description = item.value("description").toString();
-            mData.append(storeItem);
+            if (item.contains("storeVersion")){
+                //This is a file header
+                mHeader = item.toVariantMap();
+            }else{
+                StoreItem storeItem;
+                storeItem.ID = item.value("ID").toString();
+                storeItem.type = item.value("type").toInt();
+                storeItem.style = item.value("style").toInt();
+                storeItem.title = item.value("title").toString();
+                storeItem.login = item.value("login").toString();
+                storeItem.number = item.value("number").toString();
+                storeItem.password = item.value("password").toString();
+                storeItem.pin = item.value("pin").toString();
+                storeItem.relate = item.value("relate").toString();
+                storeItem.description = item.value("description").toString();
+                mData.append(storeItem);
+            }
         }
         endInsertRows();
         mStore.close();
-    } else sync(); //If store file does not exist, create it
+    } else {
+        mHeader.title = vault.value("title").toString();
+        mHeader.description = vault.value("description").toString();
+        sync(); //If store file does not exist, create it
+    }
     mStoreChanged = false;    
     return isOpen = true;
 }
@@ -188,6 +197,11 @@ void Store::close()
     endRemoveRows();
     mStoreChanged = false;
     isOpen = false;
+}
+
+QVariantMap Store::header()
+{
+    return (QVariantMap) mHeader;
 }
 
 void Store::add(const QVariantMap &v)
@@ -256,7 +270,12 @@ int Store::findElementIndexById(const QString id) const
 
 void Store::sync()
 {
-    QJsonArray data;
+    QJsonArray data;    
+    QJsonObject header;
+    header.insert("storeVersion", VERSION);
+    header.insert("title", mHeader.title);
+    header.insert("description", mHeader.description);
+    data.append(header);
      for (int i=0; i < mData.count(); i++){
          QJsonObject item;
          StoreItem storeItem = mData.at(i);

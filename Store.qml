@@ -17,6 +17,13 @@ Page {
 //    onHidden: store.close()
     property alias title: toolbar.text
 
+    onShown: {
+        var header = store.header();
+        console.log ("Version: " + header.storeVersion);
+        console.log ("Title: " + header.title);
+        console.log ("Description: " + header.description);
+    }
+
 
         VToolbar {
             id: toolbar
