@@ -50,7 +50,7 @@ OverView {
             error = "Could not unlock valut with the key provided.";
             var key = Utils.toKey(keyText.text);
 //            console.log(key);
-            if (store.open(_editing.file, key)){
+            if (store.open(_editing, key)){
                 close();
                 openVaultID = _editing.ID;
                 app.goToPage("Store",{title: _editing.title});

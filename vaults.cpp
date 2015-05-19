@@ -1,6 +1,8 @@
 #include <QDebug>
 #include <QUuid>
 #include <QSettings>
+#include <QFileInfo>
+#include <QFile>
 #include "vaults.h"
 
 Vaults::Vaults(QObject *parent) :
@@ -140,13 +142,21 @@ void Vaults::add(const QVariantMap &v)
     synch();
 }
 
-void Vaults::remove(const int id)
+void Vaults::remove(const QString& id)
 {
     qDebug("Remove row");
-    beginRemoveRows(QModelIndex(),id, id);
-    mData.removeAt(id);
-    //TODO make sure store is also deleted
-//    bool QFile::remove(const QString &fileName);
+    int index = findElementIndexById(id);
+    Vault &vault = mData[index];
+
+    beginRemoveRows(QModelIndex(),index, index);
+
+    QSettings settings;
+    QFile mStore;
+
+    mStore.setFileName(QFileInfo(settings.fileName()).absolutePath() + "/" + vault.file);
+    mStore.remove();
+
+    mData.removeAt(index);
     endRemoveRows();
 //    mDataChanged = true;
     synch();

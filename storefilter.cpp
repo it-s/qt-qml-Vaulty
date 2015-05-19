@@ -32,12 +32,12 @@ int StoreFilter::filterType()
     return mType;
 }
 
-bool StoreFilter::open(const QString storeName, const QString key)
+bool StoreFilter::open(const QVariantMap &vault, const QString key)
 {
     //convert password hash to quint64
     quint64 n = key.toULongLong(NULL, 16);
     qDebug() << n;
-    bool result = store.open(storeName, n);
+    bool result = store.open(vault, n);
     invalidate();
     return result;
 }
@@ -47,6 +47,11 @@ void StoreFilter::close()
     store.close();
     mType = -1;
     invalidate();
+}
+
+QVariantMap StoreFilter::header()
+{
+    return store.header();
 }
 
 void StoreFilter::add(const QVariantMap &v)

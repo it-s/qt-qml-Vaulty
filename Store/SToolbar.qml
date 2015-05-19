@@ -45,6 +45,9 @@ Rectangle {
             onTextChanged: store.setFilterRegExp(text)
             selectByMouse: false
             menu: null
+            inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText
+            onAccepted: focus = false
+            onEditingFinished: focus = false
         }
     }
     Rectangle {

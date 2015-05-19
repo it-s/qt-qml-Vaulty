@@ -15,17 +15,18 @@ public:
     ~StoreFilter();
 
 public slots:
-    void setFilterType();
-    void setFilterType(int type);
-    int filterType();
+    Q_INVOKABLE void setFilterType();
+    Q_INVOKABLE void setFilterType(int type);
+    Q_INVOKABLE int filterType();
 
-    bool open(const QString storeName, const QString key);
-    void close();
+    Q_INVOKABLE bool open(const QVariantMap& vault, const QString key);
+    Q_INVOKABLE void close();
 
-    void add(const QVariantMap& v);
-    QVariantMap get(const QString id);
-    void set(const QString id, const QVariantMap& v);
-    void remove(const QString id);
+    Q_INVOKABLE QVariantMap header();
+    Q_INVOKABLE void add(const QVariantMap& v);
+    Q_INVOKABLE QVariantMap get(const QString id);
+    Q_INVOKABLE void set(const QString id, const QVariantMap& v);
+    Q_INVOKABLE void remove(const QString id);
 
     Q_INVOKABLE QString encode(const QString &v){return store.encode(v);}
     Q_INVOKABLE QString decode(const QString &v){return store.decode(v);}

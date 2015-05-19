@@ -26,7 +26,7 @@ ListModel{
 
     ListElement {
         value: 1001
-        text: "Digital Services"
+        text: "Online Services"
         icon: "image://icons/32x32/cloud"
     }
     ListElement {
@@ -36,18 +36,23 @@ ListModel{
     }
     ListElement {
         value: 2001
-        text: "Financial Services"
-        icon: "image://icons/32x32/creditcard"
+        text: "Bank Accounts"
+        icon: "image://icons/32x32/money"
     }
     ListElement {
         value: 2101
-        text: "Card Services"
+        text: "Credit Cards"
         icon: "image://icons/32x32/creditcard"
     }
     ListElement {
+        value: 2201
+        text: "Memberships"
+        icon: "image://icons/32x32/users"
+    }
+    ListElement {
         value: 3001
-        text: "Locks & Codes"
-        icon: "image://icons/32x32/lock"
+        text: "Locks and Passcodes"
+        icon: "image://icons/32x32/key"
     }
     ListElement {
         value: 0

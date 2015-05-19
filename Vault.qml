@@ -16,6 +16,13 @@ Page {
 
     property alias openVaultID: keyView.openVaultID
 
+    function back(){
+        if(editView.isOpen)editView.close();
+        else if(keyView.isOpen)keyView.close();
+        else app.goBack();
+        return true;
+    }
+
     ColumnLayout {
         spacing: 0
         anchors.fill: parent

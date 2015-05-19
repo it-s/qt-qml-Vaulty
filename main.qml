@@ -61,17 +61,19 @@ ApplicationWindow {
     StackView {
         id: stack
         anchors.fill: parent
+        focus: true
+
         // Implements back key navigation
 //        focus: true
 
-//        Keys.onReleased: {
-//            if (event.key === Qt.Key_Back || event.key === Qt.Key_Backspace) {
-//                event.accepted = currentItem.back();
-//            }
-//            if (event.key === Qt.Key_Menu || event.key === Qt.Key_Meta ) {
-//                event.accepted = currentItem.menu();
-//            }
-//        }
+        Keys.onReleased: {
+            if (event.key === Qt.Key_Back || event.key === Qt.Key_Escape) {
+                event.accepted = currentItem.back();
+            }
+            if (event.key === Qt.Key_Menu || event.key === Qt.Key_Meta) {
+                event.accepted = currentItem.menu();
+            }
+        }
 
         initialItem: app.pages["Vault"]
 

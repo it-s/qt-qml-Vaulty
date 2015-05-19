@@ -56,6 +56,11 @@ Page {
         }
     }
 
+    onShown: {
+        itemTitle.focus = true;
+        itemTitle.forceActiveFocus();
+    }
+
     onHidden: {
         itemType.currentIndex = 0;
         itemStyle.currentIndex = 0;
