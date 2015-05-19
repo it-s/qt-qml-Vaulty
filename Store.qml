@@ -53,11 +53,15 @@ Page {
                 VLabel {
                     text: title
                     color: Palette.LIST_ITEM_TEXT
+                    anchors.left: parent.left
+                    anchors.right: parent.right
                 }
                 VLabel {
                     text: number.length ? number : login
                     color: Palette.LIST_ITEM_SUBTEXT
                     font.pixelSize: Size.FONT_SIZE_SMALL
+                    anchors.left: parent.left
+                    anchors.right: parent.right
                 }
                 onClicked: cardView.show({
                                              type: type,

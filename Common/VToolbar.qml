@@ -23,23 +23,24 @@ Rectangle {
         anchors.fill: parent
         anchors.margins: Sizes.MARGIN
         spacing: Sizes.MARGIN
-        Row {
+        RowLayout {
             id: row1
             spacing: Sizes.MARGIN / 2
-            Layout.fillWidth: false
+            Layout.fillWidth: true
             VToolbarButton {
                 id: toolabrIcon
                 anchors.verticalCenter: parent.verticalCenter
                 onClicked: toolbar.action()
+                Layout.fillWidth: false
             }
             VLabel{
                 id: toolbarText
                 height: parent.height
                 color: Palette.TITLE
-//                font.pixelSize: Sizes.FONT_SIZE_SUBHEAD
                 text: "Toolbar"
                 verticalAlignment: Text.AlignVCenter
                 lineHeight: 1
+                Layout.fillWidth: true
             }
        }
     }

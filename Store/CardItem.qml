@@ -28,11 +28,15 @@ Item {
             Layout.fillWidth: true
             VLabel {
                 id: itemValue
+                anchors.left: parent.left
+                anchors.right: parent.right
                 color: Palette.LIST_ITEM_TEXT
                 text: "Title"
             }
             VLabel {
                 id: itemDescription
+                anchors.left: parent.left
+                anchors.right: parent.right
                 color: Palette.LIST_ITEM_SUBTEXT
                 font.pixelSize: Size.FONT_SIZE_SMALL
                 text: "Description:"

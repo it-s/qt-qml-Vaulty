@@ -149,7 +149,7 @@ Page {
                     anchors.left: parent.left
                     anchors.right: parent.right
                     anchors.leftMargin: Sizes.MARGIN
-                    placeholderText: qsTr("Account number (if any)")
+                    placeholderText: qsTr("Account number")
                     inputMethodHints: Qt.ImhPreferNumbers | Qt.ImhNoPredictiveText
                 }
 
@@ -158,7 +158,7 @@ Page {
                     anchors.left: parent.left
                     anchors.right: parent.right
                     anchors.leftMargin: Sizes.MARGIN
-                    placeholderText: qsTr("User name")
+                    placeholderText: qsTr("User name / bank card number")
                     inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText
                 }
 
@@ -177,7 +177,7 @@ Page {
                     anchors.left: parent.left
                     anchors.right: parent.right
                     anchors.leftMargin: Sizes.MARGIN
-                    placeholderText: qsTr("Pin number (if any)")
+                    placeholderText: qsTr("Pin number")
                     echoMode: TextInput.Password
                     inputMethodHints: Qt.ImhPreferNumbers | Qt.ImhNoPredictiveText
                 }
@@ -187,7 +187,7 @@ Page {
                     anchors.left: parent.left
                     anchors.right: parent.right
                     anchors.leftMargin: Sizes.MARGIN
-                    placeholderText: qsTr("Service URL (if any)")
+                    placeholderText: qsTr("Service URL")
                     inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText
                 }
 

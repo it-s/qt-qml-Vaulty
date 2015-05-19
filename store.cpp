@@ -108,11 +108,11 @@ bool Store::setData(const QModelIndex &index, const QVariant &value, int role)
                 result = true;
                 break;
             case PasswordRole:
-                storeItem.password = "******"; //value.toString();
+                storeItem.password = value.toString();
                 result = true;
                 break;
             case PinRole:
-                storeItem.pin = "******"; //value.toString();
+                storeItem.pin = value.toString();
                 result = true;
                 break;
             case RelateRole:
