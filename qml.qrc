@@ -1,18 +1,6 @@
 <RCC>
-    <qresource prefix="/">
+    <qresource prefix="/">    
         <file>main.qml</file>
-        <file>Vault.qml</file>
-        <file>Store.qml</file>
-        <file>Common/Page.qml</file>
-        <file>Vault/EditView.qml</file>
-        <file>Store/SToolbar.qml</file>
-        <file>Common/OverView.qml</file>
-        <file>Store/ItemTypes.qml</file>
-        <file>Store/ItemStyles.qml</file>
-        <file>Store/CardView.qml</file>
-        <file>Store/utils.js</file>
-        <file>Vault/KeyView.qml</file>
-        <file>Vault/utils.js</file>
         <file>Common/sizes.js</file>
         <file>Common/VLabel.qml</file>
         <file>Common/palette.js</file>
@@ -22,6 +10,18 @@
         <file>Common/VButton.qml</file>
         <file>Common/VToolbarButton.qml</file>
         <file>Common/VListSection.qml</file>
+        <file>Common/Page.qml</file>
+        <file>Common/OverView.qml</file>
+        <file>Vault.qml</file>
+        <file>Vault/EditView.qml</file>
+        <file>Vault/KeyView.qml</file>
+        <file>Vault/utils.js</file>
+        <file>Store.qml</file>
+        <file>Store/SToolbar.qml</file>
+        <file>Store/ItemTypes.qml</file>
+        <file>Store/ItemStyles.qml</file>
+        <file>Store/CardView.qml</file>
+        <file>Store/utils.js</file>
         <file>StoreEditor.qml</file>
         <file>Store/SLabel.qml</file>
         <file>Store/CardItem.qml</file>

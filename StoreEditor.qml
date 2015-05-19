@@ -26,8 +26,8 @@ Page {
             title: itemTitle.text,
             login: itemLogin.text,
             number: itemNumber.text,
-            password: itemPass.text != ""? store.encode(itemPass.text): "",
-            pin: itemPin.text != ""? store.encode(itemPin.text): "",
+            password: itemPass.text,
+            pin: itemPin.text,
             relate: Utils.cleanURL(itemRelate.text),
             description: itemDescription.text
          };

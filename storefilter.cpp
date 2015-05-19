@@ -81,3 +81,12 @@ bool StoreFilter::filterAcceptsRow(int sourceRow, const QModelIndex &sourceParen
     return (mType<0||type==mType)&&(title.contains(filterRegExp()));
 }
 
+//bool StoreFilter::lessThan(const QModelIndex &left, const QModelIndex &right) const
+//{
+//    const int leftt = sourceModel()->data(left, Store::TypeRole).toInt(),
+//            rightt = sourceModel()->data(right, Store::TypeRole).toInt();
+//    const QString &leftT = sourceModel()->data(left, Store::TitleRole).toString().at(0),
+//            &rightT = sourceModel()->data(right, Store::TitleRole).toString().at(0);
+//    return leftt < rightt || QString::localeAwareCompare(leftT, rightT);
+//}
+
