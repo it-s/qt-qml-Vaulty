@@ -49,11 +49,17 @@ OverView {
         anchors.right: parent.right
         anchors.left: parent.left
         placeholderText: qsTr("Vault name")
+        menu: VTextEditMenu{
+            attachedTo: titleText
+        }
     }
     TextField {
         id: descriptionText
         anchors.right: parent.right
         anchors.left: parent.left
         placeholderText: qsTr("Vault description")
+        menu: VTextEditMenu{
+            attachedTo: descriptionText
+        }
     }
 }

@@ -43,6 +43,8 @@ Rectangle {
             Layout.fillWidth: true
             placeholderText: "Filter"
             onTextChanged: store.setFilterRegExp(text)
+            selectByMouse: false
+            menu: null
         }
     }
     Rectangle {

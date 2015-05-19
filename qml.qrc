@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="/">    
+    <qresource prefix="/">
         <file>main.qml</file>
         <file>Common/sizes.js</file>
         <file>Common/VLabel.qml</file>
@@ -25,5 +25,6 @@
         <file>StoreEditor.qml</file>
         <file>Store/SLabel.qml</file>
         <file>Store/CardItem.qml</file>
+        <file>Common/VTextEditMenu.qml</file>
     </qresource>
 </RCC>

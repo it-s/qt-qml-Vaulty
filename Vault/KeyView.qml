@@ -68,6 +68,13 @@ OverView {
         placeholderText: qsTr("Vault key")
         echoMode: TextInput.Password
         inputMethodHints: Qt.ImhHiddenText | Qt.ImhNoPredictiveText
+        menu: Menu {
+            property var attachedTo: keyText
+            MenuItem {
+                text: "Clear"
+                onTriggered: attachedTo.text = ""
+            }
+        }
     }
 
     VLabel{

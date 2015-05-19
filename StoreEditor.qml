@@ -138,6 +138,9 @@ Page {
                     anchors.right: parent.right
                     anchors.leftMargin: Sizes.MARGIN
                     placeholderText: qsTr("My Service")
+                    menu: VTextEditMenu {
+                        attachedTo: itemTitle
+                    }
                 }
 
                 SLabel {
@@ -151,6 +154,9 @@ Page {
                     anchors.leftMargin: Sizes.MARGIN
                     placeholderText: qsTr("Account number")
                     inputMethodHints: Qt.ImhPreferNumbers | Qt.ImhNoPredictiveText
+                    menu: VTextEditMenu{
+                        attachedTo: itemNumber
+                    }
                 }
 
                 TextField {
@@ -160,6 +166,9 @@ Page {
                     anchors.leftMargin: Sizes.MARGIN
                     placeholderText: qsTr("User name / bank card number")
                     inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText
+                    menu: VTextEditMenu{
+                        attachedTo: itemLogin
+                    }
                 }
 
                 TextField {
@@ -170,6 +179,9 @@ Page {
                     placeholderText: qsTr("Password")
                     echoMode: TextInput.Password
                     inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText
+                    menu: VTextEditMenu{
+                        attachedTo: itemPass
+                    }
                 }
 
                 TextField {
@@ -180,6 +192,9 @@ Page {
                     placeholderText: qsTr("Pin number")
                     echoMode: TextInput.Password
                     inputMethodHints: Qt.ImhPreferNumbers | Qt.ImhNoPredictiveText
+                    menu: VTextEditMenu{
+                        attachedTo: itemPin
+                    }
                 }
 
                 TextField {
@@ -189,6 +204,9 @@ Page {
                     anchors.leftMargin: Sizes.MARGIN
                     placeholderText: qsTr("Service URL")
                     inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText
+                    menu: VTextEditMenu{
+                        attachedTo: itemRelate
+                    }
                 }
 
                 SLabel {
@@ -215,6 +233,9 @@ Page {
                     anchors.right: parent.right
                     anchors.left: parent.left
                     anchors.leftMargin: Sizes.MARGIN
+                    menu: VTextEditMenu{
+                        attachedTo: itemDescription
+                    }
                 }
 
                 Item {
