@@ -25,7 +25,7 @@ OverView {
         itemPin.text = "";
         itemRelate.text = "";
         itemDescription.text = "";
-        showHidden.enabled = true;
+        showHidden.toggled = false;
     }
 
     function show(item){
@@ -52,20 +52,26 @@ OverView {
             id: showHidden
             width: Sizes.ICON_32
             visible: itemPass.visible || itemPin.visible
-            icon: "image://icons/eye"
+            icon: toggled? "image://icons/eye": "image://icons/eyeslash"
+            property bool toggled: false
             onClicked: {
-                itemPass.text = store.decode(itemPass.text);
-                itemPin.text = store.decode(itemPin.text);
-                enabled = false;
+                if (toggled){
+                    itemPass.masktext();
+                    itemPin.masktext();
+                    toggled = false;
+                }else{
+                    itemPass.revealtext();
+                    itemPin.revealtext();
+                    toggled = true;
+                }
             }
         }
     }
     CardItem {id: itemNumber; description: "Account number:";}
     CardItem {id: itemLogin; description: "Login:";}
-    CardItem {id: itemPass; description: "Password:";}
-    CardItem {id: itemPin; description: "Pin Number:";}
-    CardItem {id: itemRelate; description: "Service URL:"; isURL: true }
-    CardItem {id: itemDescription; description: "Additional notes:";}
-
+    CardItem {id: itemPass; description: "Password:"; masked: true;}
+    CardItem {id: itemPin; description: "Pin Number:"; masked: true;}
+    CardItem {id: itemRelate; description: "Service URL:"; isURL: true; }
+    CardItem {id: itemDescription; description: "Additional notes:"; multiline: true;}
 
 }

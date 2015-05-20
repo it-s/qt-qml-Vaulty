@@ -34,9 +34,10 @@ Page {
 
         if (storeID !== ""){
             store.set(storeID, data);
-        }else{
-            if (itemTitle.text != "")
-                store.add(data);
+            app.toast("Saved");
+        }else if (itemTitle.text != ""){
+            store.add(data);
+            app.toast("Added");
         }
         app.goBack();
     }

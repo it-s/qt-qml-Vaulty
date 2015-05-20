@@ -38,8 +38,10 @@ OverView {
 
         if (_editing !== null){
             vaults.set(_editing.ID, data);
+            app.toast("Saved")
         }else{
             vaults.add(data);
+            app.toast("Added")
         }
         editView.close();
     }

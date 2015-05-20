@@ -19,13 +19,9 @@ MouseArea {
     Connections {
         onReleased: {
             if (itemBody.x > width / 2)
-            {
-                active = true;
-                itemBody.x = width / 2;
-            } else {
-                active = false;
-                itemBody.x = 0;
-            }
+                activate();
+            else
+                deactivate();
         }
     }
 
@@ -37,6 +33,16 @@ MouseArea {
     property alias anctionText: itemActionButton.text
 
     signal action
+
+    function activate(){
+        active = true;
+        itemBody.x = width / 2;
+    }
+
+    function deactivate(){
+        active = false;
+        itemBody.x = 0;
+    }
 
     Rectangle {
         id: selection
@@ -77,7 +83,7 @@ MouseArea {
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
             anchors.leftMargin: Sizes.MARGIN_DOUBLE
-            text: "Delete"
+            text: "Remove"
             enabled: listItem.active
             onClicked: listItem.action()
         }
@@ -90,7 +96,7 @@ MouseArea {
         color: Palette.BUTTON
         width: parent.width
         height: parent.height
-        Behavior on x {NumberAnimation{duration: 50}}
+        Behavior on x {NumberAnimation{duration: 100}}
         RowLayout{
             anchors.fill: parent
             anchors.margins: Sizes.MARGIN

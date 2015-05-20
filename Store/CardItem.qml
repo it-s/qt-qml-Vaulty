@@ -9,14 +9,34 @@ import "../Common/palette.js" as Palette
 import "utils.js" as Utils
 
 Item {
+    id: cardItem
     width: 320
     anchors.left: parent.left
     anchors.right: parent.right
-    height: Size.LIST_ITEM_HEAD
-    property alias text: itemValue.text
+    height: Math.max(Size.LIST_ITEM_HEAD, listItemContent.height)
+    property string text
+    property bool masked: false
+    property bool revealed: false
+    property bool multiline: false
     property alias description: itemDescription.text
     property alias isURL: listItemURL.visible
     visible: itemValue.text!=""
+
+    function masktext(){
+        if (cardItem.text != "") itemValue.text = "******";
+        revealed = false;
+    }
+
+    function revealtext(){
+        itemValue.text = cardItem.text;
+        revealed = true;
+    }
+
+    onTextChanged: {
+        if (masked && cardItem.text != "") masktext();
+        else revealtext();
+    }
+
     RowLayout{
         anchors.fill: parent
         anchors.leftMargin: Size.MARGIN
@@ -24,14 +44,15 @@ Item {
         spacing: Size.MARGIN
         Column {
             id: listItemContent
-            spacing: 0//Sizes.FONT_MARGIN
+            spacing: cardItem.multiline? Size.MARGIN / 2: 0
             Layout.fillWidth: true
             VLabel {
                 id: itemValue
                 anchors.left: parent.left
                 anchors.right: parent.right
                 color: Palette.LIST_ITEM_TEXT
-                text: "Title"
+                font.pixelSize: cardItem.multiline? Size.FONT_SIZE_SMALL: Size.FONT_SIZE_BODY
+                wrapMode: cardItem.multiline? Text.WordWrap: Text.NoWrap
             }
             VLabel {
                 id: itemDescription
@@ -39,7 +60,6 @@ Item {
                 anchors.right: parent.right
                 color: Palette.LIST_ITEM_SUBTEXT
                 font.pixelSize: Size.FONT_SIZE_SMALL
-                text: "Description:"
             }
         }
         VButton {
@@ -51,7 +71,7 @@ Item {
             Layout.fillWidth: false
             Layout.alignment: Qt.AlignRight
             icon: "image://icons/16x16/globe"
-            onClicked: Qt.openUrlExternally(Utils.formatURL(itemValue.text))
+            onClicked: {Qt.openUrlExternally(Utils.formatURL(itemValue.text));app.toast("Opening URL");}
         }
         VButton {
             id: listItemSuffix
@@ -61,7 +81,7 @@ Item {
             Layout.fillWidth: false
             Layout.alignment: Qt.AlignRight
             icon: "image://icons/16x16/clipboard"
-            onClicked: clipboard.copy(itemValue.text)
+            onClicked: {clipboard.copy(cardItem.text);app.toast("Copied");}
         }
     }
 

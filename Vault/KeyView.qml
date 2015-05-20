@@ -1,7 +1,7 @@
 import QtQuick 2.4
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
-import QtQuick.Dialogs 1.1
+import QtQuick.Dialogs 1.2
 
 import "../Common"
 import "../Common/sizes.js" as Size
@@ -23,9 +23,7 @@ OverView {
         keyText.focus = true;
     }
 
-
     function clear(){
-        messageDialog.text = "";
         keyText.text = "";
     }
 
@@ -44,19 +42,16 @@ OverView {
     function save(){
         var error = Utils.invalidKey(keyText.text);
         if (error) {
-            messageDialog.text = error;
-            messageDialog.open();
+            app.msg("Wrong key format", error, StandardIcon.Information);
         }else{
-            error = "Could not unlock valut with the key provided.";
             var key = Utils.toKey(keyText.text);
-//            console.log(key);
             if (store.open(_editing, key)){
                 close();
                 openVaultID = _editing.ID;
+                app.toast("Unlocked");
                 app.goToPage("Store",{title: _editing.title});
             }else {
-                messageDialog.text = error;
-                messageDialog.open();
+                app.msg("Unlocking failed", "Could not unlock "+_editing.title+" with the key provided.", StandardIcon.Warning);
             }
         }
     }
@@ -86,11 +81,4 @@ OverView {
         font.pixelSize: Size.FONT_SIZE_SMALL
     }
 
-    MessageDialog {
-        id: messageDialog
-        icon: StandardIcon.Warning
-        title: "Error"
-        text: ""
-        standardButtons: StandardButton.Ok
-    }
 }
