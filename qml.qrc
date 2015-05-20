@@ -26,5 +26,7 @@
         <file>Store/SLabel.qml</file>
         <file>Store/CardItem.qml</file>
         <file>Common/VTextEditMenu.qml</file>
+        <file>Common/Toaster.qml</file>
+        <file>Common/Toast.qml</file>
     </qresource>
 </RCC>
