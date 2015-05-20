@@ -5,7 +5,7 @@ import "palette.js" as Palette
 
 MouseArea {
     id: button
-    width: childrenRect.width
+    width: buttonRow.width + Sizes.MARGIN_DOUBLE
     height: Sizes.ICON_32
 
     opacity: enabled? 1: 0.5
@@ -16,29 +16,30 @@ MouseArea {
 
     Rectangle {
         id: content
-        width: contentIcon.width + contentLabel.width + Sizes.MARGIN_DOUBLE
-        height: parent.height
+        anchors.fill: parent
         color: Palette.BUTTON
+    }
 
-        Row {
-            id: row1
-            height: parent.height
-            scale: button.pressed? 0.8: 1
-            anchors.centerIn: parent
-            Image {
-                id: contentIcon
-            }
-            VLabel {
-                id: contentLabel
-                height: parent.height
-                verticalAlignment: Text.AlignVCenter
-                font.capitalization: Font.AllUppercase
-                visible: text != ""
-                lineHeight: 1
-                color: primary? Palette.BUTTON_TEXT_PRIMARY: Palette.BUTTON_TEXT
-            }
+    Row {
+        id: buttonRow
+        height: parent.height
+        scale: parent.pressed? 0.8: 1
+        anchors.centerIn: parent
+        Image {
+            id: contentIcon
+            anchors.verticalCenter: parent.verticalCenter
+            fillMode: Image.Pad
         }
-
+        VLabel {
+            id: contentLabel
+//                height: parent.height
+            anchors.verticalCenter: parent.verticalCenter
+//                verticalAlignment: Text.AlignVCenter
+            font.capitalization: Font.AllUppercase
+            visible: text != ""
+            lineHeight: 1
+            color: primary? Palette.BUTTON_TEXT_PRIMARY: Palette.BUTTON_TEXT
+        }
     }
 }
 
