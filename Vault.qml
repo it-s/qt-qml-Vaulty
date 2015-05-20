@@ -2,6 +2,7 @@ import QtQuick 2.4
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
 import Qt.labs.settings 1.0
+import QtQuick.Dialogs 1.2
 
 import "Common"
 import "Vault"
@@ -19,7 +20,9 @@ Page {
     function back(){
         if(editView.isOpen)editView.close();
         else if(keyView.isOpen)keyView.close();
-        else app.goBack();
+        else app.msg("Close Vaulty", "Are you sure you want to close this app?",StandardIcon.Question, StandardButton.No|StandardButton.Yes, function (accepted){
+            if (accepted) app.close();
+        });
         return true;
     }
 
@@ -64,7 +67,16 @@ Page {
                     }
                     onClicked: keyView.open(ID)
                     onPressAndHold: editView.edit(ID)
-                    onAction: vaults.remove(ID)
+                    onAction: {
+                        app.msg("Remove " + title, "Are you sure you want to permanently remove this vault and all the associated data?", StandardIcon.Warning, StandardButton.Cancel | StandardButton.Yes, function(accepted){
+                            console.log ("MSG callback");
+                            if (accepted){
+                                vaults.remove(ID);
+                                app.toast("Removed");
+                            }else
+                                deactivate();
+                        });
+                    }
                 }
                 model: vaults
 //                    ListModel{

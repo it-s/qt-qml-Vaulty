@@ -38,8 +38,10 @@ OverView {
 
         if (_editing !== null){
             vaults.set(_editing.ID, data);
+            app.toast("Saved")
         }else{
             vaults.add(data);
+            app.toast("Added")
         }
         editView.close();
     }
@@ -49,11 +51,17 @@ OverView {
         anchors.right: parent.right
         anchors.left: parent.left
         placeholderText: qsTr("Vault name")
+        menu: VTextEditMenu{
+            attachedTo: titleText
+        }
     }
     TextField {
         id: descriptionText
         anchors.right: parent.right
         anchors.left: parent.left
         placeholderText: qsTr("Vault description")
+        menu: VTextEditMenu{
+            attachedTo: descriptionText
+        }
     }
 }

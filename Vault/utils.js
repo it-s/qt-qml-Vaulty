@@ -148,16 +148,16 @@ function toKey(str){
 function invalidKey(str){
     var re;
     if(str.length < 6)
-    return "Error: Password must contain at least six characters!";
+    return "Key must contain at least six characters.";
     re = /[0-9]/;
     if(!re.test(str))
-    return "Error: password must contain at least one number (0-9)!";
+    return "Key must contain at least one number (0-9).";
     re = /[a-z]/;
     if(!re.test(str))
-    return "Error: password must contain at least one lowercase letter (a-z)!";
+    return "Key must contain at least one lowercase letter (a-z).";
 //    re = /[A-Z]/;
 //    if(!re.test(str))
-//    return "Error: password must contain at least one uppercase letter (A-Z)!";
+//    return "Key must contain at least one uppercase letter (A-Z).";
 
     return 0;
 }

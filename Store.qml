@@ -2,6 +2,7 @@ import QtQuick 2.4
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
 import Qt.labs.settings 1.0
+import QtQuick.Dialogs 1.2
 
 import "Common"
 import "Store"
@@ -66,11 +67,15 @@ Page {
                 VLabel {
                     text: title
                     color: Palette.LIST_ITEM_TEXT
+                    anchors.left: parent.left
+                    anchors.right: parent.right
                 }
                 VLabel {
                     text: number.length ? number : login
                     color: Palette.LIST_ITEM_SUBTEXT
                     font.pixelSize: Size.FONT_SIZE_SMALL
+                    anchors.left: parent.left
+                    anchors.right: parent.right
                 }
                 onClicked: cardView.show({
                                              type: type,
@@ -84,7 +89,15 @@ Page {
                                              description: description
                                          });
                 onPressAndHold: app.goToPage("StoreEditor", {title: title, storeID: ID});//editView.edit(ID);
-                onAction: store.remove(ID)
+                onAction:
+                    app.msg("Remove " + title, "Are you sure you want to permanently remove this card?", StandardIcon.Warning, StandardButton.No | StandardButton.Yes, function(accepted){
+                        console.log ("MSG callback");
+                        if (accepted){
+                            store.remove(ID);
+                            app.toast("Removed");
+                        }else
+                            deactivate();
+                    });
             }
             section.property: "type"
 //                section.labelPositioning: ViewSection.CurrentLabelAtStart

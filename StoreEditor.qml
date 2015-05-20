@@ -26,17 +26,18 @@ Page {
             title: itemTitle.text,
             login: itemLogin.text,
             number: itemNumber.text,
-            password: itemPass.text != ""? store.encode(itemPass.text): "",
-            pin: itemPin.text != ""? store.encode(itemPin.text): "",
+            password: itemPass.text,
+            pin: itemPin.text,
             relate: Utils.cleanURL(itemRelate.text),
             description: itemDescription.text
          };
 
         if (storeID !== ""){
             store.set(storeID, data);
-        }else{
-            if (itemTitle.text != "")
-                store.add(data);
+            app.toast("Saved");
+        }else if (itemTitle.text != ""){
+            store.add(data);
+            app.toast("Added");
         }
         app.goBack();
     }
@@ -143,6 +144,9 @@ Page {
                     anchors.right: parent.right
                     anchors.leftMargin: Sizes.MARGIN
                     placeholderText: qsTr("My Service")
+                    menu: VTextEditMenu {
+                        attachedTo: itemTitle
+                    }
                 }
 
                 SLabel {
@@ -154,8 +158,11 @@ Page {
                     anchors.left: parent.left
                     anchors.right: parent.right
                     anchors.leftMargin: Sizes.MARGIN
-                    placeholderText: qsTr("Account number (if any)")
-                    inputMethodHints: Qt.ImhSensitiveData | Qt.ImhPreferNumbers | Qt.ImhNoPredictiveText
+                    placeholderText: qsTr("Account number")
+                    inputMethodHints: Qt.ImhPreferNumbers | Qt.ImhNoPredictiveText
+                    menu: VTextEditMenu{
+                        attachedTo: itemNumber
+                    }
                 }
 
                 TextField {
@@ -163,8 +170,11 @@ Page {
                     anchors.left: parent.left
                     anchors.right: parent.right
                     anchors.leftMargin: Sizes.MARGIN
-                    placeholderText: qsTr("User name")
-                    inputMethodHints: Qt.ImhSensitiveData | Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText
+                    placeholderText: qsTr("User name / bank card number")
+                    inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText
+                    menu: VTextEditMenu{
+                        attachedTo: itemLogin
+                    }
                 }
 
                 TextField {
@@ -174,7 +184,10 @@ Page {
                     anchors.leftMargin: Sizes.MARGIN
                     placeholderText: qsTr("Password")
                     echoMode: TextInput.Password
-                    inputMethodHints: Qt.ImhSensitiveData | Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText
+                    inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText
+                    menu: VTextEditMenu{
+                        attachedTo: itemPass
+                    }
                 }
 
                 TextField {
@@ -182,9 +195,12 @@ Page {
                     anchors.left: parent.left
                     anchors.right: parent.right
                     anchors.leftMargin: Sizes.MARGIN
-                    placeholderText: qsTr("Pin number (if any)")
+                    placeholderText: qsTr("Pin number")
                     echoMode: TextInput.Password
-                    inputMethodHints: Qt.ImhSensitiveData | Qt.ImhPreferNumbers | Qt.ImhNoPredictiveText
+                    inputMethodHints: Qt.ImhPreferNumbers | Qt.ImhNoPredictiveText
+                    menu: VTextEditMenu{
+                        attachedTo: itemPin
+                    }
                 }
 
                 TextField {
@@ -192,8 +208,11 @@ Page {
                     anchors.left: parent.left
                     anchors.right: parent.right
                     anchors.leftMargin: Sizes.MARGIN
-                    placeholderText: qsTr("Service URL (if any)")
-                    inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText | Qt.ImhUrlCharactersOnly
+                    placeholderText: qsTr("Service URL")
+                    inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText
+                    menu: VTextEditMenu{
+                        attachedTo: itemRelate
+                    }
                 }
 
                 SLabel {
@@ -220,7 +239,9 @@ Page {
                     anchors.right: parent.right
                     anchors.left: parent.left
                     anchors.leftMargin: Sizes.MARGIN
-                    inputMethodHints: Qt.ImhMultiLine
+                    menu: VTextEditMenu{
+                        attachedTo: itemDescription
+                    }
                 }
 
                 Item {

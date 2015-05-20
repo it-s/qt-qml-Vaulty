@@ -8,5 +8,6 @@ Text{
     lineHeight: Sizes.FONT_LINE_HEIGHT_BODY
     font.family: "sans"
     color: Palette.TEXT
+    elide: Text.ElideRight
 }
 

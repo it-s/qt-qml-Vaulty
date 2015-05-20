@@ -1,7 +1,10 @@
 import QtQuick 2.4
 import QtQuick.Window 2.2
 import QtQuick.Controls 1.2
+import QtQuick.Dialogs 1.2
 import Qt.labs.settings 1.0
+
+import "Common"
 
 ApplicationWindow {
     id: app
@@ -39,6 +42,33 @@ ApplicationWindow {
      */
     function goToPage(page, properties){
         stack.push(pages[page], properties);
+    }
+
+    /**
+     * Open message box
+     *
+     */
+    function msg(title, text, icon, buttons, callback) {
+        title = title || "Vaulty";
+        text = text || "";
+        icon = icon || StandardIcon.Information;
+        buttons = buttons || StandardButton.Ok;
+        callback = callback || function(){};
+
+        messageDialog.title = title;
+        messageDialog.text = text;
+        messageDialog.icon = icon;
+        messageDialog.standardButtons = buttons;
+        messageDialog.callback = callback;
+        messageDialog.open();
+    }
+
+    /**
+     * Show toast
+     * @param message: Message to show
+     */
+    function toast(message){
+        toaster.displayMessage(message);
     }
 
     /*
@@ -159,5 +189,19 @@ ApplicationWindow {
         }
     }
 
+    Toaster {
+        id: toaster
+    }
+
+    MessageDialog {
+        id: messageDialog
+        property var callback: function(){}
+        onYes:      {callback(true, clickedButton);}
+        onAccepted: {callback(true, clickedButton);}
+        onApply:    {callback(true, clickedButton);}
+        onReset:    {callback(true, clickedButton);}
+        onRejected: {callback(false, clickedButton);}
+        onNo:       {callback(false, clickedButton);}
+    }
 
 }

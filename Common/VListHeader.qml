@@ -12,7 +12,8 @@ VListItem {
         id: textElement
         font.pixelSize: Sizes.FONT_SIZE_HEADLINE
         color: Palette.LIST_ITEM_HEAD
-        anchors.verticalCenter: parent.verticalCenter
+        anchors.left: parent.left
+        anchors.right: parent.right
     }
 }
 
