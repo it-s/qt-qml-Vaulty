@@ -17,7 +17,7 @@ Item {
     Rectangle {
         id: background
         anchors.fill: banner
-        color: Palette.DARK
+        color: Palette.THEME
     }
 
     VLabel {
