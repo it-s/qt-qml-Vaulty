@@ -18,6 +18,14 @@ Rectangle {
     function back() { app.goBack(); return true; }
     function menu() {return true;}
 
+//    Image {
+//        source: "../assets/shader.png"
+//        width: page.width
+//        fillMode: Image.TileHorizontally
+//        mipmap: false
+//        smooth: false
+//    }
+
     Item
     {
         id: pageContent

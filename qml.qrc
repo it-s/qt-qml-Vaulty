@@ -28,5 +28,10 @@
         <file>Common/VTextEditMenu.qml</file>
         <file>Common/Toaster.qml</file>
         <file>Common/Toast.qml</file>
+        <file>assets/shader@4x.png</file>
+        <file>assets/shader@3x.png</file>
+        <file>assets/shader@2x.png</file>
+        <file>assets/shader.png</file>
+        <file>Common/VListView.qml</file>
     </qresource>
 </RCC>

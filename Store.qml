@@ -36,6 +36,16 @@ Page {
     }
 
 
+    ItemTypes {
+        id: itemTypeModel
+        Component.onCompleted: insert(0,{text:"All Types",value:-1,icon:""})
+    }
+
+    ItemStyles{
+        id: itemStyleModel
+    }
+
+
         VToolbar {
             id: toolbar
             icon: "image://icons/chevronleft"
@@ -47,17 +57,12 @@ Page {
                 Layout.alignment: Qt.AlignRight
                 onClicked: app.goToPage("StoreEditor");//editView.open()
             }
-        }
-        SToolbar{
-            id: filterBar
-            anchors.top: toolbar.bottom
-            shadow: vaultsList.contentY > 0
-        }
+        }        
 
-        ListView {
+        VListView {
             id: vaultsList
             clip: true
-            anchors.top: filterBar.bottom
+            anchors.top: toolbar.bottom
             anchors.right: parent.right
             anchors.bottom: parent.bottom
             anchors.left: parent.left
@@ -66,7 +71,14 @@ Page {
                 positionViewAtIndex(currentIndex, ListView.Beginning);
             }
 
+            header: SToolbar {
+                id: filterBar
+                shadow: vaultsList.contentY > 0
+                model: itemTypeModel
+            }
+
             delegate: VListItem {
+                stubColor: itemStyleModel.color(style)
                 border: index < (vaultsList.count - 1)
                 state: ListView.section !== ListView.nextSection? "borderShadow": ""
                 prefix: Rectangle{
@@ -135,15 +147,6 @@ Page {
             text: "Empty Store"
             visible: vaultsList.count == 0
         }
-
-    ItemTypes {
-        id: itemTypeModel
-        Component.onCompleted: insert(0,{text:"All Types",value:-1})
-    }
-
-    ItemStyles{
-        id: itemStyleModel
-    }
 
     CardView{
         id: cardView

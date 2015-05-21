@@ -48,7 +48,7 @@ Page {
             Layout.fillHeight: true
             clip: true
 
-            ListView {
+            VListView {
                 id: vaultsList
                 anchors.fill: parent
 

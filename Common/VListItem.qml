@@ -31,6 +31,8 @@ MouseArea {
     property alias prefix: listItemPrefix.data
     property alias suffix: listItemSuffix.data
     property alias anctionText: itemActionButton.text
+    property alias color: itemBody.color
+    property alias stubColor: itemStub.color
 
     signal action
 
@@ -97,6 +99,14 @@ MouseArea {
         width: parent.width
         height: parent.height
         Behavior on x {NumberAnimation{duration: 100}}
+
+        Rectangle {
+            id: itemStub
+            anchors {left: parent.left; top: parent.top; bottom: parent.bottom}
+            width: U.px(4)
+            color: Palette.BUTTON
+        }
+
         RowLayout{
             anchors.fill: parent
             anchors.margins: Sizes.MARGIN
