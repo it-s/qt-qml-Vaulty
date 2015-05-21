@@ -24,11 +24,15 @@ Page {
         return true;
     }
 
+//    onHidden: filterBar.reset()
+
+    onShow: vaultsList.focus();
+
     onShown: {
         var header = store.header();
         console.log ("Version: " + header.storeVersion);
         console.log ("Title: " + header.title);
-        console.log ("Description: " + header.description);
+        console.log ("Description: " + header.description);        
     }
 
 
@@ -58,11 +62,23 @@ Page {
             anchors.bottom: parent.bottom
             anchors.left: parent.left
 
+            function focus(){
+                positionViewAtIndex(currentIndex, ListView.Beginning);
+            }
+
             delegate: VListItem {
                 border: index < (vaultsList.count - 1)
                 state: ListView.section !== ListView.nextSection? "borderShadow": ""
-                prefix: Image {
-                    source: itemTypeModel.icon(type)
+                prefix: Rectangle{
+                    width: U.px(40)
+                    height: width
+                    radius: width / 2
+//                    color: itemStyleModel.color(style)
+                    color: Palette.ACCENT3
+                    Image {
+                        source: itemTypeModel.icon(type)
+                        anchors.centerIn: parent
+                    }
                 }
                 VLabel {
                     text: title
@@ -88,7 +104,10 @@ Page {
                                              relate: relate,
                                              description: description
                                          });
-                onPressAndHold: app.goToPage("StoreEditor", {title: title, storeID: ID});//editView.edit(ID);
+                onPressAndHold: {
+                    vaultsList.currentIndex = index;
+                    app.goToPage("StoreEditor", {title: title, storeID: ID});//editView.edit(ID);
+                }
                 onAction:
                     app.msg("Remove " + title, "Are you sure you want to permanently remove this card?", StandardIcon.Warning, StandardButton.No | StandardButton.Yes, function(accepted){
                         console.log ("MSG callback");

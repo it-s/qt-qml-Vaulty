@@ -84,6 +84,8 @@ Page {
             icon: "image://icons/times"
             text: "New card"
             shadow: true
+            color: Palette.BLANK
+            textColor: Palette.TITLE
 //            shadow: flickable.contentY > 0
             Layout.fillHeight: false
             onAction: app.goBack()
@@ -93,7 +95,7 @@ Page {
                 Layout.fillWidth: false
                 Layout.alignment: Qt.AlignRight
                 onClicked: page.save()
-                enabled: itemTitle.text != ""
+                enabled: itemTitle.text.length > 0
             }
         }
 
@@ -198,7 +200,7 @@ Page {
                         height: width
                         icon: parent.echoMode == TextInput.Password? "image://icons/eye": "image://icons/eyeslash"
                         anchors.right: parent.right
-                        anchors.rightMargin: Sizes.MARGIN / 2
+                        anchors.rightMargin: Sizes.MARGIN_HALF
                         onClicked: parent.echoMode = (parent.echoMode == TextInput.Password? TextInput.Normal: TextInput.Password)
                     }
                 }
@@ -224,7 +226,7 @@ Page {
                         height: width
                         icon: parent.echoMode == TextInput.Password? "image://icons/eye": "image://icons/eyeslash"
                         anchors.right: parent.right
-                        anchors.rightMargin: Sizes.MARGIN / 2
+                        anchors.rightMargin: Sizes.MARGIN_HALF
                         onClicked: parent.echoMode = (parent.echoMode == TextInput.Password? TextInput.Normal: TextInput.Password)
                     }
                 }

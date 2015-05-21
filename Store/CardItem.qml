@@ -44,7 +44,7 @@ Item {
         spacing: Size.MARGIN
         Column {
             id: listItemContent
-            spacing: cardItem.multiline? Size.MARGIN / 2: 0
+            spacing: cardItem.multiline? Size.MARGIN_HALF: 0
             Layout.fillWidth: true
             VLabel {
                 id: itemValue
