@@ -2,6 +2,7 @@ import QtQuick 2.4
 import QtQuick.Controls 1.2
 import QtQuick.Layouts 1.1
 
+import "../Common"
 import "../Common/sizes.js" as Sizes
 import "../Common/palette.js" as Palette
 
@@ -11,10 +12,15 @@ Rectangle {
     anchors.left: parent.left
     anchors.right: parent.right
     height: Sizes.SUBTOOLBAR
-    color: Palette.TOOLBAR
+    color: Palette.PAGE
     clip: hidden? true: false;
     property bool shadow: false
     property bool hidden: false
+
+    function reset() {
+        category.currentIndex = 0;
+        filter.text = "";
+    }
 
     function hide(){
         hidden = true
@@ -29,9 +35,11 @@ Rectangle {
     RowLayout {
         id: content
         anchors.fill: parent
-        anchors {leftMargin: Sizes.MARGIN; topMargin: 0; rightMargin: Sizes.MARGIN; bottomMargin: Sizes.MARGIN}
+        anchors {leftMargin: Sizes.MARGIN; rightMargin: Sizes.MARGIN;}
         spacing: Sizes.MARGIN
         ComboBox{
+            id: category
+            anchors.verticalCenter: parent.verticalCenter
             Layout.fillWidth: true
             model: ItemTypes {
                     id: itemTypeModel
@@ -40,6 +48,8 @@ Rectangle {
             onCurrentIndexChanged: store.setFilterType(itemTypeModel.value(currentIndex))
         }
         TextField {
+            id: filter
+            anchors.verticalCenter: parent.verticalCenter
             Layout.fillWidth: true
             placeholderText: "Filter"
             onTextChanged: store.setFilterRegExp(text)
@@ -48,6 +58,14 @@ Rectangle {
             inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText
             onAccepted: focus = false
             onEditingFinished: focus = false
+            VButton {
+                width: Sizes.ICON
+                height: width
+                icon: "image://icons/16x16/times"
+                anchors.right: parent.right
+                onClicked: parent.text = ""
+                visible: parent.text.length > 0
+            }
         }
     }
     Rectangle {
