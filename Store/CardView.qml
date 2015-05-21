@@ -52,7 +52,7 @@ OverView {
             id: showHidden
             width: Sizes.ICON_32
             visible: itemPass.visible || itemPin.visible
-            icon: toggled? "image://icons/eye": "image://icons/eyeslash"
+            icon: toggled? "image://icons/eyeslash": "image://icons/eye"
             property bool toggled: false
             onClicked: {
                 if (toggled){

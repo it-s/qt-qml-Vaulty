@@ -187,6 +187,19 @@ Page {
                     inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText
                     menu: VTextEditMenu{
                         attachedTo: itemPass
+                        MenuItem {
+                            text: "Generate"
+                            shortcut: "Ctrl+G"
+                            onTriggered: attachedTo.text = Utils.generatePassword()
+                        }
+                    }
+                    VButton {
+                        width: Sizes.ICON
+                        height: width
+                        icon: parent.echoMode == TextInput.Password? "image://icons/eye": "image://icons/eyeslash"
+                        anchors.right: parent.right
+                        anchors.rightMargin: Sizes.MARGIN / 2
+                        onClicked: parent.echoMode = (parent.echoMode == TextInput.Password? TextInput.Normal: TextInput.Password)
                     }
                 }
 
@@ -200,6 +213,19 @@ Page {
                     inputMethodHints: Qt.ImhPreferNumbers | Qt.ImhNoPredictiveText
                     menu: VTextEditMenu{
                         attachedTo: itemPin
+                        MenuItem {
+                            text: "Generate"
+                            shortcut: "Ctrl+G"
+                            onTriggered: attachedTo.text = Utils.generatePin()
+                        }
+                    }
+                    VButton {
+                        width: Sizes.ICON
+                        height: width
+                        icon: parent.echoMode == TextInput.Password? "image://icons/eye": "image://icons/eyeslash"
+                        anchors.right: parent.right
+                        anchors.rightMargin: Sizes.MARGIN / 2
+                        onClicked: parent.echoMode = (parent.echoMode == TextInput.Password? TextInput.Normal: TextInput.Password)
                     }
                 }
 
