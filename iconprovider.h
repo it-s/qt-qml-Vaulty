@@ -29,6 +29,7 @@ private:
     qreal mRatio;
 
     QSize qStringToQSize(const QString &s = "");
+    QColor qStringToQColor(const QString &s = "");
     IconOptions getOptions(const QString &s);
 
 };

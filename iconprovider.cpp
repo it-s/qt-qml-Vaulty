@@ -13,6 +13,7 @@ IconProvider::IconProvider(const qreal ratio)
 
     mColorMap["light"] = QColor("#E3EAF7");
     mColorMap["dark"] = QColor("#414770");
+    mColorMap["theme"] = QColor("#5e275f");
     mColorMap["default"] = mColorMap["dark"];
 
     mDefaultSize = QSize(24, 24);
@@ -40,6 +41,14 @@ QSize IconProvider::qStringToQSize(const QString &s)
         return mDefaultSize * mRatio;
 }
 
+QColor IconProvider::qStringToQColor(const QString &s)
+{
+    if(mColorMap.contains(s)){
+        return mColorMap[s];
+    }else
+        return QColor(s);
+}
+
 IconOptions IconProvider::getOptions(const QString &s)
 {
     IconOptions options;
@@ -48,7 +57,7 @@ IconOptions IconProvider::getOptions(const QString &s)
 //    qDebug() << optionList;
     if (optionList.count() == 3){
 //        qDebug("Three options detected");
-        options.color = mColorMap[optionList[0]];
+        options.color = qStringToQColor(optionList[0]);
         options.size  = qStringToQSize(optionList[1]);
         options.name = optionList[2];
     }
@@ -60,7 +69,7 @@ IconOptions IconProvider::getOptions(const QString &s)
     }
     else if (optionList.count() == 2){
 //        qDebug("Two options detected with style");
-        options.color = mColorMap[optionList[0]];
+        options.color = qStringToQColor(optionList[0]);
         options.size  = qStringToQSize();
         options.name = optionList[1];
     }
