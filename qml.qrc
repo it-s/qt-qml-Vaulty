@@ -33,5 +33,6 @@
         <file>assets/shader@2x.png</file>
         <file>assets/shader.png</file>
         <file>Common/VListView.qml</file>
+        <file>Store/TypePicker.qml</file>
     </qresource>
 </RCC>

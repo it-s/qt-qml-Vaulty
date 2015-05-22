@@ -38,7 +38,6 @@ Page {
 
     ItemTypes {
         id: itemTypeModel
-        Component.onCompleted: insert(0,{text:"All Types",value:-1,icon:""})
     }
 
     ItemStyles{
@@ -75,6 +74,7 @@ Page {
                 id: filterBar
                 shadow: vaultsList.contentY > 0
                 model: itemTypeModel
+                onListPressed: typeSelector.open()
             }
 
             delegate: VListItem {
@@ -150,6 +150,10 @@ Page {
 
     CardView{
         id: cardView
+    }
+
+    TypePicker {
+        id: typeSelector
     }
 
 }

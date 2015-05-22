@@ -24,6 +24,7 @@ Rectangle {
 //        fillMode: Image.TileHorizontally
 //        mipmap: false
 //        smooth: false
+//        opacity: 0.2
 //    }
 
     Item

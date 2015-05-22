@@ -10,6 +10,8 @@ MouseArea {
 
     opacity: enabled? 1: 0.5
 
+    property alias color: content.color
+    property alias textColor: contentLabel.color
     property alias icon: contentIcon.source
     property alias text: contentLabel.text
     property bool primary: false
