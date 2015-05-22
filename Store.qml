@@ -73,8 +73,9 @@ Page {
             header: SToolbar {
                 id: filterBar
                 shadow: vaultsList.contentY > 0
-                model: itemTypeModel
-                onListPressed: typeSelector.open()
+                onFilterTextEntered: store.filterRegExp(filterText)
+                onTypeFilterCleared: store.setFilterType(-1);
+                onTypeFilterPressed: typeSelector.open()
             }
 
             delegate: VListItem {

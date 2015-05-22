@@ -36,7 +36,7 @@ OverView {
             onClicked: typePicker.save(value)
             VLabel {
                 id: label
-                text: itemTypeModel[index].text
+                text: text
             }
         }
     }

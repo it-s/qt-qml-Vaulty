@@ -59,10 +59,10 @@ protected:
     bool setData(const QModelIndex & index, const QVariant & value, int role = Qt::EditRole);
 
 public slots:
-    Q_INVOKABLE void add(const QVariantMap& v);
-    Q_INVOKABLE QVariantMap get(const QString& id);
-    Q_INVOKABLE void set(const QString& id, const QVariantMap& v);
-    Q_INVOKABLE void remove(const QString& id);
+    void add(const QVariantMap& v);
+    QVariantMap get(const QString& id);
+    void set(const QString& id, const QVariantMap& v);
+    void remove(const QString& id);
 
 private:
     bool mDataChanged;
