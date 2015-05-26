@@ -9,6 +9,8 @@ MouseArea {
     height: width
     property alias icon: contentIcon.source
 
+    opacity: enabled? 1: 0.5
+
     Rectangle {
         id: content
         anchors.fill: parent
