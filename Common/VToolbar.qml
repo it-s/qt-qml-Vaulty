@@ -19,6 +19,12 @@ Rectangle {
 
     signal action
 
+    MouseArea{
+        //Catch all
+        anchors.fill: parent
+        onClicked: {return true}
+    }
+
     RowLayout {
         id: content
         anchors.fill: parent
@@ -38,7 +44,6 @@ Rectangle {
                 id: toolbarText
                 height: parent.height
                 color: Palette.TOOLBAR_TEXT
-                text: "Toolbar"
                 verticalAlignment: Text.AlignVCenter
                 lineHeight: 1
                 Layout.fillWidth: true
