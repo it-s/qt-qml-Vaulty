@@ -28,5 +28,6 @@
         <file>Common/VTextEditMenu.qml</file>
         <file>Common/Toaster.qml</file>
         <file>Common/Toast.qml</file>
+        <file>Common/VEditToolbar.qml</file>
     </qresource>
 </RCC>
