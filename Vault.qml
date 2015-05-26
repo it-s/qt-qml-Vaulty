@@ -37,6 +37,16 @@ Page {
             shadow: vaultsList.contentY > 0
             Layout.fillHeight: false
             VToolbarButton {
+                icon: "image://icons/cog"
+                Layout.alignment: Qt.AlignRight
+                onClicked: colorPicker.open()
+            }
+            VToolbarButton {
+                icon: "image://icons/cog"
+                Layout.alignment: Qt.AlignRight
+                onClicked: typePicker.open()
+            }
+            VToolbarButton {
                 icon: "image://icons/32x32/pluscircle"
                 Layout.alignment: Qt.AlignRight
                 onClicked: editView.open()
@@ -112,5 +122,13 @@ Page {
 
     KeyView {
         id: keyView
+    }
+
+    VTypePicker{
+        id: typePicker
+    }
+
+    VColorPicker{
+        id: colorPicker
     }
 }

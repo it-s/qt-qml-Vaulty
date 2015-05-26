@@ -12,7 +12,7 @@ VDialog{
     id: typePicker
     title: "Type Picker"
     standardButtons: StandardButton.Cancel | StandardButton.Ok
-    width: app.width * 0.8 + Size.MARGIN_DOUBLE
+    width: __maximumDimension
     property int selection: -1
     property string selectionText
     property alias types: typePickerRepeater.model

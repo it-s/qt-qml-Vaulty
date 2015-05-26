@@ -12,24 +12,23 @@ VDialog{
     id: colorPicker
     title: "Style Picker"
     standardButtons: StandardButton.Cancel | StandardButton.Ok
-    width: app.width * 0.8 + Size.MARGIN_DOUBLE
+    width: __maximumDimension
     property int selection
     property color selectionColor
     property alias colors: colorPickerRepeater.model
 
-    Grid {
+    Flow {
         id: colorPickerGrid
-        width: app.width * 0.8 + Size.BORDER * 3
-        columns: 4
-        rowSpacing: Size.BORDER
-        columnSpacing: rowSpacing
+        anchors.right: parent.right
+        anchors.left: parent.left
+        spacing: Size.BORDER
         Repeater {
             id: colorPickerRepeater
             model: ItemStyles{
                 id : itemStyles
             }
             Rectangle {
-                width: app.width * 0.2
+                width: Size.ICON_64
                 height: width
                 color: itemStyles.color(value)
 
@@ -40,7 +39,7 @@ VDialog{
                     color: value == colorPicker.selection?Palette.ACCENT3 :Palette.BLANK
                     Label {
                         anchors.horizontalCenter: parent.horizontalCenter
-                        text: color
+                        text: itemStyles.name(value)
                         font.pixelSize: Size.FONT_SIZE_SMALL
                     }
                 }
