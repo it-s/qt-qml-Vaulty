@@ -44,120 +44,30 @@ import QtQuick.Dialogs 1.2
 import QtQuick.Layouts 1.1
 import QtQuick.Window 2.1
 
-AbstractDialog {
-    id: root
-    default property alias data: defaultContentItem.data
-    onVisibilityChanged: if (visible && contentItem) contentItem.forceActiveFocus()
+import "sizes.js" as Size
 
-    Rectangle {
-        id: content
-        property real spacing: 6
-        property real outerSpacing: 12
-        property real buttonsRowImplicitWidth: minimumWidth
-        property bool buttonsInSingleRow: defaultContentItem.width >= buttonsRowImplicitWidth
-        property real minimumHeight: implicitHeight
-        property real minimumWidth: Screen.pixelDensity * 50
-        implicitHeight: defaultContentItem.implicitHeight + spacing + outerSpacing * 2 + buttonsRight.implicitHeight
-        implicitWidth: Math.min(root.__maximumDimension, Math.max(
-            defaultContentItem.implicitWidth, buttonsRowImplicitWidth, Screen.pixelDensity * 50) + outerSpacing * 2);
+Dialog {
+    id: colorPicker
+    default property alias _contentChildren: content.data
+    property int selection
+    standardButtons: StandardButton.Cancel | StandardButton.Ok
+
+    contentItem: Rectangle {
         color: palette.window
-        Keys.onPressed: {
-            event.accepted = true
-            switch (event.key) {
-                case Qt.Key_Escape:
-                case Qt.Key_Back:
-                    reject()
-                    break
-                case Qt.Key_Enter:
-                case Qt.Key_Return:
-                    accept()
-                    break
-                default:
-                    event.accepted = false
-            }
-        }
-
-        SystemPalette { id: palette }
+        implicitWidth: app.width * 0.8
+        implicitHeight: content.height
 
         Item {
-            id: defaultContentItem
-            anchors {
-                left: parent.left
-                right: parent.right
-                top: parent.top
-                margins: content.outerSpacing
-            }
-            implicitHeight: childrenRect.height
+            id: content
+            anchors {top: parent.top; left: parent.left; right: parent.right; margins: Size.MARGIN}
+            height: childrenRect.height
+
         }
 
-        Flow {
-            id: buttonsLeft
-            spacing: content.spacing
-            anchors {
-                left: parent.left
-                bottom: content.buttonsInSingleRow ? parent.bottom : buttonsRight.top
-                margins: content.outerSpacing
-            }
 
-            Repeater {
-                id: buttonsLeftRepeater
-                Button {
-                    text: (buttonsLeftRepeater.model && buttonsLeftRepeater.model[index] ? buttonsLeftRepeater.model[index].text : index)
-                    onClicked: root.click(buttonsLeftRepeater.model[index].standardButton)
-                }
-            }
-
-            Button {
-                id: moreButton
-                text: qsTr("Show Details...")
-                visible: false
-            }
-        }
-
-        Flow {
-            id: buttonsRight
-            spacing: content.spacing
-            layoutDirection: Qt.RightToLeft
-            anchors {
-                left: parent.left
-                right: parent.right
-                bottom: parent.bottom
-                margins: content.outerSpacing
-            }
-
-            Repeater {
-                id: buttonsRightRepeater
-                // TODO maybe: insert gaps if the button requires it (destructive buttons only)
-                Button {
-                    text: (buttonsRightRepeater.model && buttonsRightRepeater.model[index] ? buttonsRightRepeater.model[index].text : index)
-                    onClicked: root.click(buttonsRightRepeater.model[index].standardButton)
-                }
-            }
-        }
     }
-    function setupButtons() {
-        buttonsLeftRepeater.model = root.__standardButtonsLeftModel()
-        buttonsRightRepeater.model = root.__standardButtonsRightModel()
-        if (!buttonsRightRepeater.model || buttonsRightRepeater.model.length < 2)
-            return;
-        var calcWidth = 0;
 
-        function calculateForButton(i, b) {
-            var buttonWidth = b.implicitWidth;
-            if (buttonWidth > 0) {
-                if (i > 0)
-                    buttonWidth += content.spacing
-                calcWidth += buttonWidth
-            }
-        }
-
-        for (var i = 0; i < buttonsRight.visibleChildren.length; ++i)
-            calculateForButton(i, buttonsRight.visibleChildren[i])
-        content.minimumWidth = calcWidth + content.outerSpacing * 2
-        for (i = 0; i < buttonsLeft.visibleChildren.length; ++i)
-            calculateForButton(i, buttonsLeft.visibleChildren[i])
-        content.buttonsRowImplicitWidth = calcWidth + content.spacing
+    SystemPalette {
+        id: palette
     }
-    onStandardButtonsChanged: setupButtons()
-    Component.onCompleted: setupButtons()
 }

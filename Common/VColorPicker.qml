@@ -11,8 +11,6 @@ import "../Store"
 VDialog{
     id: colorPicker
     title: "Style Picker"
-    standardButtons: StandardButton.Cancel | StandardButton.Ok
-    width: __maximumDimension
     property int selection
     property color selectionColor
     property alias colors: colorPickerRepeater.model

@@ -11,8 +11,6 @@ import "../Store"
 VDialog{
     id: typePicker
     title: "Type Picker"
-    standardButtons: StandardButton.Cancel | StandardButton.Ok
-    width: __maximumDimension
     property int selection: -1
     property string selectionText
     property alias types: typePickerRepeater.model
