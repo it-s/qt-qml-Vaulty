@@ -14,6 +14,8 @@ VDialog{
     property int selection: -1
     property string selectionText
     property alias types: typePickerRepeater.model
+    width: app.width*0.7
+    height: colorPickerGrid.height
 
     Column {
         id: typePickerGrid

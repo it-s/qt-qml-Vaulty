@@ -11,9 +11,10 @@ import "../Store"
 VDialog{
     id: colorPicker
     title: "Style Picker"
-    property int selection
     property color selectionColor
     property alias colors: colorPickerRepeater.model
+    width: app.width*0.7
+    height: colorPickerGrid.height
 
     Flow {
         id: colorPickerGrid
