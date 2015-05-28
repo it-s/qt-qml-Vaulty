@@ -172,6 +172,9 @@ Item
             from: "OPEN"
             to: ""
             SequentialAnimation{
+                PauseAnimation {
+                    duration: 10
+                }
                 NumberAnimation{
                     target: overView
                     properties: "opacity"

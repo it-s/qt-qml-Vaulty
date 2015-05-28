@@ -11,43 +11,67 @@ import "../Store"
 VDialog{
     id: colorPicker
     title: "Style Picker"
+
     property color selectionColor
-    property alias colors: colorPickerRepeater.model
-    width: app.width*0.7
-    height: colorPickerGrid.height
 
     Flow {
         id: colorPickerGrid
         anchors.right: parent.right
         anchors.left: parent.left
-        spacing: Size.BORDER
+        anchors.margins: Size.MARGIN
+
+//        spacing: Size.BORDER
+        spacing: Size.MARGIN_HALF
+
         Repeater {
             id: colorPickerRepeater
             model: ItemStyles{
                 id : itemStyles
             }
             Rectangle {
-                width: Size.ICON_64
+//                width: (colorPickerGrid.width - colorPickerGrid.spacing * 4) / 4
+                width: (colorPickerGrid.width - Size.MARGIN_HALF * 3) / 4
                 height: width
+                radius: width / 2
+                border.width: Size.BORDER_DOUBLE
+                border.color: Palette.BORDER
+
                 color: itemStyles.color(value)
 
                 Rectangle {
-                    height: childrenRect.height
-                    anchors {left: parent.left; right: parent.right; bottom: parent.bottom;}
-                    anchors.margins: Size.BORDER_DOUBLE
-                    color: value == colorPicker.selection?Palette.ACCENT3 :Palette.BLANK
-                    Label {
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        text: itemStyles.name(value)
-                        font.pixelSize: Size.FONT_SIZE_SMALL
+                    width: Size.ICON
+                    height: width
+                    radius: width / 2
+                    anchors.centerIn: parent
+                    color: Palette.BLANK
+
+                    visible: value == colorPicker.selection
+
+                    Image {
+                        source: "image://icons/16x16/checkcircleo"
+                        anchors.centerIn: parent
                     }
                 }
+
+//                Rectangle {
+//                    height: childrenRect.height
+//                    anchors {left: parent.left; right: parent.right; bottom: parent.bottom;}
+//                    anchors.margins: Size.BORDER_DOUBLE
+//                    color: value == colorPicker.selection?Palette.ACCENT3 :Palette.BLANK
+//                    VLabel {
+//                        anchors.horizontalCenter: parent.horizontalCenter
+//                        text: itemStyles.name(value)
+//                        font.pixelSize: Size.FONT_SIZE_SMALL
+//                    }
+//                }
 
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
                         colorPicker.selection = value;
                         colorPicker.selectionColor = color;
+                        close();
+                        selectionMade();
                     }
                 }
             }

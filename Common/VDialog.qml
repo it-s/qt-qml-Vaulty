@@ -6,8 +6,21 @@ import QtQuick.Window 2.1
 
 import "sizes.js" as Size
 
-Dialog {
+OverView {
     id: dialog
-    property int selection
-    standardButtons: StandardButton.Cancel | StandardButton.Ok
+    property int selection: -1
+    saveButtonText: ""
+
+    signal selectionMade
+
+    function open(selected){
+        //Open code here
+        selection = selected || -1;
+        state = "OPEN"
+    }
+
+    function close(){
+        state = ""
+    }
+
  }
