@@ -149,7 +149,7 @@ Page {
 
                     MouseArea{
                         anchors.fill: parent
-                        onClicked: typePicker.open(itemType.currnetIndex)
+                        onClicked: typePicker.open(itemType.currentIndex)
                     }
                 }
 
@@ -332,7 +332,7 @@ Page {
 
                     MouseArea{
                         anchors.fill: parent
-                        onClicked: colorPicker.open(itemStyle.currnetIndex)
+                        onClicked: colorPicker.open(itemStyle.currentIndex)
                     }
                 }
 //                ComboBox {

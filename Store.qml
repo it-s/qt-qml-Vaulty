@@ -136,7 +136,6 @@ Page {
 
     ItemTypes {
         id: itemTypeModel
-        Component.onCompleted: insert(0,{text:"All Types",value:-1})
     }
 
     ItemStyles{
