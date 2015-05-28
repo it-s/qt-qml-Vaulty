@@ -18,13 +18,7 @@ Page {
     property alias openVaultID: keyView.openVaultID
 
     function back(){
-        if(editView.isOpen)editView.close();
-        else if(keyView.isOpen)keyView.close();
-        else return false; //Allow android to manage activities
-//            app.msg("Close Vaulty", "Are you sure you want to close this app?",StandardIcon.Question, StandardButton.No|StandardButton.Yes, function (accepted){
-//            if (accepted) app.suspend();
-//        });
-        return true;
+        return false;
     }
 
     ColumnLayout {

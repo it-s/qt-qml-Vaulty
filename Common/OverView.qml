@@ -5,7 +5,7 @@ import QtQuick.Controls 1.2
 import "sizes.js" as Sizes
 import "palette.js" as Palette
 
-Item
+FocusScope
 {
     id: overView
     width: 320
@@ -13,6 +13,8 @@ Item
     anchors.fill: parent
     enabled: false
     opacity: 0
+
+    focus: false
 
     default property alias _contentChildren: pageBody.data
     property var _editing: null
@@ -55,6 +57,13 @@ Item
         pageViewWrapper.contentY = 0
         _editing = null;
         clear();
+    }
+
+    Keys.onReleased: {
+        if (event.key === Qt.Key_Back || event.key === Qt.Key_Escape) {
+            event.accepted = true;
+            close();
+        }
     }
 
     Rectangle
@@ -196,6 +205,7 @@ Item
                 enabled: true
                 opacity: 1
                 isOpen: true
+                focus: true
             }
         }
     ]

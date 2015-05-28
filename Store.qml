@@ -18,13 +18,6 @@ Page {
 //    onHidden: store.close()
     property alias title: toolbar.text
 
-    function back(){
-        if(cardView.isOpen)cardView.close();
-        else if(typePicker.isOpen)typePicker.close();
-        else app.goBack();
-        return true;
-    }
-
 //    onHidden: filterBar.reset()
 
     onShow: vaultsList.focus();
@@ -49,11 +42,6 @@ Page {
                 onClicked: app.goToPage("StoreEditor");//editView.open()
             }
         }
-//        SToolbar{
-//            id: filterBar
-//            anchors.top: toolbar.bottom
-//            shadow: vaultsList.contentY > 0
-//        }
 
         ListView {
             id: vaultsList
