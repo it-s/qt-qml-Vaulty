@@ -14,6 +14,10 @@ VDialog{
 
     property color selectionColor
 
+    function getNameByID(id){
+        return itemStyles.name(id);
+    }
+
     Flow {
         id: colorPickerGrid
         anchors.right: parent.right

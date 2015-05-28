@@ -21,8 +21,8 @@ Page {
 
     function save(){
         var data = {
-            type: itemTypeModel.value(itemType.currentIndex),
-            style: itemStyleModel.value(itemStyle.currentIndex),
+            type: itemType.currentIndex,
+            style: itemStyle.currentIndex,
             title: itemTitle.text,
             login: itemLogin.text,
             number: itemNumber.text,
@@ -45,8 +45,8 @@ Page {
     onShow: {
         if (storeID !== ""){
             var v = store.get(storeID);
-            itemType.currentIndex = itemTypeModel.index(v.type);
-            itemStyle.currentIndex = itemStyleModel.index(v.style);
+            itemType.currentIndex = v.type;
+            itemStyle.currentIndex = v.style;
             itemTitle.text = v.title;
             itemLogin.text = v.login;
             itemNumber.text = v.number;
@@ -83,8 +83,8 @@ Page {
             id: toolbar
             icon: "image://icons/times"
             text: "New card"
-            shadow: true
-            color: Palette.BLANK
+//            shadow: true
+//            color: Palette.BLANK
             textColor: Palette.TITLE
 //            shadow: flickable.contentY > 0
             Layout.fillHeight: false
@@ -125,16 +125,76 @@ Page {
                     text: qsTr("Service type:")
                 }
 
-                ComboBox {
-                    id: itemType
-                    anchors.right: parent.right
+                Item {
                     anchors.left: parent.left
+                    anchors.right: parent.right
                     anchors.leftMargin: Sizes.MARGIN
-                    currentIndex: itemTypeModel.count - 1
-                    model: ItemTypes{
-                        id: itemTypeModel
+                    height: itemType.height
+
+                    TextField {
+                        id: itemType
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        property int currentIndex: 0
+                        text: typePicker.getNameByID(0);
+                        onCurrentIndexChanged: text = typePicker.getNameByID(currentIndex);
+                    }
+
+                    Image {
+                        source: "image://icons/16x16/list"
+                        anchors.right: parent.right
+                        anchors.rightMargin: Sizes.MARGIN_HALF
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
+
+                    MouseArea{
+                        anchors.fill: parent
+                        onClicked: typePicker.open(itemType.currnetIndex)
                     }
                 }
+
+//                RowLayout {
+//                    anchors.right: parent.right
+//                    anchors.left: parent.left
+
+//                    spacing: Sizes.MARGIN_HALF
+
+//                    SLabel {
+//                        text: qsTr("Service type:")
+//                        Layout.fillWidth: false
+//                        lineHeight: 1
+//                        anchors.verticalCenter: parent.verticalCenter
+//                    }
+
+//                    VLabel {
+//                        id: itemType
+//                        Layout.fillWidth: true
+//                        anchors.verticalCenter: parent.verticalCenter
+//                        property int currentIndex: 0
+//                        onCurrentIndexChanged: text = typePicker.getNameByID(currentIndex);
+//                        Image {
+//                            source: "image://icons/16x16/caretdown"
+//                            anchors.right: parent.right
+//                            anchors.verticalCenter: parent.verticalCenter
+//                        }
+//                        MouseArea{
+//                            anchors.fill: parent
+//                            onClicked: typePicker.open(itemType.currnetIndex)
+//                        }
+//                    }
+//                }
+
+
+//                ComboBox {
+//                    id: itemType
+//                    anchors.right: parent.right
+//                    anchors.left: parent.left
+//                    anchors.leftMargin: Sizes.MARGIN
+//                    currentIndex: itemTypeModel.count - 1
+//                    model: ItemTypes{
+//                        id: itemTypeModel
+//                    }
+//                }
 
                 SLabel {
                     text: qsTr("Service name:")
@@ -247,16 +307,44 @@ Page {
                     text: qsTr("Style:")
                 }
 
-                ComboBox {
-                    id: itemStyle
-                    property int value: 0
-                    anchors.right: parent.right
+
+                Item {
                     anchors.left: parent.left
+                    anchors.right: parent.right
                     anchors.leftMargin: Sizes.MARGIN
-                    model: ItemStyles {
-                        id: itemStyleModel
+                    height: itemType.height
+
+                    TextField {
+                        id: itemStyle
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        property int currentIndex: 0
+                        text: colorPicker.getNameByID(0);
+                        onCurrentIndexChanged: text = colorPicker.getNameByID(currentIndex);
+                    }
+
+                    Image {
+                        source: "image://icons/16x16/list"
+                        anchors.right: parent.right
+                        anchors.rightMargin: Sizes.MARGIN_HALF
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
+
+                    MouseArea{
+                        anchors.fill: parent
+                        onClicked: colorPicker.open(itemStyle.currnetIndex)
                     }
                 }
+//                ComboBox {
+//                    id: itemStyle
+//                    property int value: 0
+//                    anchors.right: parent.right
+//                    anchors.left: parent.left
+//                    anchors.leftMargin: Sizes.MARGIN
+//                    model: ItemStyles {
+//                        id: itemStyleModel
+//                    }
+//                }
 
                 SLabel {
                     text: qsTr("Additional notes:")
@@ -282,11 +370,13 @@ Page {
         }
     }
 
-//    VTypePicker{
-//        id: typePicker
-//    }
+    VTypePicker{
+        id: typePicker
+        onSelectionMade: itemType.currentIndex = selection;
+    }
 
-//    VColorPicker{
-//        id: colorPicker
-//    }
+    VColorPicker{
+        id: colorPicker
+        onSelectionMade: itemStyle.currentIndex = selection;
+    }
 }

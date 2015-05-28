@@ -151,7 +151,7 @@ Page {
         id: typePicker
         onSelectionMade: {
             vaultsList.headerItem.filterType = selection;
-            if (selection > -1)vaultsList.headerItem.typePickerText = selectionText;
+            vaultsList.headerItem.typePickerText = selectionText;
             store.setFilterType(selection);
         }
     }

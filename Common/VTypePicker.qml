@@ -15,6 +15,10 @@ VDialog{
     property string selectionText
     property bool includeAllTypes: true
 
+    function getNameByID(id){
+        return itemTypes.name(id);
+    }
+
     Column {
         id: typePickerGrid
         anchors.right: parent.right
@@ -25,7 +29,7 @@ VDialog{
             id: typePickerRepeater
             model: ItemTypes{
                 id : itemTypes
-                Component.onCompleted: if(includeAllTypes)insert(0,{text:"All Types",value:-1,icon:""})
+//                Component.onCompleted: if(includeAllTypes)insert(0,{text:"All Types",value:-1,icon:""})
             }
             Item {
                 width: typePickerGrid.width
