@@ -281,4 +281,12 @@ Page {
             }
         }
     }
+
+//    VTypePicker{
+//        id: typePicker
+//    }
+
+//    VColorPicker{
+//        id: colorPicker
+//    }
 }

@@ -20,6 +20,7 @@ Page {
 
     function back(){
         if(cardView.isOpen)cardView.close();
+        else if(typePicker.isOpen)typePicker.close();
         else app.goBack();
         return true;
     }
@@ -48,22 +49,31 @@ Page {
                 onClicked: app.goToPage("StoreEditor");//editView.open()
             }
         }
-        SToolbar{
-            id: filterBar
-            anchors.top: toolbar.bottom
-            shadow: vaultsList.contentY > 0
-        }
+//        SToolbar{
+//            id: filterBar
+//            anchors.top: toolbar.bottom
+//            shadow: vaultsList.contentY > 0
+//        }
 
         ListView {
             id: vaultsList
+            boundsBehavior: Flickable.DragOverBounds
             clip: true
-            anchors.top: filterBar.bottom
+            anchors.top: toolbar.bottom
             anchors.right: parent.right
             anchors.bottom: parent.bottom
             anchors.left: parent.left
 
             function focus(){
                 positionViewAtIndex(currentIndex, ListView.Beginning);
+            }
+
+            headerPositioning: ListView.PullBackHeader
+            header: SToolbar {
+               shadow: vaultsList.contentY > 0
+               onFilterTextEntered: store.setFilterRegExp(filterText);
+               onTypeFilterCleared: store.setFilterType(-1);
+               onTypeFilterPressed: typePicker.open(filterType)
             }
 
             delegate: VListItem {
@@ -147,6 +157,15 @@ Page {
 
     CardView{
         id: cardView
+    }
+
+    VTypePicker{
+        id: typePicker
+        onSelectionMade: {
+            vaultsList.headerItem.filterType = selection;
+            if (selection > -1)vaultsList.headerItem.typePickerText = selectionText;
+            store.setFilterType(selection);
+        }
     }
 
 }

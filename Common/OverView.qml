@@ -76,6 +76,7 @@ Item
 
         contentHeight: pageView.height
 
+        boundsBehavior: Flickable.DragOverBounds
         flickableDirection: Flickable.VerticalFlick
         interactive: pageView.height > app.height
 
