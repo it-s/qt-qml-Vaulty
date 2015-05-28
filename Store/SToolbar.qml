@@ -16,8 +16,8 @@ Rectangle {
 
     anchors.right: parent.right
     anchors.left: parent.left
-    height: Size.SUBTOOLBAR
-    color: Palette.BLANK
+    height: Size.SEARCHBAR
+    color: Palette.SEARCHBAR
     z: 99
 
     signal filterTextEntered

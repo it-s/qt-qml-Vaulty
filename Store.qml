@@ -58,7 +58,7 @@ Page {
 
             headerPositioning: ListView.PullBackHeader
             header: SToolbar {
-               shadow: vaultsList.contentY > 0
+//               shadow: vaultsList.contentY > 0
                onFilterTextEntered: store.setFilterRegExp(filterText);
                onTypeFilterCleared: store.setFilterType(-1);
                onTypeFilterPressed: typePicker.open(filterType)
