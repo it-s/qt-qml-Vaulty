@@ -16,7 +16,7 @@
    version="1.1"
    inkscape:version="0.91 r13725"
    viewBox="0 0 48 48"
-   sodipodi:docname="iconsvg.svg"
+   sodipodi:docname="icon.svg"
    inkscape:export-filename="/home/eugene/GIT/qt-qml-Vaulty/android/res/drawable-hdpi/icon.png"
    inkscape:export-xdpi="432"
    inkscape:export-ydpi="432">
@@ -53,13 +53,18 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="16"
-     inkscape:cx="27.758093"
-     inkscape:cy="26.094852"
+     inkscape:cx="21.187223"
+     inkscape:cy="23.07786"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:grid-bbox="true"
      inkscape:document-units="px"
-     inkscape:snap-global="true">
+     inkscape:snap-global="true"
+     inkscape:window-width="1600"
+     inkscape:window-height="838"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1">
     <inkscape:grid
        type="xygrid"
        id="grid5234" />
@@ -72,7 +77,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -81,7 +86,7 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer">
     <rect
-       style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:1;fill:#5e275f;fill-opacity:0.94117647;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate"
+       style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:1;fill:#5e275f;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate"
        id="rect5232"
        width="40"
        height="40"
@@ -101,13 +106,13 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccc" />
     <path
-       style="opacity:0.4;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="opacity:1;fill:#381739;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 25.678058,24.8125 13.353192,-10.310065 0,-5.658685 -18.03125,0 z"
        id="path5242"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccc" />
     <path
-       style="opacity:0.4;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="opacity:0.4;fill:#381739;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 8.875,36.96875 6.125,0 L 8.875,18.125 Z"
        id="path5244"
        inkscape:connector-curvature="0"
