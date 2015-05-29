@@ -39,7 +39,7 @@ Page {
             VToolbarButton {
                 icon: "image://icons/32x32/pluscircle"
                 Layout.alignment: Qt.AlignRight
-                onClicked: app.goToPage("StoreEditor");//editView.open()
+                onClicked: app.goToPage("StoreEditor")//editView.open()
             }
         }
 

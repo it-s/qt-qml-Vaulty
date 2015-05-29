@@ -75,6 +75,7 @@ OverView {
             if (focus) editToolbar.show(keyText, {canClear:true});
         }
         onEditingFinished: editToolbar.hide();
+        onAccepted: save()
     }
 
     VLabel{
