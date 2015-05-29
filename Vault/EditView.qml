@@ -18,6 +18,9 @@ OverView {
     function clear(){
         titleText.text = "";
         descriptionText.text = "";
+
+        titleText.focus = false;
+        descriptionText.focus = false;
     }
 
     function edit(id){
@@ -54,6 +57,10 @@ OverView {
         menu: VTextEditMenu{
             attachedTo: titleText
         }
+        onFocusChanged: {
+            if (focus) editToolbar.show(titleText);
+        }
+        onEditingFinished: editToolbar.hide();
     }
     TextField {
         id: descriptionText
@@ -63,5 +70,9 @@ OverView {
         menu: VTextEditMenu{
             attachedTo: descriptionText
         }
+        onFocusChanged: {
+            if (focus) editToolbar.show(descriptionText);
+        }
+        onEditingFinished: editToolbar.hide();
     }
 }

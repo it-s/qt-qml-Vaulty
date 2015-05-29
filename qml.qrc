@@ -12,6 +12,13 @@
         <file>Common/VListSection.qml</file>
         <file>Common/Page.qml</file>
         <file>Common/OverView.qml</file>
+        <file>Common/VTextEditMenu.qml</file>
+        <file>Common/Toaster.qml</file>
+        <file>Common/Toast.qml</file>
+        <file>Common/VColorPicker.qml</file>
+        <file>Common/VDialog.qml</file>
+        <file>Common/VTypePicker.qml</file>
+        <file>Common/VEditToolbar.qml</file>
         <file>Vault.qml</file>
         <file>Vault/EditView.qml</file>
         <file>Vault/KeyView.qml</file>
@@ -25,11 +32,5 @@
         <file>StoreEditor.qml</file>
         <file>Store/SLabel.qml</file>
         <file>Store/CardItem.qml</file>
-        <file>Common/VTextEditMenu.qml</file>
-        <file>Common/Toaster.qml</file>
-        <file>Common/Toast.qml</file>
-        <file>Common/VColorPicker.qml</file>
-        <file>Common/VDialog.qml</file>
-        <file>Common/VTypePicker.qml</file>
     </qresource>
 </RCC>

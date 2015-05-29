@@ -25,6 +25,7 @@ OverView {
 
     function clear(){
         keyText.text = "";
+        keyText.focus = false;
     }
 
     function open(id){
@@ -70,6 +71,10 @@ OverView {
                 onTriggered: attachedTo.text = ""
             }
         }
+        onFocusChanged: {
+            if (focus) editToolbar.show(keyText, {canClear:true});
+        }
+        onEditingFinished: editToolbar.hide();
     }
 
     VLabel{

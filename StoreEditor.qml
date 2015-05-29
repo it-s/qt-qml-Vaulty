@@ -73,6 +73,14 @@ Page {
         itemRelate.text = "";
         itemDescription.text = "";
         storeID = "";
+
+        itemTitle.focus = false;
+        itemLogin.focus = false;
+        itemNumber.focus = false;
+        itemPass.focus = false;
+        itemPin.focus = false;
+        itemRelate.focus = false;
+        itemDescription.focus = false;
     }
 
     ColumnLayout {
@@ -81,7 +89,7 @@ Page {
 
         VToolbar {
             id: toolbar
-            icon: "image://icons/times"
+            icon: "image://icons/chevronleft"
             text: "New card"
 //            shadow: true
 //            color: Palette.BLANK
@@ -209,6 +217,10 @@ Page {
                     menu: VTextEditMenu {
                         attachedTo: itemTitle
                     }
+                    onFocusChanged: {
+                        if (focus) editToolbar.show(itemTitle);
+                    }
+                    onEditingFinished: editToolbar.hide();
                 }
 
                 SLabel {
@@ -225,6 +237,10 @@ Page {
                     menu: VTextEditMenu{
                         attachedTo: itemNumber
                     }
+                    onFocusChanged: {
+                        if (focus) editToolbar.show(itemNumber);
+                    }
+                    onEditingFinished: editToolbar.hide();
                 }
 
                 TextField {
@@ -237,6 +253,10 @@ Page {
                     menu: VTextEditMenu{
                         attachedTo: itemLogin
                     }
+                    onFocusChanged: {
+                        if (focus) editToolbar.show(itemLogin);
+                    }
+                    onEditingFinished: editToolbar.hide();
                 }
 
                 TextField {
@@ -255,6 +275,12 @@ Page {
                             onTriggered: attachedTo.text = Utils.generatePassword()
                         }
                     }
+
+                    onFocusChanged: {
+                        if (focus) editToolbar.show(itemPass);
+                    }
+                    onEditingFinished: editToolbar.hide();
+
                     VButton {
                         width: Sizes.ICON
                         height: width
@@ -281,6 +307,11 @@ Page {
                             onTriggered: attachedTo.text = Utils.generatePin()
                         }
                     }
+
+                    onFocusChanged: {
+                        if (focus) editToolbar.show(itemPin);
+                    }
+                    onEditingFinished: editToolbar.hide();
                     VButton {
                         width: Sizes.ICON
                         height: width
@@ -301,6 +332,11 @@ Page {
                     menu: VTextEditMenu{
                         attachedTo: itemRelate
                     }
+
+                    onFocusChanged: {
+                        if (focus) editToolbar.show(itemRelate);
+                    }
+                    onEditingFinished: editToolbar.hide();
                 }
 
                 SLabel {
@@ -357,6 +393,11 @@ Page {
                     anchors.leftMargin: Sizes.MARGIN
                     menu: VTextEditMenu{
                         attachedTo: itemDescription
+                    }
+
+                    onFocusChanged: {
+                        if (focus) editToolbar.show(itemDescription);
+                        else editToolbar.hide();
                     }
                 }
 
