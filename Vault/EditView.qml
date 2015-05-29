@@ -54,9 +54,9 @@ OverView {
         anchors.right: parent.right
         anchors.left: parent.left
         placeholderText: qsTr("Vault name")
-        menu: VTextEditMenu{
-            attachedTo: titleText
-        }
+//        menu: VTextEditMenu{
+//            attachedTo: titleText
+//        }
         onFocusChanged: {
             if (focus) editToolbar.show(titleText);
         }
@@ -67,9 +67,9 @@ OverView {
         anchors.right: parent.right
         anchors.left: parent.left
         placeholderText: qsTr("Vault description")
-        menu: VTextEditMenu{
-            attachedTo: descriptionText
-        }
+//        menu: VTextEditMenu{
+//            attachedTo: descriptionText
+//        }
         onFocusChanged: {
             if (focus) editToolbar.show(descriptionText);
         }

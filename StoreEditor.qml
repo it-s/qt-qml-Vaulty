@@ -214,9 +214,9 @@ Page {
                     anchors.right: parent.right
                     anchors.leftMargin: Sizes.MARGIN
                     placeholderText: qsTr("My Service")
-                    menu: VTextEditMenu {
-                        attachedTo: itemTitle
-                    }
+//                    menu: VTextEditMenu {
+//                        attachedTo: itemTitle
+//                    }
                     onFocusChanged: {
                         if (focus) editToolbar.show(itemTitle);
                     }
@@ -234,9 +234,9 @@ Page {
                     anchors.leftMargin: Sizes.MARGIN
                     placeholderText: qsTr("Account number")
                     inputMethodHints: Qt.ImhPreferNumbers | Qt.ImhNoPredictiveText
-                    menu: VTextEditMenu{
-                        attachedTo: itemNumber
-                    }
+//                    menu: VTextEditMenu{
+//                        attachedTo: itemNumber
+//                    }
                     onFocusChanged: {
                         if (focus) editToolbar.show(itemNumber);
                     }
@@ -250,9 +250,9 @@ Page {
                     anchors.leftMargin: Sizes.MARGIN
                     placeholderText: qsTr("User name / bank card number")
                     inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText
-                    menu: VTextEditMenu{
-                        attachedTo: itemLogin
-                    }
+//                    menu: VTextEditMenu{
+//                        attachedTo: itemLogin
+//                    }
                     onFocusChanged: {
                         if (focus) editToolbar.show(itemLogin);
                     }
@@ -267,14 +267,14 @@ Page {
                     placeholderText: qsTr("Password")
                     echoMode: TextInput.Password
                     inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText
-                    menu: VTextEditMenu{
-                        attachedTo: itemPass
-                        MenuItem {
-                            text: "Generate"
-                            shortcut: "Ctrl+G"
-                            onTriggered: attachedTo.text = Utils.generatePassword()
-                        }
-                    }
+//                    menu: VTextEditMenu{
+//                        attachedTo: itemPass
+//                        MenuItem {
+//                            text: "Generate"
+//                            shortcut: "Ctrl+G"
+//                            onTriggered: attachedTo.text = Utils.generatePassword()
+//                        }
+//                    }
 
                     onFocusChanged: {
                         if (focus) editToolbar.show(itemPass);
@@ -299,14 +299,14 @@ Page {
                     placeholderText: qsTr("Pin number")
                     echoMode: TextInput.Password
                     inputMethodHints: Qt.ImhPreferNumbers | Qt.ImhNoPredictiveText
-                    menu: VTextEditMenu{
-                        attachedTo: itemPin
-                        MenuItem {
-                            text: "Generate"
-                            shortcut: "Ctrl+G"
-                            onTriggered: attachedTo.text = Utils.generatePin()
-                        }
-                    }
+//                    menu: VTextEditMenu{
+//                        attachedTo: itemPin
+//                        MenuItem {
+//                            text: "Generate"
+//                            shortcut: "Ctrl+G"
+//                            onTriggered: attachedTo.text = Utils.generatePin()
+//                        }
+//                    }
 
                     onFocusChanged: {
                         if (focus) editToolbar.show(itemPin);
@@ -329,9 +329,9 @@ Page {
                     anchors.leftMargin: Sizes.MARGIN
                     placeholderText: qsTr("Service URL")
                     inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText
-                    menu: VTextEditMenu{
-                        attachedTo: itemRelate
-                    }
+//                    menu: VTextEditMenu{
+//                        attachedTo: itemRelate
+//                    }
 
                     onFocusChanged: {
                         if (focus) editToolbar.show(itemRelate);
@@ -391,14 +391,14 @@ Page {
                     anchors.right: parent.right
                     anchors.left: parent.left
                     anchors.leftMargin: Sizes.MARGIN
-                    menu: VTextEditMenu{
-                        attachedTo: itemDescription
-                    }
+//                    menu: VTextEditMenu{
+//                        attachedTo: itemDescription
+//                    }
 
-                    onFocusChanged: {
-                        if (focus) editToolbar.show(itemDescription);
-                        else editToolbar.hide();
-                    }
+//                    onFocusChanged: {
+//                        if (focus) editToolbar.show(itemDescription);
+//                        else editToolbar.hide();
+//                    }
                 }
 
                 Item {

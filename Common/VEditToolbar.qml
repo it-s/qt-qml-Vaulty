@@ -4,10 +4,12 @@ import QtQuick.Layouts 1.1
 import "sizes.js" as Sizes
 import "palette.js" as Palette
 
-Item {
+FocusScope {
     id: editToolbar
     anchors.fill: parent
     clip: true
+
+    focus: false
 
     property var attachedTo
 
@@ -44,10 +46,17 @@ Item {
         attachedTo = undefined;
     }
 
+    Keys.onReleased: {
+        if (event.key === Qt.Key_Back || event.key === Qt.Key_Escape) {
+            event.accepted = true;
+            hide();
+        }
+    }
+
     VToolbar {
         id: toolbar
         y: -height
-        color: "silver"
+        color: Palette.EDITBAR
         icon: "image://icons/times"
 
         onAction: attachedTo.focus = false
@@ -95,6 +104,7 @@ Item {
             PropertyChanges {
                 target: toolbar
                 y: 0
+                focus: true
             }
         }
     ]
