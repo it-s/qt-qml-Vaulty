@@ -19,8 +19,9 @@ Page {
     property alias title: toolbar.text
 
 //    onHidden: filterBar.reset()
+    function menu() {typePicker.open(vaultsList.headerItem.filterType);return true;}
 
-    onShow: vaultsList.focus();
+//    onShow: vaultsList.focus();
 
     onShown: {
         var header = store.header();

@@ -189,9 +189,9 @@ ApplicationWindow {
         }
     }
 
-    VEditToolbar {
-        id: editToolbar
-    }
+//    VEditToolbar {
+//        id: editToolbar
+//    }
 
     Toaster {
         id: toaster

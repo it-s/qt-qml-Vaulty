@@ -32,5 +32,6 @@
         <file>StoreEditor.qml</file>
         <file>Store/SLabel.qml</file>
         <file>Store/CardItem.qml</file>
+        <file>Common/VInputItemButton.qml</file>
     </qresource>
 </RCC>

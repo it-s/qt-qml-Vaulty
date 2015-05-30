@@ -217,10 +217,15 @@ Page {
 //                    menu: VTextEditMenu {
 //                        attachedTo: itemTitle
 //                    }
-                    onFocusChanged: {
-                        if (focus) editToolbar.show(itemTitle);
+//                    onFocusChanged: {
+//                        if (focus) editToolbar.show(itemTitle);
+//                    }
+//                    onEditingFinished: editToolbar.hide();
+
+                    VInputItemButton{
+                        icon: "image://icons/16x16/times"
+                        onClicked: parent.text = ""
                     }
-                    onEditingFinished: editToolbar.hide();
                 }
 
                 SLabel {
@@ -237,10 +242,14 @@ Page {
 //                    menu: VTextEditMenu{
 //                        attachedTo: itemNumber
 //                    }
-                    onFocusChanged: {
-                        if (focus) editToolbar.show(itemNumber);
+//                    onFocusChanged: {
+//                        if (focus) editToolbar.show(itemNumber);
+//                    }
+//                    onEditingFinished: editToolbar.hide();
+                    VInputItemButton{
+                        icon: "image://icons/16x16/times"
+                        onClicked: parent.text = ""
                     }
-                    onEditingFinished: editToolbar.hide();
                 }
 
                 TextField {
@@ -253,10 +262,14 @@ Page {
 //                    menu: VTextEditMenu{
 //                        attachedTo: itemLogin
 //                    }
-                    onFocusChanged: {
-                        if (focus) editToolbar.show(itemLogin);
+//                    onFocusChanged: {
+//                        if (focus) editToolbar.show(itemLogin);
+//                    }
+//                    onEditingFinished: editToolbar.hide();
+                    VInputItemButton{
+                        icon: "image://icons/16x16/times"
+                        onClicked: parent.text = ""
                     }
-                    onEditingFinished: editToolbar.hide();
                 }
 
                 TextField {
@@ -276,17 +289,13 @@ Page {
 //                        }
 //                    }
 
-                    onFocusChanged: {
-                        if (focus) editToolbar.show(itemPass);
-                    }
-                    onEditingFinished: editToolbar.hide();
+//                    onFocusChanged: {
+//                        if (focus) editToolbar.show(itemPass);
+//                    }
+//                    onEditingFinished: editToolbar.hide();
 
-                    VButton {
-                        width: Sizes.ICON
-                        height: width
-                        icon: parent.echoMode == TextInput.Password? "image://icons/eye": "image://icons/eyeslash"
-                        anchors.right: parent.right
-                        anchors.rightMargin: Sizes.MARGIN_HALF
+                    VInputItemButton{
+                        icon: parent.echoMode == TextInput.Password? "image://icons/16x16/eye": "image://icons/16x16/eyeslash"
                         onClicked: parent.echoMode = (parent.echoMode == TextInput.Password? TextInput.Normal: TextInput.Password)
                     }
                 }
@@ -307,17 +316,13 @@ Page {
 //                            onTriggered: attachedTo.text = Utils.generatePin()
 //                        }
 //                    }
+//                    onFocusChanged: {
+//                        if (focus) editToolbar.show(itemPin);
+//                    }
+//                    onEditingFinished: editToolbar.hide();
 
-                    onFocusChanged: {
-                        if (focus) editToolbar.show(itemPin);
-                    }
-                    onEditingFinished: editToolbar.hide();
-                    VButton {
-                        width: Sizes.ICON
-                        height: width
-                        icon: parent.echoMode == TextInput.Password? "image://icons/eye": "image://icons/eyeslash"
-                        anchors.right: parent.right
-                        anchors.rightMargin: Sizes.MARGIN_HALF
+                    VInputItemButton{
+                        icon: parent.echoMode == TextInput.Password? "image://icons/16x16/eye": "image://icons/16x16/eyeslash"
                         onClicked: parent.echoMode = (parent.echoMode == TextInput.Password? TextInput.Normal: TextInput.Password)
                     }
                 }
@@ -332,11 +337,14 @@ Page {
 //                    menu: VTextEditMenu{
 //                        attachedTo: itemRelate
 //                    }
-
-                    onFocusChanged: {
-                        if (focus) editToolbar.show(itemRelate);
+//                    onFocusChanged: {
+//                        if (focus) editToolbar.show(itemRelate);
+//                    }
+//                    onEditingFinished: editToolbar.hide()
+                    VInputItemButton{
+                        icon: "image://icons/16x16/times"
+                        onClicked: parent.text = ""
                     }
-                    onEditingFinished: editToolbar.hide();
                 }
 
                 SLabel {
@@ -399,6 +407,10 @@ Page {
 //                        if (focus) editToolbar.show(itemDescription);
 //                        else editToolbar.hide();
 //                    }
+                    VInputItemButton{
+                        icon: "image://icons/16x16/times"
+                        onClicked: parent.text = ""
+                    }
                 }
 
                 Item {

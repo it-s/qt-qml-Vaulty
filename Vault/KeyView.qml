@@ -71,11 +71,15 @@ OverView {
 //                onTriggered: attachedTo.text = ""
 //            }
 //        }
-        onFocusChanged: {
-            if (focus) editToolbar.show(keyText, {canClear:true});
-        }
-        onEditingFinished: editToolbar.hide();
+//        onFocusChanged: {
+//            if (focus) editToolbar.show(keyText, {canClear:true});
+//        }
+//        onEditingFinished: editToolbar.hide()
         onAccepted: save()
+        VInputItemButton{
+            icon: "image://icons/16x16/times"
+            onClicked: parent.text = ""
+        }
     }
 
     VLabel{

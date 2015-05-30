@@ -57,10 +57,14 @@ OverView {
 //        menu: VTextEditMenu{
 //            attachedTo: titleText
 //        }
-        onFocusChanged: {
-            if (focus) editToolbar.show(titleText);
+//        onFocusChanged: {
+//            if (focus) editToolbar.show(titleText);
+//        }
+//        onEditingFinished: editToolbar.hide()
+        VInputItemButton{
+            icon: "image://icons/16x16/times"
+            onClicked: parent.text = ""
         }
-        onEditingFinished: editToolbar.hide();
     }
     TextField {
         id: descriptionText
@@ -70,9 +74,13 @@ OverView {
 //        menu: VTextEditMenu{
 //            attachedTo: descriptionText
 //        }
-        onFocusChanged: {
-            if (focus) editToolbar.show(descriptionText);
+//        onFocusChanged: {
+//            if (focus) editToolbar.show(descriptionText);
+//        }
+//        onEditingFinished: editToolbar.hide()
+        VInputItemButton{
+            icon: "image://icons/16x16/times"
+            onClicked: parent.text = ""
         }
-        onEditingFinished: editToolbar.hide();
     }
 }

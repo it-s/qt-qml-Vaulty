@@ -4,12 +4,9 @@ import QtQuick.Layouts 1.1
 import "sizes.js" as Sizes
 import "palette.js" as Palette
 
-FocusScope {
+Item {
     id: editToolbar
     anchors.fill: parent
-    clip: true
-
-    focus: false
 
     property var attachedTo
 
@@ -31,6 +28,9 @@ FocusScope {
 
     function show(object, options){
         if (object === undefined) return;
+        var rect = object.mapToItem(editToolbar, 0, 0);
+        toolbar.x = rect.x;
+        toolbar.y = rect.y - toolbar.height;
         options = options || defaultOptions;
         canClear = options['canClear'] || false;
         canSelect = options['canSelect'] || false;
@@ -46,55 +46,58 @@ FocusScope {
         attachedTo = undefined;
     }
 
-    Keys.onReleased: {
-        if (event.key === Qt.Key_Back || event.key === Qt.Key_Escape) {
-            event.accepted = true;
-            hide();
-        }
-    }
-
-    VToolbar {
+    Rectangle {
         id: toolbar
-        y: -height
         color: Palette.EDITBAR
-        icon: "image://icons/times"
+        border.color: Palette.BORDER
+        border.width: Sizes.BORDER
 
-        onAction: attachedTo.focus = false
+        width: childrenRect.width
+        height: childrenRect.height
 
-        VToolbarButton {
-            id: buttonClear
-            icon: "image://icons/paragraph"
-            onClicked: attachedTo.text = ""
-            visible: false
-            enabled: (attachedTo !== undefined && attachedTo.text !== undefined && attachedTo.text.length > 0)
-        }
-        VToolbarButton {
-            id: buttonSelectAll
-            icon: "image://icons/font"
-            onClicked: attachedTo.selectAll()
-            visible: false
-            enabled: (attachedTo !== undefined && attachedTo.text !== undefined && attachedTo.text.length > 0)
-        }
-        VToolbarButton {
-            id: buttonCut
-            icon: "image://icons/cut"
-            Layout.alignment: Qt.AlignRight
-            onClicked: attachedTo.cut()
-            visible: false
-            enabled: (attachedTo !== undefined && attachedTo.text !== undefined && attachedTo.text.length > 0)
-        }
-        VToolbarButton {
-            id: buttonCopy
-            icon: "image://icons/copy"
-            Layout.alignment: Qt.AlignRight
-            onClicked: attachedTo.copy()
-            enabled: (attachedTo !== undefined && attachedTo.text !== undefined && attachedTo.text.length > 0)
-        }
-        VToolbarButton {
-            id: buttonPaste
-            icon: "image://icons/paste"
-            Layout.alignment: Qt.AlignRight
-            onClicked: attachedTo.paste()
+        opacity: 0
+
+        Row {
+            spacing: 0
+            height: Sizes.ICON
+
+            VToolbarButton {
+                id: buttonClear
+                width: Sizes.ICON
+                icon: "image://icons/16x16/paragraph"
+                onClicked: attachedTo.text = ""
+                visible: false
+                enabled: (attachedTo !== undefined && attachedTo.text !== undefined && attachedTo.text.length > 0)
+            }
+            VToolbarButton {
+                id: buttonSelectAll
+                width: Sizes.ICON
+                icon: "image://icons/16x16/font"
+                onClicked: attachedTo.selectAll()
+                visible: false
+                enabled: (attachedTo !== undefined && attachedTo.text !== undefined && attachedTo.text.length > 0)
+            }
+            VToolbarButton {
+                id: buttonCut
+                width: Sizes.ICON
+                icon: "image://icons/16x16/cut"
+                onClicked: attachedTo.cut()
+                visible: false
+                enabled: (attachedTo !== undefined && attachedTo.text !== undefined && attachedTo.text.length > 0)
+            }
+            VToolbarButton {
+                id: buttonCopy
+                width: Sizes.ICON
+                icon: "image://icons/16x16/copy"
+                onClicked: attachedTo.copy()
+                enabled: (attachedTo !== undefined && attachedTo.text !== undefined && attachedTo.text.length > 0)
+            }
+            VToolbarButton {
+                id: buttonPaste
+                width: Sizes.ICON
+                icon: "image://icons/16x16/paste"
+                onClicked: attachedTo.paste()
+            }
         }
     }
     states: [
@@ -103,28 +106,27 @@ FocusScope {
             when: isShown
             PropertyChanges {
                 target: toolbar
-                y: 0
-                focus: true
+                opacity: 1
             }
         }
     ]
 
-    transitions: [
-        Transition {
-            from: ""
-            to: "shown"
-            NumberAnimation{
-                properties: "y"
-            }
-        },
-        Transition {
-            from: "shown"
-            to: ""
-            NumberAnimation{
-                properties: "y"
-            }
-        }
-    ]
+//    transitions: [
+//        Transition {
+//            from: ""
+//            to: "shown"
+//            NumberAnimation{
+//                properties: "opacity"
+//            }
+//        },
+//        Transition {
+//            from: "shown"
+//            to: ""
+//            NumberAnimation{
+//                properties: "opacity"
+//            }
+//        }
+//    ]
 
 }
 
