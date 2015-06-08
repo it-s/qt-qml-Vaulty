@@ -36,16 +36,22 @@ bool StoreFilter::open(const QVariantMap &vault, const QString key)
 {
     //convert password hash to quint64
     quint64 n = key.toULongLong(NULL, 16);
-    qDebug() << n;
+//    qDebug() << n;
     bool result = store.open(vault, n);
-    invalidate();
+    if(result){
+        setFilterRegExp("");
+        mType = -1;
+        invalidate();
+    }
     return result;
 }
 
 void StoreFilter::close()
 {
     store.close();
+    setFilterRegExp("");
     mType = -1;
+
     invalidate();
 }
 
