@@ -7,7 +7,9 @@ Loader {
 
     function displayMessage(message) {
         if (messages.state == "show") {
+            messages.item.message = message;
             item.blink();
+            timer.restart();
         }else{
             messages.source = "";
             messages.source = Qt.resolvedUrl("Toast.qml");
@@ -27,7 +29,7 @@ Loader {
     Timer {
         id: timer
 
-        interval: 1000
+        interval: 3000
         onTriggered: {
             messages.state = ""
         }

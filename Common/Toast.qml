@@ -11,6 +11,8 @@ Item {
     height: Sizes.LIST_ITEM_HEAD
 
     function blink() {
+        opacity = 1;
+        fadeOut.restart();
         blinkAnimation.start();
     }
 
@@ -45,6 +47,21 @@ Item {
             property: "scale"
             to: 1
             duration: 50
+        }
+    }
+
+    SequentialAnimation {
+        id: fadeOut
+        loops: 1
+        running: true
+        PauseAnimation {
+            duration: 1000
+        }
+        NumberAnimation {
+            target: banner
+            property: "opacity"
+            to: 0.3
+            duration: 1500
         }
     }
 }
