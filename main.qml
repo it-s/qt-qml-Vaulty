@@ -13,6 +13,10 @@ ApplicationWindow {
 
     visible: true
 
+    property var _stash: {
+
+    }
+
     property var pages: {
                 "Vault":    Qt.resolvedUrl("/Vault.qml"),
                 "Store":    Qt.resolvedUrl("/Store.qml"),
@@ -69,6 +73,21 @@ ApplicationWindow {
      */
     function toast(message){
         toaster.displayMessage(message);
+    }
+
+
+    /**
+     * Show toast
+     * @param message: Message to show
+     */
+    function stashReset(){
+        _stash = {};
+    }
+    function stashSet(key, value) {
+        _stash[key] = value;
+    }
+    function stashGet(key, def) {
+        return _stash[key] || def;
     }
 
     /*
