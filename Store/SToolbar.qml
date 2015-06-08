@@ -24,6 +24,19 @@ Rectangle {
     signal typeFilterPressed
     signal typeFilterCleared
 
+    onFilterTextChanged:
+        app.stashSet("filterText", filterText);
+    onFilterTypeChanged:
+        app.stashSet("filterType", filterType);
+    onTypePickerTextChanged:
+        app.stashSet("typePickerText", typePickerText);
+
+    Component.onCompleted: {
+        filterText = app.stashGet("filterText", "");
+        filterType = app.stashGet("filterType", -1);
+        typePickerText = app.stashGet("typePickerText", "");
+    }
+
 
     //        ComboBox {
     //            id: category
