@@ -130,7 +130,7 @@ MouseArea {
             GradientStop {
                 id: gradientStop2
                 position: 0
-                color: "#c5cbd6"
+                color: "#20000000"
             }
 
             GradientStop {
