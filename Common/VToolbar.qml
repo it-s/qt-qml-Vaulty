@@ -15,7 +15,7 @@ Rectangle {
     property alias icon: toolabrIcon.icon
     property alias text: toolbarText.text
     property alias textColor: toolbarText.color
-    property bool shadow: false
+    property bool shadow: true
 
     signal action
 
@@ -53,37 +53,46 @@ Rectangle {
 
     Rectangle {
         id: _border
-        height: Sizes.BORDER * 4
-        color: Palette.BORDER
-        opacity: 0
+        height: Sizes.BORDER
+        color: "#20000000"
         anchors.top: parent.bottom
-        gradient: Gradient {
-            GradientStop {
-                id: gradientStop2
-                position: 0
-                color: Palette.BORDER
-            }
-
-            GradientStop {
-                id: gradientStop1
-                position: 1
-                color: "#00000000"
-            }
-        }
         anchors.right: parent.right
         anchors.left: parent.left
-        Behavior on opacity {NumberAnimation{duration: 100}}
+        visible: parent.shadow
     }
-    states: [
-        State {
-            name: "borderShadow"
-            when: shadow
-            PropertyChanges {
-                target: _border
-                opacity: 1
-            }
-        }
-    ]
+//    Rectangle {
+//        id: _border
+//        height: Sizes.BORDER * 4
+//        color: Palette.BORDER
+//        opacity: 0
+//        anchors.top: parent.bottom
+//        gradient: Gradient {
+//            GradientStop {
+//                id: gradientStop2
+//                position: 0
+//                color: "#20000000"
+//            }
+
+//            GradientStop {
+//                id: gradientStop1
+//                position: 1
+//                color: "#00000000"
+//            }
+//        }
+//        anchors.right: parent.right
+//        anchors.left: parent.left
+//        Behavior on opacity {NumberAnimation{duration: 100}}
+//    }
+//    states: [
+//        State {
+//            name: "borderShadow"
+//            when: shadow
+//            PropertyChanges {
+//                target: _border
+//                opacity: 1
+//            }
+//        }
+//    ]
 
 }
 
