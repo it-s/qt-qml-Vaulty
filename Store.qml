@@ -21,13 +21,16 @@ Page {
 //    onHidden: filterBar.reset()
     function menu() {typePicker.open(vaultsList.headerItem.filterType);return true;}
 
-//    onShow: vaultsList.focus();
+//    onShow: {
+//        store.setFilterRegExp("");
+//        store.setFilterType(-1);
+//    }
 
     onShown: {
-        var header = store.header();
-        console.log ("Version: " + header.storeVersion);
-        console.log ("Title: " + header.title);
-        console.log ("Description: " + header.description);        
+//        var header = store.header();
+//        console.log ("Version: " + header.storeVersion);
+//        console.log ("Title: " + header.title);
+//        console.log ("Description: " + header.description);
     }
 
 

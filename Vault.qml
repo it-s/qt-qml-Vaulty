@@ -15,6 +15,8 @@ Page {
     width: 320
     height: 480
 
+    color: Palette.THEME
+
     property alias openVaultID: keyView.openVaultID
 
     function back(){
@@ -26,12 +28,15 @@ Page {
         anchors.fill: parent
 
         VToolbar {
-            icon: "image://icons/bars"
+            color: Palette.THEME
+            textColor: Palette.ACCENT4
+            shadow: true
+            icon: "image://icons/light/bars"
             text: "Vaults"
 //            shadow: vaultsList.contentY > 0
             Layout.fillHeight: false
             VToolbarButton {
-                icon: "image://icons/32x32/pluscircle"
+                icon: "image://icons/light/32x32/pluscircle"
                 Layout.alignment: Qt.AlignRight
                 onClicked: editView.open()
             }
@@ -48,17 +53,20 @@ Page {
                 boundsBehavior: Flickable.DragOverBounds
 
                 delegate: VListItem {
+
+                    state: (parent.count - 1) == index? "borderNone": ""
+
                     prefix: Image {
-                        source: page.openVaultID==ID? "image://icons/32x32/unlock": "image://icons/32x32/lock"
+                        source: page.openVaultID==ID? "image://icons/light/32x32/unlock": "image://icons/light/32x32/lock"
                     }
 
                     VLabel {
                         text: title
-                        color: Palette.LIST_ITEM_TEXT
+                        color: Palette.WHITE
                     }
                     VLabel {
                         text: description
-                        color: Palette.LIST_ITEM_SUBTEXT
+                        color: Palette.ACCENT4
                         font.pixelSize: Size.FONT_SIZE_SMALL
                     }
                     onClicked: keyView.open(ID)
