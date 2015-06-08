@@ -49,6 +49,7 @@ OverView {
             if (store.open(_editing, key)){
                 close();
                 openVaultID = _editing.ID;
+                app.stashReset();
                 app.toast("Unlocked");
                 app.goToPage("Store",{title: _editing.title});
             }else {
