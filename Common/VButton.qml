@@ -10,8 +10,12 @@ MouseArea {
 
     opacity: enabled? 1: 0.5
 
-    property alias icon: contentIcon.source
+    property alias icon: contentIcon.name
     property alias text: contentLabel.text
+
+    property alias iconSize: contentIcon.size
+    property color textColor: Palette.BUTTON_TEXT
+
     property bool primary: false
 
     Rectangle {
@@ -25,10 +29,10 @@ MouseArea {
         height: parent.height
         scale: parent.pressed? 0.8: 1
         anchors.centerIn: parent
-        Image {
+        Icon {
             id: contentIcon
             anchors.verticalCenter: parent.verticalCenter
-            fillMode: Image.Pad
+            color: contentLabel.color
         }
         VLabel {
             id: contentLabel
@@ -38,7 +42,7 @@ MouseArea {
             font.capitalization: Font.AllUppercase
             visible: text != ""
             lineHeight: 1
-            color: primary? Palette.BUTTON_TEXT_PRIMARY: Palette.BUTTON_TEXT
+            color: primary? Palette.BUTTON_TEXT_PRIMARY: button.textColor
         }
     }
 }

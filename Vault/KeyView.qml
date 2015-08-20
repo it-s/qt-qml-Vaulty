@@ -6,6 +6,7 @@ import QtQuick.Dialogs 1.2
 import "../Common"
 import "../Common/sizes.js" as Size
 import "../Common/palette.js" as Palette
+import "../Common/icons.js" as Icons
 import "utils.js" as Utils
 
 
@@ -78,7 +79,7 @@ OverView {
 //        onEditingFinished: editToolbar.hide()
         onAccepted: save()
         VInputItemButton{
-            icon: "image://icons/16x16/times"
+            icon: Icons.UI_CLEAR
             onClicked: parent.text = ""
         }
     }

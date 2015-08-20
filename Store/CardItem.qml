@@ -5,6 +5,7 @@ import "../Common"
 
 import "../Common/sizes.js" as Size
 import "../Common/palette.js" as Palette
+import "../Common/icons.js" as Icons
 
 import "utils.js" as Utils
 
@@ -70,7 +71,8 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
             Layout.fillWidth: false
             Layout.alignment: Qt.AlignRight
-            icon: "image://icons/16x16/globe"
+            icon: Icons.UI_URL
+            iconSize: Size.ICON_16
             onClicked: {Qt.openUrlExternally(Utils.formatURL(itemValue.text));app.toast("Opening URL");}
         }
         VButton {
@@ -80,7 +82,8 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
             Layout.fillWidth: false
             Layout.alignment: Qt.AlignRight
-            icon: "image://icons/16x16/clipboard"
+            icon: Icons.UI_COPY
+            iconSize: Size.ICON_16
             onClicked: {clipboard.copy(cardItem.text);app.toast("Copied");}
         }
     }

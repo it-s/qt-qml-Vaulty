@@ -9,6 +9,7 @@ import "Vault"
 
 import "Common/sizes.js" as Size
 import "Common/palette.js" as Palette
+import "Common/icons.js" as Icons
 
 Page {
     id: page
@@ -28,15 +29,14 @@ Page {
         anchors.fill: parent
 
         VToolbar {
-            color: Palette.THEME
-            textColor: Palette.ACCENT4
+            theme: Palette.TOOLBAR.THEME
             shadow: true
-            icon: "image://icons/light/bars"
+            icon: Icons.UI_MENU
             text: "Vaults"
 //            shadow: vaultsList.contentY > 0
             Layout.fillHeight: false
             VToolbarButton {
-                icon: "image://icons/light/32x32/pluscircle"
+                icon: Icons.UI_ADD
                 Layout.alignment: Qt.AlignRight
                 onClicked: editView.open()
             }
@@ -56,8 +56,9 @@ Page {
 
                     state: (parent.count - 1) == index? "borderNone": ""
 
-                    prefix: Image {
-                        source: page.openVaultID==ID? "image://icons/light/32x32/unlock": "image://icons/light/32x32/lock"
+                    prefix: Icon {
+                        name: page.openVaultID==ID? Icons.UI_LOCK_OFF: Icons.UI_LOCK_ON
+                        color: Palette.WHITE
                     }
 
                     VLabel {

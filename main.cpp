@@ -1,7 +1,9 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QFontDatabase>
 #include <QQmlContext>
 #include <QSettings>
+#include <QDebug>
 
 #include "Units.h"
 
@@ -16,6 +18,11 @@ int main(int argc, char *argv[])
     app.setOrganizationName("Likalo.com");
     app.setOrganizationDomain("Likalo.com");
     app.setApplicationName("Vaulty");
+
+    QFontDatabase fontdb;
+    qDebug() << fontdb.addApplicationFont(":/Common/icons.ttf");
+
+
 
 #if defined(Q_OS_WIN)
     QSettings settings;
@@ -35,7 +42,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty(QLatin1String("clipboard"), clipboard);
     engine.rootContext()->setContextProperty(QLatin1String("vaults"), new Vaults);
     engine.rootContext()->setContextProperty(QLatin1String("store"), new StoreFilter);
-    engine.addImageProvider(QLatin1String("icons"), new IconProvider(units.ratio()));
+//    engine.addImageProvider(QLatin1String("icons"), new IconProvider(units.ratio()));
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
     return app.exec();

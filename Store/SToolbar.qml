@@ -5,6 +5,7 @@ import QtQuick.Layouts 1.1
 import "../Common"
 import "../Common/sizes.js" as Size
 import "../Common/palette.js" as Palette
+import "../Common/icons.js" as Icons
 
 Rectangle {
     id: itemBody
@@ -70,7 +71,7 @@ Rectangle {
             anchors.left: parent.left
             anchors.verticalCenter: parent.verticalCenter
             icon: searchInput.text.length
-                  == 0 ? "image://icons/#5B85AA/20x20/search" : "image://icons/times"
+                  == 0 ? Icons.UI_SEARCH : Icons.UI_CLEAR
             onClicked: {
                 if (searchInput.text.length > 0) {
                     searchInput.text = ""
@@ -163,7 +164,9 @@ Rectangle {
             height: width
             anchors.right: parent.right
             icon: typePickerLabel.text.length
-                  == 0 ? "image://icons/light/16x16/list" : "image://icons/light/16x16/times"
+                  == 0 ? Icons.UI_LIST : Icons.UI_CLEAR
+            iconSize: Size.ICON
+            textColor: typePickerLabel.color
             onClicked: {
                 if (typePickerLabel.text.length > 0){
                     typePickerLabel.text = "";

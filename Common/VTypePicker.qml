@@ -5,6 +5,7 @@ import QtQuick.Layouts 1.1
 
 import "sizes.js" as Size
 import "palette.js" as Palette
+import "icons.js" as Icons
 
 import "../Store"
 
@@ -44,10 +45,13 @@ VDialog{
                 Row {
                     anchors.fill: parent
                     spacing: Size.MARGIN
-                    Image {
-                        source: typePicker.selection == value?"image://icons/checkcircleo":"image://icons/light/circleo"
+
+                    Icon {
+                        name: typePicker.selection == value? Icons.UI_RADIO_BUTTON_CHECKED: Icons.UI_RADIO_BUTTON_UNCHECKED
+                        size: Size.ICON
                         anchors.verticalCenter: parent.verticalCenter
                     }
+
                     VLabel{
                         text: itemTypes.name(value)
                         lineHeight: 1

@@ -7,6 +7,7 @@ import "Store"
 
 import "Common/sizes.js" as Sizes
 import "Common/palette.js" as Palette
+import "Common/icons.js" as Icons
 
 import "Store/utils.js" as Utils
 
@@ -89,11 +90,11 @@ Page {
 
         VToolbar {
             id: toolbar
-            icon: "image://icons/chevronleft"
+            icon: Icons.UI_BACK
             text: "New card"
 //            shadow: true
 //            color: Palette.BLANK
-            textColor: Palette.TITLE
+//            textColor: Palette.TITLE
 //            shadow: flickable.contentY > 0
             Layout.fillHeight: false
             onAction: app.goBack()
@@ -148,8 +149,9 @@ Page {
                         onCurrentIndexChanged: text = typePicker.getNameByID(currentIndex);
                     }
 
-                    Image {
-                        source: "image://icons/16x16/list"
+                    Icon {
+                        name: Icons.UI_LIST
+                        size: Sizes.ICON
                         anchors.right: parent.right
                         anchors.rightMargin: Sizes.MARGIN_HALF
                         anchors.verticalCenter: parent.verticalCenter
@@ -223,7 +225,7 @@ Page {
 //                    onEditingFinished: editToolbar.hide();
 
                     VInputItemButton{
-                        icon: "image://icons/16x16/times"
+                        icon: Icons.UI_CLEAR
                         onClicked: parent.text = ""
                     }
                 }
@@ -246,8 +248,8 @@ Page {
 //                        if (focus) editToolbar.show(itemNumber);
 //                    }
 //                    onEditingFinished: editToolbar.hide();
-                    VInputItemButton{
-                        icon: "image://icons/16x16/times"
+                    VInputItemButton {
+                        icon: Icons.UI_CLEAR
                         onClicked: parent.text = ""
                     }
                 }
@@ -267,7 +269,7 @@ Page {
 //                    }
 //                    onEditingFinished: editToolbar.hide();
                     VInputItemButton{
-                        icon: "image://icons/16x16/times"
+                        icon: Icons.UI_CLEAR
                         onClicked: parent.text = ""
                     }
                 }
@@ -295,7 +297,8 @@ Page {
 //                    onEditingFinished: editToolbar.hide();
 
                     VInputItemButton{
-                        icon: parent.echoMode == TextInput.Password? "image://icons/16x16/eye": "image://icons/16x16/eyeslash"
+                        icon: parent.echoMode == TextInput.Password? Icons.UI_VISIBILITY_OFF: Icons.UI_VISIBILITY_ON
+                        iconSize: Sizes.ICON_16
                         onClicked: parent.echoMode = (parent.echoMode == TextInput.Password? TextInput.Normal: TextInput.Password)
                     }
                 }
@@ -322,7 +325,8 @@ Page {
 //                    onEditingFinished: editToolbar.hide();
 
                     VInputItemButton{
-                        icon: parent.echoMode == TextInput.Password? "image://icons/16x16/eye": "image://icons/16x16/eyeslash"
+                        icon: parent.echoMode == TextInput.Password? Icons.UI_VISIBILITY_OFF: Icons.UI_VISIBILITY_ON
+                        iconSize: Sizes.ICON_16
                         onClicked: parent.echoMode = (parent.echoMode == TextInput.Password? TextInput.Normal: TextInput.Password)
                     }
                 }
@@ -342,7 +346,7 @@ Page {
 //                    }
 //                    onEditingFinished: editToolbar.hide()
                     VInputItemButton{
-                        icon: "image://icons/16x16/times"
+                        icon: Icons.UI_CLEAR
                         onClicked: parent.text = ""
                     }
                 }
@@ -367,8 +371,11 @@ Page {
                         onCurrentIndexChanged: text = colorPicker.getNameByID(currentIndex);
                     }
 
-                    Image {
-                        source: "image://icons/16x16/list"
+
+
+                    Icon {
+                        name: Icons.UI_LIST
+                        size: Sizes.ICON
                         anchors.right: parent.right
                         anchors.rightMargin: Sizes.MARGIN_HALF
                         anchors.verticalCenter: parent.verticalCenter
@@ -408,7 +415,7 @@ Page {
 //                        else editToolbar.hide();
 //                    }
                     VInputItemButton{
-                        icon: "image://icons/16x16/times"
+                        icon: Icons.UI_CLEAR
                         onClicked: parent.text = ""
                     }
                 }

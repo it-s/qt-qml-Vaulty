@@ -20,10 +20,42 @@ var HEAD = ACCENT3;
 var PAGE = WHITE;
 var MODAL = BLANK;
 var BORDER = GRAY;
-var TOOLBAR = WHITE;
-var TOOLBAR_TEXT = TITLE;
+//var TOOLBAR = WHITE;
+//var TOOLBAR_TEXT = TITLE;
+var TOOLBAR = {
+    DEFAULT: 'DEFAULT',
+    THEME: 'THEME'
+};
+var toolbar = {
+    DEFAULT: {
+        COLOR: WHITE,
+        ICON: ACCENT2,
+        TEXT: TITLE
+    },
+    THEME: {
+          COLOR: THEME,
+          ICON: WHITE,
+          TEXT: ACCENT4
+    }
+};
 var SEARCHBAR = BLANK;
 var EDITBAR = BLANK;
+var LIST = {
+    DEFAULT: 'DEFAULT',
+    THEME: 'THEME'
+};
+var list = {
+    DEFAULT: {
+        ICON: TEXT,
+        TEXT: TEXT,
+        SUBTEXT: SUBTEXT,
+        TITLE: TITLE,
+        HEAD: HEAD,
+        SELECT: LIGHT,
+        HIGHLIGHT: TINTED
+    }
+};
+
 var LIST_ITEM_TEXT = TEXT;
 var LIST_ITEM_SUBTEXT = SUBTEXT;
 var LIST_ITEM_TITLE = TITLE;

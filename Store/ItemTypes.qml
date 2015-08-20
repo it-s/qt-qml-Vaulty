@@ -27,36 +27,36 @@ ListModel{
     ListElement {
         value: 1001
         text: "Online Services"
-        icon: "image://icons/light/cloud"
+        icon: "CATEGORY_CLOUD"
     }
     ListElement {
         value: 1101
         text: "Web Sites"
-        icon: "image://icons/light/globe"
+        icon: "CATEGORY_WEB"
     }
     ListElement {
         value: 2001
         text: "Bank Accounts"
-        icon: "image://icons/light/university"
+        icon: "CATEGORY_BANKING"
     }
     ListElement {
         value: 2101
         text: "Credit Cards"
-        icon: "image://icons/light/creditcard"
+        icon: "CATEGORY_CARDS"
     }
     ListElement {
         value: 2201
         text: "Memberships"
-        icon: "image://icons/light/users"
+        icon: "CATEGORY_MEMBERSHIPS"
     }
     ListElement {
         value: 3001
         text: "Locks and Passcodes"
-        icon: "image://icons/light/key"
+        icon: "CATEGORY_KEYS"
     }
     ListElement {
         value: 0
         text: "Uncategorized"
-        icon: "image://icons/light/questioncircle"
+        icon: "CATEGORY_WALLET"
     }
 }

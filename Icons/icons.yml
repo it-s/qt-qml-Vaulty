@@ -1,0 +1,51 @@
+# --------------------------------------------------------------------------- #
+# Project Info
+#   Defaults shown. Learn more about these options by running
+#   `fontcustom help` or visiting <http://fontcustom.com>.
+# --------------------------------------------------------------------------- #
+
+font_name: icons
+font_design_size: 48
+font_em: 512
+font_ascent: 448
+font_descent: 64
+css_selector: .icon-{{glyph}}
+preprocessor_path: ""
+autowidth: true
+no_hash: true
+force: true
+debug: false
+quiet: false
+
+
+# --------------------------------------------------------------------------- #
+# Input Paths
+# --------------------------------------------------------------------------- #
+
+input:
+  vectors: ./tmp        # required
+  templates: ./tmp
+
+
+# --------------------------------------------------------------------------- #
+# Output Paths
+# --------------------------------------------------------------------------- #
+
+output:
+  fonts: ./build                              # required
+  css: ./build
+  preview: ./build
+  #my-custom-template.yml: path/to/template/output
+
+
+# --------------------------------------------------------------------------- #
+# Templates
+#   Included in Font Custom: preview, css, scss, scss-rails
+#   Custom templates should be saved in the INPUT[:templates] directory and
+#   referenced by their baserame.
+# --------------------------------------------------------------------------- #
+
+templates:
+ #- scss
+ - preview
+ - icons.js

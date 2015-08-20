@@ -1,0 +1,174 @@
+{
+  "checksum": {
+    "previous": "5660dc1afb9f976125dfe12fa5eecc1cc301066b1405ebbd752e2570b7095c18",
+    "current": "5660dc1afb9f976125dfe12fa5eecc1cc301066b1405ebbd752e2570b7095c18"
+  },
+  "fonts": [
+    "./build/icons.ttf",
+    "./build/icons.svg",
+    "./build/icons.woff",
+    "./build/icons.eot"
+  ],
+  "glyphs": {
+    "category_applications": {
+      "codepoint": 61696,
+      "source": "./tmp/category_applications.svg"
+    },
+    "category_banking": {
+      "codepoint": 61697,
+      "source": "./tmp/category_banking.svg"
+    },
+    "category_cards": {
+      "codepoint": 61698,
+      "source": "./tmp/category_cards.svg"
+    },
+    "category_cloud": {
+      "codepoint": 61699,
+      "source": "./tmp/category_cloud.svg"
+    },
+    "category_keys": {
+      "codepoint": 61700,
+      "source": "./tmp/category_keys.svg"
+    },
+    "category_memberships": {
+      "codepoint": 61701,
+      "source": "./tmp/category_memberships.svg"
+    },
+    "category_wallet": {
+      "codepoint": 61702,
+      "source": "./tmp/category_wallet.svg"
+    },
+    "category_web": {
+      "codepoint": 61703,
+      "source": "./tmp/category_web.svg"
+    },
+    "notify_error": {
+      "codepoint": 61704,
+      "source": "./tmp/notify_error.svg"
+    },
+    "notify_warning": {
+      "codepoint": 61705,
+      "source": "./tmp/notify_warning.svg"
+    },
+    "ui_add": {
+      "codepoint": 61707,
+      "source": "./tmp/ui_add.svg"
+    },
+    "ui_back": {
+      "codepoint": 61708,
+      "source": "./tmp/ui_back.svg"
+    },
+    "ui_checkmark": {
+      "codepoint": 61728,
+      "source": "./tmp/ui_checkmark.svg"
+    },
+    "ui_clear": {
+      "codepoint": 61709,
+      "source": "./tmp/ui_clear.svg"
+    },
+    "ui_copy": {
+      "codepoint": 61710,
+      "source": "./tmp/ui_copy.svg"
+    },
+    "ui_cut": {
+      "codepoint": 61711,
+      "source": "./tmp/ui_cut.svg"
+    },
+    "ui_delit": {
+      "codepoint": 61712,
+      "source": "./tmp/ui_delit.svg"
+    },
+    "ui_edit": {
+      "codepoint": 61713,
+      "source": "./tmp/ui_edit.svg"
+    },
+    "ui_favorite_on": {
+      "codepoint": 61714,
+      "source": "./tmp/ui_favorite_on.svg"
+    },
+    "ui_favority_off": {
+      "codepoint": 61715,
+      "source": "./tmp/ui_favority_off.svg"
+    },
+    "ui_list": {
+      "codepoint": 61716,
+      "source": "./tmp/ui_list.svg"
+    },
+    "ui_lock_off": {
+      "codepoint": 61717,
+      "source": "./tmp/ui_lock_off.svg"
+    },
+    "ui_lock_on": {
+      "codepoint": 61718,
+      "source": "./tmp/ui_lock_on.svg"
+    },
+    "ui_menu": {
+      "codepoint": 61719,
+      "source": "./tmp/ui_menu.svg"
+    },
+    "ui_paste": {
+      "codepoint": 61720,
+      "source": "./tmp/ui_paste.svg"
+    },
+    "ui_radio_button_checked": {
+      "codepoint": 61721,
+      "source": "./tmp/ui_radio_button_checked.svg"
+    },
+    "ui_radio_button_unchecked": {
+      "codepoint": 61722,
+      "source": "./tmp/ui_radio_button_unchecked.svg"
+    },
+    "ui_search": {
+      "codepoint": 61723,
+      "source": "./tmp/ui_search.svg"
+    },
+    "ui_send": {
+      "codepoint": 61726,
+      "source": "./tmp/ui_send.svg"
+    },
+    "ui_url": {
+      "codepoint": 61727,
+      "source": "./tmp/ui_url.svg"
+    },
+    "ui_visibility_off": {
+      "codepoint": 61724,
+      "source": "./tmp/ui_visibility_off.svg"
+    },
+    "ui_visibility_on": {
+      "codepoint": 61725,
+      "source": "./tmp/ui_visibility_on.svg"
+    }
+  },
+  "options": {
+    "autowidth": true,
+    "config": "/home/eugene/Development/GIT/qt-qml-Vaulty/Icons/icons.yml",
+    "css_selector": ".icon-{{glyph}}",
+    "debug": false,
+    "font_ascent": 448,
+    "font_descent": 64,
+    "font_design_size": 48,
+    "font_em": 512,
+    "font_name": "icons",
+    "force": true,
+    "input": {
+      "templates": "./tmp",
+      "vectors": "./tmp"
+    },
+    "no_hash": true,
+    "output": {
+      "css": "./build",
+      "fonts": "./build",
+      "preview": "./build"
+    },
+    "preprocessor_path": "",
+    "quiet": false,
+    "templates": [
+      "preview",
+      "icons.js"
+    ]
+  },
+  "templates": [
+    "./build/icons-preview.html",
+    "./build/icons.js"
+  ]
+}

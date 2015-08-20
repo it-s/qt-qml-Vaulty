@@ -9,6 +9,7 @@ import "Store"
 
 import "Common/sizes.js" as Size
 import "Common/palette.js" as Palette
+import "Common/icons.js" as Icons
 
 Page {
     id: page
@@ -36,12 +37,12 @@ Page {
 
         VToolbar {
             id: toolbar
-            icon: "image://icons/chevronleft"
+            icon: Icons.UI_BACK
             text: "Vaults"
             anchors.top: parent.top
             onAction: app.goBack()
             VToolbarButton {
-                icon: "image://icons/32x32/pluscircle"
+                icon: Icons.UI_ADD
                 Layout.alignment: Qt.AlignRight
                 onClicked: app.goToPage("StoreEditor")//editView.open()
             }
@@ -75,10 +76,10 @@ Page {
                     width: U.px(40)
                     height: width
                     radius: width / 2
-//                    color: itemStyleModel.color(style)
                     color: Palette.ACCENT3
-                    Image {
-                        source: itemTypeModel.icon(type)
+                    Icon {
+                        name: Icons[itemTypeModel.icon(type)]
+                        color: Palette.WHITE
                         anchors.centerIn: parent
                     }
                 }

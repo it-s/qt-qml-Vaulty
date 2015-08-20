@@ -5,6 +5,7 @@ import QtQuick.Layouts 1.1
 
 import "sizes.js" as Size
 import "palette.js" as Palette
+import "icons.js" as Icons
 
 import "../Store"
 
@@ -51,8 +52,8 @@ VDialog{
 
                     visible: value == colorPicker.selection
 
-                    Image {
-                        source: "image://icons/16x16/checkcircleo"
+                    Icon {
+                        name: Icons.UI_CHECKMARK
                         anchors.centerIn: parent
                     }
                 }

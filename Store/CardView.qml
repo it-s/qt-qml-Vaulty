@@ -6,6 +6,7 @@ import "../Common"
 
 import "../Common/sizes.js" as Sizes
 import "../Common/palette.js" as Palette
+import "../Common/icons.js" as Icons
 
 OverView {
     id: editView
@@ -52,7 +53,7 @@ OverView {
             id: showHidden
             width: Sizes.ICON_32
             visible: itemPass.visible || itemPin.visible
-            icon: toggled? "image://icons/eyeslash": "image://icons/eye"
+            icon: toggled? Icons.UI_VISIBILITY_ON: Icons.UI_VISIBILITY_OFF
             property bool toggled: false
             onClicked: {
                 if (toggled){

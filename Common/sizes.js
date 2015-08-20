@@ -23,6 +23,7 @@ var BORDER = U.px(1);
 var BORDER_DOUBLE = BORDER * 2;
 //Icons
 var ICON = U.px(24);
+var ICON_16 = U.px(16);
 var ICON_32 = U.px(32);
 var ICON_64 = ICON_32 * 2;
 //Toolbar

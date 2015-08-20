@@ -10,12 +10,14 @@ Rectangle {
     anchors.left: parent.left
     anchors.right: parent.right
     height: Sizes.TOOLBAR_MIN
-    color: Palette.TOOLBAR
+    color: Palette.toolbar[theme].COLOR
     default property alias _contentChildren: content.data
     property alias icon: toolabrIcon.icon
     property alias text: toolbarText.text
-    property alias textColor: toolbarText.color
     property bool shadow: true
+    property string theme: Palette.TOOLBAR.DEFAULT
+    property color _textColor: Palette.toolbar[theme].TEXT
+    property color _iconColor: Palette.toolbar[theme].ICON
 
     signal action
 
@@ -30,8 +32,12 @@ Rectangle {
         anchors.fill: parent
         anchors {leftMargin: Sizes.MARGIN_HALF; rightMargin: Sizes.MARGIN;}
         spacing: Sizes.MARGIN
+        property alias _textColor: toolbar._textColor
+        property alias _iconColor: toolbar._iconColor
         RowLayout {
             id: row1
+            property alias _textColor: toolbar._textColor
+            property alias _iconColor: toolbar._iconColor
             spacing: Sizes.MARGIN_HALF
             Layout.fillWidth: true
             VToolbarButton {
@@ -43,7 +49,7 @@ Rectangle {
             VLabel{
                 id: toolbarText
                 height: parent.height
-                color: Palette.TOOLBAR_TEXT
+                color: toolbar._textColor
                 verticalAlignment: Text.AlignVCenter
                 lineHeight: 1
                 Layout.fillWidth: true

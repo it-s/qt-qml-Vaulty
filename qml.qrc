@@ -33,5 +33,8 @@
         <file>Store/SLabel.qml</file>
         <file>Store/CardItem.qml</file>
         <file>Common/VInputItemButton.qml</file>
+        <file>Common/icons.js</file>
+        <file>Common/icons.ttf</file>
+        <file>Common/Icon.qml</file>
     </qresource>
 </RCC>
