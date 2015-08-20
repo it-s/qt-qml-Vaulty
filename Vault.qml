@@ -58,6 +58,7 @@ Page {
 
                     prefix: Icon {
                         name: page.openVaultID==ID? Icons.UI_LOCK_OFF: Icons.UI_LOCK_ON
+                        size: Size.ICON_32
                         color: Palette.WHITE
                     }
 

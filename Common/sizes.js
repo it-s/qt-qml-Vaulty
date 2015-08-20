@@ -24,13 +24,14 @@ var BORDER_DOUBLE = BORDER * 2;
 //Icons
 var ICON = U.px(24);
 var ICON_16 = U.px(16);
+var ICON_24 = U.px(24);
 var ICON_32 = U.px(32);
-var ICON_64 = ICON_32 * 2;
+//var ICON_64 = ICON_32 * 2;
 //Toolbar
-var TOOLBAR = U.px(56);
+var TOOLBAR = U.px(48);
 var TOOLBAR_MIN = TOOLBAR;
 var TOOLBAR_MAX = TOOLBAR * 2;
-var SEARCHBAR = U.px(48);
+var SEARCHBAR = U.px(42);
 //Lists
 var LIST_ITEM = U.px(72);
 var LIST_TITLE = LIST_ITEM;

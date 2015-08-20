@@ -71,7 +71,7 @@ Rectangle {
             anchors.left: parent.left
             anchors.verticalCenter: parent.verticalCenter
             icon: searchInput.text.length
-                  == 0 ? Icons.UI_SEARCH : Icons.UI_CLEAR
+                  == 0 ? Icons.UI_SEARCH : Icons.UI_CLEAR_ALT
             onClicked: {
                 if (searchInput.text.length > 0) {
                     searchInput.text = ""
@@ -164,7 +164,7 @@ Rectangle {
             height: width
             anchors.right: parent.right
             icon: typePickerLabel.text.length
-                  == 0 ? Icons.UI_LIST : Icons.UI_CLEAR
+                  == 0 ? Icons.UI_LIST : Icons.UI_CLEAR_ALT
             iconSize: Size.ICON
             textColor: typePickerLabel.color
             onClicked: {

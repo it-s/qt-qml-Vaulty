@@ -55,9 +55,9 @@ function generatePin(){
 }
 
 function cleanURL(url) {
-    return url.toLowerCase().replace("http://", "");
+    return url.toLowerCase();//.replace("http://", "");
 }
 
 function formatURL(url) {
-    if (url.indexOf("http://") < 0) return "http://" + url.toLowerCase();
+    return (url.indexOf("http") === 0? "" : "http://") + url.toLowerCase();
 }

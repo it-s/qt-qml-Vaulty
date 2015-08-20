@@ -80,6 +80,7 @@ OverView {
         onAccepted: save()
         VInputItemButton{
             icon: Icons.UI_CLEAR
+            iconSize: Size.ICON_16
             onClicked: parent.text = ""
         }
     }

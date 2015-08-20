@@ -6,7 +6,7 @@ Item {
     width: size
     height: size
 
-    property int size: Size.ICON_32
+    property int size: Size.ICON_24
     property alias name: glyph.text
     property alias color: glyph.color
     property alias iconStyle: glyph.style

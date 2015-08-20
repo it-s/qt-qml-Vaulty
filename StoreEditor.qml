@@ -226,6 +226,7 @@ Page {
 
                     VInputItemButton{
                         icon: Icons.UI_CLEAR
+                        iconSize: Sizes.ICON_16
                         onClicked: parent.text = ""
                     }
                 }
@@ -250,6 +251,7 @@ Page {
 //                    onEditingFinished: editToolbar.hide();
                     VInputItemButton {
                         icon: Icons.UI_CLEAR
+                        iconSize: Sizes.ICON_16
                         onClicked: parent.text = ""
                     }
                 }
@@ -270,6 +272,7 @@ Page {
 //                    onEditingFinished: editToolbar.hide();
                     VInputItemButton{
                         icon: Icons.UI_CLEAR
+                        iconSize: Sizes.ICON_16
                         onClicked: parent.text = ""
                     }
                 }
@@ -347,6 +350,7 @@ Page {
 //                    onEditingFinished: editToolbar.hide()
                     VInputItemButton{
                         icon: Icons.UI_CLEAR
+                        iconSize: Sizes.ICON_16
                         onClicked: parent.text = ""
                     }
                 }
@@ -416,6 +420,7 @@ Page {
 //                    }
                     VInputItemButton{
                         icon: Icons.UI_CLEAR
+                        iconSize: Sizes.ICON_16
                         onClicked: parent.text = ""
                     }
                 }

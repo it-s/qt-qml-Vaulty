@@ -80,6 +80,7 @@ Page {
                     Icon {
                         name: Icons[itemTypeModel.icon(type)]
                         color: Palette.WHITE
+                        size: Size.ICON_32
                         anchors.centerIn: parent
                     }
                 }

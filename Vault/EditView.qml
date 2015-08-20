@@ -3,6 +3,7 @@ import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
 
 import "../Common"
+import "../Common/sizes.js" as Size
 import "../Common/icons.js" as Icons
 
 OverView {
@@ -64,6 +65,7 @@ OverView {
 //        onEditingFinished: editToolbar.hide()
         VInputItemButton{
             icon: Icons.UI_CLEAR
+            iconSize: Size.ICON_16
             onClicked: parent.text = ""
         }
     }
@@ -81,6 +83,7 @@ OverView {
 //        onEditingFinished: editToolbar.hide()
         VInputItemButton{
             icon: Icons.UI_CLEAR
+            iconSize: Size.ICON_16
             onClicked: parent.text = ""
         }
     }
