@@ -19,6 +19,7 @@ public slots:
     Q_INVOKABLE void setFilterType(int type);
     Q_INVOKABLE int filterType();
 
+    Q_INVOKABLE bool exists(const QVariantMap& vault);
     Q_INVOKABLE bool open(const QVariantMap& vault, const QString key);
     Q_INVOKABLE void close();
 

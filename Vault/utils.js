@@ -145,7 +145,7 @@ function toKey(str){
     return "0x" + hash.substring(0, 16);
 }
 
-function invalidKey(str){
+function invalidKey(str, mach){
     var re;
     if(str.length < 6)
     return "Key must contain at least six characters.";
@@ -155,9 +155,11 @@ function invalidKey(str){
     re = /[a-z]/;
     if(!re.test(str))
     return "Key must contain at least one lowercase letter (a-z).";
-//    re = /[A-Z]/;
-//    if(!re.test(str))
-//    return "Key must contain at least one uppercase letter (A-Z).";
+    re = /[A-Z]/;
+    if(!re.test(str))
+    return "Key must contain at least one uppercase letter (A-Z).";
+    if(mach !== -1 && str !== mach)
+    return "Keys do not mach. Please retype.";
 
     return 0;
 }

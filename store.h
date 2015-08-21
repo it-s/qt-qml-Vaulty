@@ -113,6 +113,7 @@ protected:
     bool setData(const QModelIndex & index, const QVariant & value, int role = Qt::EditRole);
 
 public slots:
+    Q_INVOKABLE bool exists(const QVariantMap& vault);
     Q_INVOKABLE bool open(const QVariantMap& vault, const quint64 key = 0);
     Q_INVOKABLE void close();
 

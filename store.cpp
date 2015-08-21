@@ -133,15 +133,19 @@ bool Store::setData(const QModelIndex &index, const QVariant &value, int role)
     return result;
 }
 
+bool Store::exists(const QVariantMap &vault)
+{
+    QSettings settings;
+    mStore.setFileName(QFileInfo(settings.fileName()).absolutePath() + "/" + vault.value("file").toString());
+    return mStore.exists();
+}
+
 
 bool Store::open(const QVariantMap& vault, const quint64 key)
 {
     if (isOpen) close();
     crypto.setKey(key);
-    QSettings settings;
-    mStore.setFileName(QFileInfo(settings.fileName()).absolutePath() + "/" + vault.value("file").toString());
-    //qDebug() << mStore.fileName();
-    if (mStore.exists()){
+    if (this->exists(vault)){
         mStore.open(QIODevice::ReadOnly);
         QByteArray fileContents = crypto.decryptToByteArray(mStore.readAll());
         //Test the crypto data for errors

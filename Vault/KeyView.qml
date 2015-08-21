@@ -1,6 +1,6 @@
-import QtQuick 2.4
+import QtQuick 2.5
 import QtQuick.Layouts 1.1
-import QtQuick.Controls 1.2
+import QtQuick.Controls 1.4
 import QtQuick.Dialogs 1.2
 
 import "../Common"
@@ -14,6 +14,7 @@ OverView {
     id: keyView
 
     property string openVaultID: ""
+    property bool _storeExists: false
     saveButtonEnabled: keyText.text != ""
     saveButtonText: "OK"
 
@@ -32,6 +33,7 @@ OverView {
     function open(id){
         if (!id) return;
         _editing = vaults.get(id);
+        _storeExists = store.exists(_editing);
         if (openVaultID != id){
             title = _editing.title;
             state = "OPEN"
@@ -42,7 +44,7 @@ OverView {
     }
 
     function save(){
-        var error = Utils.invalidKey(keyText.text);
+        var error = Utils.invalidKey(keyText.text, _storeExists? -1: keyMatch.text);
         if (error) {
             app.msg("Wrong key format", error, StandardIcon.Information);
         }else{
@@ -59,6 +61,16 @@ OverView {
         }
     }
 
+    VLabel{
+        anchors.right: parent.right
+        anchors.left: parent.left
+        text: "Since this is a brand new store, you must set the password you will remember."
+        wrapMode: Text.WordWrap
+        color: Palette.SUBTEXT
+        font.pixelSize: Size.FONT_SIZE_SMALL
+        visible: !_storeExists
+    }
+
     TextField {
         id: keyText
         anchors.right: parent.right
@@ -66,23 +78,28 @@ OverView {
         placeholderText: qsTr("Vault key")
         echoMode: TextInput.Password
         inputMethodHints: Qt.ImhHiddenText | Qt.ImhNoPredictiveText
-//        menu: Menu {
-//            property var attachedTo: keyText
-//            MenuItem {
-//                text: "Clear"
-//                onTriggered: attachedTo.text = ""
-//            }
-//        }
-//        onFocusChanged: {
-//            if (focus) editToolbar.show(keyText, {canClear:true});
-//        }
-//        onEditingFinished: editToolbar.hide()
+        onAccepted: _storeExists? save(): (keyMatch.focus = true)
+        VInputItemButton{
+            icon: Icons.UI_CLEAR
+            iconSize: Size.ICON_16
+            onClicked: parent.text = ""
+        }
+    }
+
+    TextField {
+        id: keyMatch
+        anchors.right: parent.right
+        anchors.left: parent.left
+        placeholderText: qsTr("Retype key")
+        echoMode: TextInput.Password
+        inputMethodHints: Qt.ImhHiddenText | Qt.ImhNoPredictiveText
         onAccepted: save()
         VInputItemButton{
             icon: Icons.UI_CLEAR
             iconSize: Size.ICON_16
             onClicked: parent.text = ""
         }
+        visible: !_storeExists
     }
 
     VLabel{

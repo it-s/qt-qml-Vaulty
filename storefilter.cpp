@@ -32,6 +32,11 @@ int StoreFilter::filterType()
     return mType;
 }
 
+bool StoreFilter::exists(const QVariantMap &vault)
+{
+    return store.exists(vault);
+}
+
 bool StoreFilter::open(const QVariantMap &vault, const QString key)
 {
     //convert password hash to quint64
