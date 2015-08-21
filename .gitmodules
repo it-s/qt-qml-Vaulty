@@ -1,3 +1,6 @@
 [submodule "Units"]
 	path = Units
 	url = ssh://git@github.com/it-s/qt-cpp-Units.git
+[submodule "quickios"]
+	path = quickios
+	url = git@github.com:benlau/quickios.git
