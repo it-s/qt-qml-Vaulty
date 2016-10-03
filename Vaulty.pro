@@ -3,8 +3,10 @@ VERSION = 1.0.3
 
 QT += qml quick
 
-HEADERS += *.h
-SOURCES += *.cpp
+HEADERS += *.h \
+    datapath.h
+SOURCES += *.cpp \
+    datapath.cpp
 RESOURCES += qml.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model

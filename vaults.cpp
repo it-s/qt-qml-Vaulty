@@ -13,19 +13,20 @@ Vaults::Vaults(QObject *parent) :
     mDataRoles[FileNameRole] = "file";
     mDataRoles[DescriptionRole] = "description";
 
-    QSettings mSettings;
-    int size = mSettings.beginReadArray("vaults");
+    QSettings settings;
+    m_dataPath = settings.value("dataPath", QFileInfo(settings.fileName()).absolutePath()).toString();
+    int size = settings.beginReadArray("vaults");
     for (int i = 0; i < size; ++i) {
-        mSettings.setArrayIndex(i);
+        settings.setArrayIndex(i);
         Vault vault;
-        vault.ID = mSettings.value("ID").toString();
-        vault.file = mSettings.value("file").toString();
-        vault.title = mSettings.value("title").toString();
-        vault.description = mSettings.value("description").toString();
+        vault.ID = settings.value("ID").toString();
+        vault.file = settings.value("file").toString();
+        vault.title = settings.value("title").toString();
+        vault.description = settings.value("description").toString();
         mData.append(vault);
     }
 
-    mSettings.endArray();
+    settings.endArray();
     mDataChanged = false;
 }
 
@@ -33,6 +34,11 @@ Vaults::~Vaults()
 {    
     if (mDataChanged) synch();
 }
+
+//QString Vaults::dataPath() const
+//{
+//    return m_dataPath;
+//}
 
 
 void Vaults::synch()
@@ -115,6 +121,18 @@ bool Vaults::setData(const QModelIndex &index, const QVariant &value, int role)
     return result;
 }
 
+//void Vaults::scanDataPath(QString dataPath)
+//{
+//    QDir data(dataPath);
+//    QRegExp test("store{.+}");
+//    QStringList files = data.entryList();
+//    for( int i = 0; i < files.count(); i++){
+//        if(!test.exactMatch(files[i])){
+//            files.removeAt(i);
+//        }
+//    }
+//}
+
 QVariantMap Vaults::get(const QString& id)
 {
     return (QVariantMap) mData[findElementIndexById(id)];
@@ -134,8 +152,10 @@ void Vaults::add(const QVariantMap &v)
     Vault vault;
     beginInsertRows(QModelIndex(), mData.count(), mData.count());
     vault = v;
-    vault.ID = QUuid::createUuid().toString();
-    vault.file = "store" + vault.ID;
+    if(vault.ID.isEmpty())  {
+        vault.ID = QUuid::createUuid().toString();
+        vault.file = "store" + vault.ID;
+    }
     mData.append(vault);
     endInsertRows();
 //    mDataChanged = true;
@@ -150,10 +170,9 @@ void Vaults::remove(const QString& id)
 
     beginRemoveRows(QModelIndex(),index, index);
 
-    QSettings settings;
     QFile mStore;
 
-    mStore.setFileName(QFileInfo(settings.fileName()).absolutePath() + "/" + vault.file);
+    mStore.setFileName(m_dataPath + "/" + vault.file);
     mStore.remove();
 
     mData.removeAt(index);
@@ -161,6 +180,30 @@ void Vaults::remove(const QString& id)
 //    mDataChanged = true;
     synch();
 }
+
+void Vaults::clear()
+{
+    mData.clear();
+    synch();
+}
+
+//void Vaults::setDataPath(QString dataPath)
+//{
+//    if (m_dataPath == dataPath)
+//        return;
+
+//    QSettings settings;
+
+//    if (dataPath.isEmpty()){
+//        settings.remove("dataPath");
+//        m_dataPath = QFileInfo(settings.fileName()).absolutePath();
+//    }else{
+//        settings.setValue("dataPath", dataPath);
+//        m_dataPath = dataPath;
+//    }
+//    scanDataPath(dataPath);
+//    emit dataPathChanged(dataPath);
+//}
 
 int Vaults::findElementIndexById(const QString id) const
 {

@@ -136,7 +136,8 @@ bool Store::setData(const QModelIndex &index, const QVariant &value, int role)
 bool Store::exists(const QVariantMap &vault)
 {
     QSettings settings;
-    mStore.setFileName(QFileInfo(settings.fileName()).absolutePath() + "/" + vault.value("file").toString());
+    QString dataPath = settings.value("dataPath", QFileInfo(settings.fileName()).absolutePath()).toString();
+    mStore.setFileName(dataPath + "/" + vault.value("file").toString());
     return mStore.exists();
 }
 
@@ -166,6 +167,14 @@ bool Store::open(const QVariantMap& vault, const quint64 key)
             if (item.contains("storeVersion")){
                 //This is a file header
                 mHeader = item.toVariantMap();
+
+                //Synch the title and description back to the vault
+                //if vault has none
+                if(vault.value("title").toString().isEmpty()){
+                    vault.value("title", mHeader.title);
+                    vault.value("description", mHeader.description);
+                }
+
             }else{
                 StoreItem storeItem;
                 storeItem.ID = item.value("ID").toString();

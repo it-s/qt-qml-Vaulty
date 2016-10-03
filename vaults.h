@@ -2,6 +2,7 @@
 #define VAULTS_H
 
 #include <QString>
+#include <QDir>
 #include <QObject>
 #include <QAbstractListModel>
 #include <QList>
@@ -39,6 +40,7 @@ Q_DECLARE_METATYPE(Vault);
 class Vaults : public QAbstractListModel
 {
     Q_OBJECT
+//    Q_PROPERTY(QString dataPath READ dataPath WRITE setDataPath NOTIFY dataPathChanged)
 public:
     enum Roles {
         ID = Qt::UserRole + 1,
@@ -52,22 +54,31 @@ public:
     explicit Vaults(QObject *parent = 0);
     ~Vaults();
 
+//    QString dataPath() const;
+//    void setDataPath(QString dataPath);
+
 protected:
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
     QHash<int, QByteArray> roleNames() const {return mDataRoles;}
     bool setData(const QModelIndex & index, const QVariant & value, int role = Qt::EditRole);
+//    void scanDataPath(QString dataPath);
 
 public slots:
     Q_INVOKABLE void add(const QVariantMap& v);
     Q_INVOKABLE QVariantMap get(const QString& id);
     Q_INVOKABLE void set(const QString& id, const QVariantMap& v);
     Q_INVOKABLE void remove(const QString& id);
+    Q_INVOKABLE void clear();
+
+signals:
+//    void dataPathChanged(QString dataPath);
 
 private:
     bool mDataChanged;
     QList<Vault> mData;
     QHash<int, QByteArray> mDataRoles;
+    QString m_dataPath;
 
     int findElementIndexById(const QString id) const;
 };

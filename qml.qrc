@@ -36,5 +36,6 @@
         <file>Common/icons.js</file>
         <file>Common/icons.ttf</file>
         <file>Common/Icon.qml</file>
+        <file>Vault/PathView.qml</file>
     </qresource>
 </RCC>

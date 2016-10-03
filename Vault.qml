@@ -40,6 +40,8 @@ Page {
                 Layout.alignment: Qt.AlignRight
                 onClicked: editView.open()
             }
+
+            onAction: pathView.open()
         }
 
         Item {
@@ -109,6 +111,10 @@ Page {
         anchors.centerIn: parent
         text: "No Valuts"
         visible: vaultsList.count == 0
+    }
+
+    PathView {
+        id: pathView
     }
 
     EditView {
